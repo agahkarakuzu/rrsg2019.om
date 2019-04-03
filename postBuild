@@ -1,4 +1,4 @@
 cd /tmp
 git clone --single-branch -b master https://github.com/mrirecon/bart.git
 git clone --single-branch -b master https://github.com/mikgroup/espirit-matlab-examples.git 
-octave --no-gui --eval "addpath('/tmp'); savepath;"
+octave --no-gui --eval "addpath(genpath('/tmp')); savepath;"
