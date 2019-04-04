@@ -3,4 +3,9 @@ git clone --single-branch -b master https://github.com/mrirecon/bart.git
 git clone --single-branch -b master https://github.com/mikgroup/espirit-matlab-examples.git 
 wget https://cai2r.net/sites/default/files/software/rrsg_challenge.zip
 unzip rrsg_challenge.zip
+git clone --single-branch -b master https://github.com/tmullins/hdf5oct.git
+cd /tmp/hdf5oct
+make
+make install
+cd /tmp
 octave --no-gui --eval "addpath(genpath('/tmp')); savepath;"
