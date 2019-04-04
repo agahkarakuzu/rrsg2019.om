@@ -1,11 +1,21 @@
+# Files will be stored in /tmp directory 
 cd /tmp
+
+# Clone mrirecon/bart and mikgroup/espirit-matlab-examples 
 git clone --single-branch -b master https://github.com/mrirecon/bart.git
 git clone --single-branch -b master https://github.com/mikgroup/espirit-matlab-examples.git 
-wget https://cai2r.net/sites/default/files/software/rrsg_challenge.zip
-unzip rrsg_challenge.zip
-git clone --single-branch -b master https://github.com/tmullins/hdf5oct.git
-cd /tmp/hdf5oct
-make
-make install
-cd /tmp
+
+# Download RRSG 2019 challenge dataset from  https://osf.io/xne9w/
+wget -O rssg_2019.zip https://osf.io/g9ay3/download/unzip rrsg_challenge.zip
+unzip rssg_2019.zip -d /tmp/agah
+
+# Add /tmp and subfolders in the Octave search path. 
 octave --no-gui --eval "addpath(genpath('/tmp')); savepath;"
+
+# This section was used to install h5read into Octave, however not functional. For additional explanation, see https://osf.io/xne9w/
+# git clone --single-branch -b master https://github.com/tmullins/hdf5oct.git
+# cd /tmp/hdf5oct
+# make
+# make install
+
+
