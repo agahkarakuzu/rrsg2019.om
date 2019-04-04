@@ -6,8 +6,8 @@ git clone --single-branch -b master https://github.com/mrirecon/bart.git
 git clone --single-branch -b master https://github.com/mikgroup/espirit-matlab-examples.git 
 
 # Download RRSG 2019 challenge dataset from  https://osf.io/xne9w/
-wget -O rssg_2019.zip https://osf.io/g9ay3/download/unzip rrsg_challenge.zip
-unzip rssg_2019.zip -d /tmp/agah
+wget -O rssg_2019.zip https://osf.io/g9ay3/download/
+unzip rssg_2019.zip -d /tmp/rrsg_challenge
 
 # Add /tmp and subfolders in the Octave search path. 
 octave --no-gui --eval "addpath(genpath('/tmp')); savepath;"
