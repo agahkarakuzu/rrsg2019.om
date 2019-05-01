@@ -1,64 +1,3 @@
-% -a denotes adjoint transform 
-adj = bart('nufft -d256:256:1 -a',trajectory,rawdata);
-imagesc(real(ajd(:,:,1,1)))
-_make_figures("/tmp/tmp33mih8vy", "png", "Figure", -1, -1, 0, 0)
-% Adjoint NUFFT to interpolate data onto cartesian grid. 
-% -d denotes dimension (x:y:z, which is 256X256X1)
-% -a denotes adjoint transform 
-adj = bart('nufft -d256:256:1 -a',trajectory,rawdata);
-imagesc(real(adj(:,:,1,1)))
-_make_figures("/tmp/tmp2nxk_4jp", "png", "Figure", -1, -1, 0, 0)
-% Adjoint NUFFT to interpolate data onto cartesian grid. 
-% -d denotes dimension (x:y:z, which is 256X256X1)
-% -a denotes adjoint transform 
-adj = bart('nufft -d256:256:1 -i',trajectory,rawdata);
-imagesc(real(adj(:,:,1,1)))
-_make_figures("/tmp/tmphnpdqw6j", "png", "Figure", -1, -1, 0, 0)
-% Adjoint NUFFT to interpolate data onto cartesian grid. 
-% -d denotes dimension (x:y:z, which is 256X256X1)
-% -a denotes adjoint transform 
-adj = bart('nufft -d256:256:1 -a',trajectory,rawdata);
-imagesc(real(adj(:,:,1,1)))
-_make_figures("/tmp/tmpk9amsbw1", "png", "Figure", -1, -1, 0, 0)
-% Adjoint NUFFT to interpolate data onto cartesian grid. 
-% -d denotes dimension (x:y:z, which is 256X256X1)
-% -a denotes adjoint transform 
-adj = bart('nufft -d256:256:1 -a',trajectory,rawdata);
-imagesc(real(adj(:,:,1,1)))
-% Transform regridded image back to k-space 
-adjk = bart('fft -u 7', adj);
-imagesc(real(adjk(:,:,1,1)))
-_make_figures("/tmp/tmpi0in2590", "png", "Figure", -1, -1, 0, 0)
-% Adjoint NUFFT to interpolate data onto cartesian grid. 
-% -d denotes dimension (x:y:z, which is 256X256X1)
-% -a denotes adjoint transform 
-adj = bart('nufft -d256:256:1 -a',trajectory,rawdata);
-imagesc(real(adj(:,:,1,1)))
-% Transform regridded image back to k-space 
-adjk = bart('fft -u 7', adj);
-figure();
-imagesc(real(adjk(:,:,1,1)))
-_make_figures("/tmp/tmpm6b5s113", "png", "Figure", -1, -1, 0, 0)
-% Adjoint NUFFT to interpolate data onto cartesian grid. 
-% -d denotes dimension (x:y:z, which is 256X256X1)
-% -a denotes adjoint transform 
-adj = bart('nufft -d256:256:1 -a',trajectory,rawdata);
-imagesc(real(adj(:,:,1,1)))
-% Transform regridded image back to k-space 
-adjk = bart('fft -u 7', adj);
-figure();
-imshow(real(adjk(:,:,1,1)),[o 0.0001])
-_make_figures("/tmp/tmpjwem6v5e", "png", "Figure", -1, -1, 0, 0)
-% Adjoint NUFFT to interpolate data onto cartesian grid. 
-% -d denotes dimension (x:y:z, which is 256X256X1)
-% -a denotes adjoint transform 
-adj = bart('nufft -d256:256:1 -a',trajectory,rawdata);
-imagesc(real(adj(:,:,1,1)))
-% Transform regridded image back to k-space 
-adjk = bart('fft -u 7', adj);
-figure();
-imshow(real(adjk(:,:,1,1)),[0 0.0001])
-_make_figures("/tmp/tmp93yz8rfz", "png", "Figure", -1, -1, 0, 0)
 % Adjoint NUFFT to interpolate data onto cartesian grid. 
 % -d denotes dimension (x:y:z, which is 256X256X1)
 % -a denotes adjoint transform 
@@ -998,3 +937,64 @@ addpath("/srv/conda/lib/python3.7/site-packages/octave_kernel")
 set(0, 'defaultfigurevisible', 'off');
 version
 # Octave 4.2.2, Wed May 01 11:57:13 2019 UTC <agah@05cb39751d53>
+PS1('PEXPECT_PROMPT>'); PS2('PEXPECT_PROMPT_')
+available_graphics_toolkits
+graphics_toolkit('gnuplot')
+more off; source ~/.octaverc; cd("/home/agah");PS1('PEXPECT_PROMPT>'); PS2('PEXPECT_PROMPT_')
+addpath("/srv/conda/lib/python3.7/site-packages/octave_kernel")
+set(0, 'defaultfigurevisible', 'off');
+# Octave 4.2.2, Wed May 01 13:36:34 2019 UTC <agah@05cb39751d53>
+PS1('PEXPECT_PROMPT>'); PS2('PEXPECT_PROMPT_')
+available_graphics_toolkits
+graphics_toolkit('gnuplot')
+more off; source ~/.octaverc; cd("/home/agah");PS1('PEXPECT_PROMPT>'); PS2('PEXPECT_PROMPT_')
+addpath("/srv/conda/lib/python3.7/site-packages/octave_kernel")
+set(0, 'defaultfigurevisible', 'off');
+version
+% Load octave packages 
+pkg load image 
+pkg load optim
+_make_figures("/tmp/tmpshq5i57p", "png", "Figure", -1, -1, 0, 0)
+% Mex c files for gridding by Brian Hargreaves and Philip Beatty 
+% http://mrsrl.stanford.edu/~brian/gridding/
+mex gridlut_mex.c
+mex calcdcflut_mex.c
+_make_figures("/tmp/tmpev70fesr", "png", "Figure", -1, -1, 0, 0)
+load('/tmp/rrsg_challenge/brain_radial_96proj_12ch.mat');
+whos % Show variables in the current scope
+_make_figures("/tmp/tmpg5djm818", "png", "Figure", -1, -1, 0, 0)
+rawdata = permute(rawdata,[4,3,2,1]); 
+trajectory = permute(trajectory,[3,2,1]);
+[~,nFE,nSpokes,nCh] = size(rawdata);
+whos
+_make_figures("/tmp/tmpyp7lcqm4", "png", "Figure", -1, -1, 0, 0)
+for ii=1:12
+cc = squeeze((rawdata(1,:,:,ii)));
+% Brighten convention is not 1/1 with matlab.  
+subplot(2,6,ii);
+imshow(log(1+abs(cc)),[-0 0.0001]); brighten(0.4); title(['Ch ' num2str(ii)]);
+end
+_make_figures("/tmp/tmp1dsyequn", "png", "Figure", -1, -1, 0, 0)
+ksp_rss = bart('rss 8', rawdata);
+%figure();
+lg_ksprss = log(ksp_rss);
+lg_ksprss = abs(squeeze(lg_ksprss)); 
+dsp = reshape(lg_ksprss,[1 nFE*nSpokes]);
+_make_figures("/tmp/tmp1ibu0qoy", "png", "Figure", -1, -1, 0, 0)
+% Adjoint NUFFT to interpolate data onto cartesian grid. 
+% -d denotes dimension (x:y:z, which is 300X300X1)
+% -a denotes adjoint transform
+% -i denotes inverse transform
+adj = bart('nufft -d300:300:1 -i',trajectory,rawdata);
+% Transform regridded image back to k-space 
+% 7 is for bitmasking 
+adjk = bart('fft -u 7', adj);
+% Estimate coil sensitivities using the k-space center (radius of 20). 
+calib = bart('caldir 20',adjk);
+_make_figures("/tmp/tmpo5et0_if", "png", "Figure", -1, -1, 0, 0)
+% Please see HelperFunctions folder for subSample.m 
+[outRD_x2, outTR_x2] = subSample(rawdata,trajectory,2,nSpokes);
+[outRD_x3, outTR_x3] = subSample(rawdata,trajectory,3,nSpokes);
+[outRD_x4, outTR_x4] = subSample(rawdata,trajectory,4,nSpokes);
+_make_figures("/tmp/tmp6bdfki1m", "png", "Figure", -1, -1, 0, 0)
+# Octave 4.2.2, Wed May 01 13:37:33 2019 UTC <agah@05cb39751d53>
