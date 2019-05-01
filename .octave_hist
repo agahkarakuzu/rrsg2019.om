@@ -1,0 +1,1000 @@
+% -a denotes adjoint transform 
+adj = bart('nufft -d256:256:1 -a',trajectory,rawdata);
+imagesc(real(ajd(:,:,1,1)))
+_make_figures("/tmp/tmp33mih8vy", "png", "Figure", -1, -1, 0, 0)
+% Adjoint NUFFT to interpolate data onto cartesian grid. 
+% -d denotes dimension (x:y:z, which is 256X256X1)
+% -a denotes adjoint transform 
+adj = bart('nufft -d256:256:1 -a',trajectory,rawdata);
+imagesc(real(adj(:,:,1,1)))
+_make_figures("/tmp/tmp2nxk_4jp", "png", "Figure", -1, -1, 0, 0)
+% Adjoint NUFFT to interpolate data onto cartesian grid. 
+% -d denotes dimension (x:y:z, which is 256X256X1)
+% -a denotes adjoint transform 
+adj = bart('nufft -d256:256:1 -i',trajectory,rawdata);
+imagesc(real(adj(:,:,1,1)))
+_make_figures("/tmp/tmphnpdqw6j", "png", "Figure", -1, -1, 0, 0)
+% Adjoint NUFFT to interpolate data onto cartesian grid. 
+% -d denotes dimension (x:y:z, which is 256X256X1)
+% -a denotes adjoint transform 
+adj = bart('nufft -d256:256:1 -a',trajectory,rawdata);
+imagesc(real(adj(:,:,1,1)))
+_make_figures("/tmp/tmpk9amsbw1", "png", "Figure", -1, -1, 0, 0)
+% Adjoint NUFFT to interpolate data onto cartesian grid. 
+% -d denotes dimension (x:y:z, which is 256X256X1)
+% -a denotes adjoint transform 
+adj = bart('nufft -d256:256:1 -a',trajectory,rawdata);
+imagesc(real(adj(:,:,1,1)))
+% Transform regridded image back to k-space 
+adjk = bart('fft -u 7', adj);
+imagesc(real(adjk(:,:,1,1)))
+_make_figures("/tmp/tmpi0in2590", "png", "Figure", -1, -1, 0, 0)
+% Adjoint NUFFT to interpolate data onto cartesian grid. 
+% -d denotes dimension (x:y:z, which is 256X256X1)
+% -a denotes adjoint transform 
+adj = bart('nufft -d256:256:1 -a',trajectory,rawdata);
+imagesc(real(adj(:,:,1,1)))
+% Transform regridded image back to k-space 
+adjk = bart('fft -u 7', adj);
+figure();
+imagesc(real(adjk(:,:,1,1)))
+_make_figures("/tmp/tmpm6b5s113", "png", "Figure", -1, -1, 0, 0)
+% Adjoint NUFFT to interpolate data onto cartesian grid. 
+% -d denotes dimension (x:y:z, which is 256X256X1)
+% -a denotes adjoint transform 
+adj = bart('nufft -d256:256:1 -a',trajectory,rawdata);
+imagesc(real(adj(:,:,1,1)))
+% Transform regridded image back to k-space 
+adjk = bart('fft -u 7', adj);
+figure();
+imshow(real(adjk(:,:,1,1)),[o 0.0001])
+_make_figures("/tmp/tmpjwem6v5e", "png", "Figure", -1, -1, 0, 0)
+% Adjoint NUFFT to interpolate data onto cartesian grid. 
+% -d denotes dimension (x:y:z, which is 256X256X1)
+% -a denotes adjoint transform 
+adj = bart('nufft -d256:256:1 -a',trajectory,rawdata);
+imagesc(real(adj(:,:,1,1)))
+% Transform regridded image back to k-space 
+adjk = bart('fft -u 7', adj);
+figure();
+imshow(real(adjk(:,:,1,1)),[0 0.0001])
+_make_figures("/tmp/tmp93yz8rfz", "png", "Figure", -1, -1, 0, 0)
+% Adjoint NUFFT to interpolate data onto cartesian grid. 
+% -d denotes dimension (x:y:z, which is 256X256X1)
+% -a denotes adjoint transform 
+adj = bart('nufft -d256:256:1 -a',trajectory,rawdata);
+imagesc(real(adj(:,:,1,1)))
+% Transform regridded image back to k-space 
+adjk = bart('fft -u 7', adj);
+size(adjk)
+_make_figures("/tmp/tmpuc35asrg", "png", "Figure", -1, -1, 0, 0)
+% Adjoint NUFFT to interpolate data onto cartesian grid. 
+% -d denotes dimension (x:y:z, which is 256X256X1)
+% -a denotes adjoint transform 
+adj = bart('nufft -d256:256:1 -a',trajectory,rawdata);
+imagesc(real(adj(:,:,1,1)))
+% Transform regridded image back to k-space 
+adjk = bart('fft -u 7', adj);
+sensemaps = bart('caldir 20', adjk);
+_make_figures("/tmp/tmpegeuupi6", "png", "Figure", -1, -1, 0, 0)
+% Adjoint NUFFT to interpolate data onto cartesian grid. 
+% -d denotes dimension (x:y:z, which is 256X256X1)
+% -a denotes adjoint transform 
+adj = bart('nufft -d256:256:1 -a',trajectory,rawdata);
+imagesc(real(adj(:,:,1,1)))
+% Transform regridded image back to k-space 
+adjk = bart('fft -u 7', adj);
+sensemaps = bart('caldir 20', adjk);
+size(sensemaps)
+_make_figures("/tmp/tmp0zlecog2", "png", "Figure", -1, -1, 0, 0)
+% Adjoint NUFFT to interpolate data onto cartesian grid. 
+% -d denotes dimension (x:y:z, which is 256X256X1)
+% -a denotes adjoint transform 
+adj = bart('nufft -d256:256:1 -a',trajectory,rawdata);
+% Transform regridded image back to k-space 
+adjk = bart('fft -u 7', adj);
+sensemaps = bart('caldir 20', adjk);
+size(sensemaps)
+imagesc(real(sensemaps(:,:,1,1)))
+_make_figures("/tmp/tmp84lkftku", "png", "Figure", -1, -1, 0, 0)
+% Adjoint NUFFT to interpolate data onto cartesian grid. 
+% -d denotes dimension (x:y:z, which is 256X256X1)
+% -a denotes adjoint transform 
+adj = bart('nufft -d256:256:1 -a',trajectory,rawdata);
+% Transform regridded image back to k-space 
+adjk = bart('fft -u 7', adj);
+sensemaps = bart('caldir 20', adjk);
+size(sensemaps)
+imagesc(real(sensemaps(:,:,1,)))
+_make_figures("/tmp/tmpgtmdbaeg", "png", "Figure", -1, -1, 0, 0)
+% Adjoint NUFFT to interpolate data onto cartesian grid. 
+% -d denotes dimension (x:y:z, which is 256X256X1)
+% -a denotes adjoint transform 
+adj = bart('nufft -d256:256:1 -a',trajectory,rawdata);
+% Transform regridded image back to k-space 
+adjk = bart('fft -u 7', adj);
+sensemaps = bart('caldir 20', adjk);
+size(sensemaps)
+imagesc(real(sensemaps(:,:,1,2)))
+_make_figures("/tmp/tmpwh0apz5r", "png", "Figure", -1, -1, 0, 0)
+% Adjoint NUFFT to interpolate data onto cartesian grid. 
+% -d denotes dimension (x:y:z, which is 256X256X1)
+% -a denotes adjoint transform 
+adj = bart('nufft -d256:256:1 -a',trajectory,rawdata);
+% Transform regridded image back to k-space 
+adjk = bart('fft -u 7', adj);
+sensemaps = bart('caldir 20', adjk);
+size(sensemaps)
+imagesc(real(sensemaps(:,:,1,3)))
+_make_figures("/tmp/tmp3t_6jomu", "png", "Figure", -1, -1, 0, 0)
+% Adjoint NUFFT to interpolate data onto cartesian grid. 
+% -d denotes dimension (x:y:z, which is 256X256X1)
+% -a denotes adjoint transform 
+adj = bart('nufft -d256:256:1 -a',trajectory,rawdata);
+% Transform regridded image back to k-space 
+adjk = bart('fft -u 7', adj);
+sensemaps = bart('caldir 20', adjk);
+size(sensemaps)
+imagesc(real(sensemaps(:,:,1,4)))
+_make_figures("/tmp/tmpay9rznm3", "png", "Figure", -1, -1, 0, 0)
+% Adjoint NUFFT to interpolate data onto cartesian grid. 
+% -d denotes dimension (x:y:z, which is 256X256X1)
+% -a denotes adjoint transform 
+adj = bart('nufft -d256:256:1 -a',trajectory,rawdata);
+% Transform regridded image back to k-space 
+adjk = bart('fft -u 7', adj);
+sensemaps = bart('caldir 20', adjk);
+size(sensemaps)
+imagesc(real(sensemaps(:,:,1,5)))
+_make_figures("/tmp/tmpz968re6i", "png", "Figure", -1, -1, 0, 0)
+% Adjoint NUFFT to interpolate data onto cartesian grid. 
+% -d denotes dimension (x:y:z, which is 256X256X1)
+% -a denotes adjoint transform 
+adj = bart('nufft -d256:256:1 -a',trajectory,rawdata);
+% Transform regridded image back to k-space 
+adjk = bart('fft -u 7', adj);
+sensemaps = bart('caldir 20', adjk);
+size(sensemaps)
+imagesc(real(sensemaps(:,:,1,6)))
+_make_figures("/tmp/tmppvjocjil", "png", "Figure", -1, -1, 0, 0)
+% Adjoint NUFFT to interpolate data onto cartesian grid. 
+% -d denotes dimension (x:y:z, which is 256X256X1)
+% -a denotes adjoint transform 
+adj = bart('nufft -d256:256:1 -a',trajectory,rawdata);
+% Transform regridded image back to k-space 
+adjk = bart('fft -u 7', adj);
+sensemaps = bart('caldir 20', adjk);
+[calib emaps] = bart('ecalib -r 20',adjk);
+size(sensemaps)
+imagesc(real(sensemaps(:,:,1,6)))
+_make_figures("/tmp/tmpqsuqelh1", "png", "Figure", -1, -1, 0, 0)
+imagesc(real(calib(:,:,1,6)))
+_make_figures("/tmp/tmp78a_nkbe", "png", "Figure", -1, -1, 0, 0)
+imagesc(real(emaps(:,:,1,6)))
+_make_figures("/tmp/tmpelvsjnoa", "png", "Figure", -1, -1, 0, 0)
+size(calib)
+_make_figures("/tmp/tmp12msoqj7", "png", "Figure", -1, -1, 0, 0)
+size(calib)
+size(emaps)
+_make_figures("/tmp/tmpuc80u1a8", "png", "Figure", -1, -1, 0, 0)
+traj2  = bart('scale 0.5',trajectory);
+% Adjoint NUFFT to interpolate data onto cartesian grid. 
+% -d denotes dimension (x:y:z, which is 256X256X1)
+% -a denotes adjoint transform 
+adj = bart('nufft -d256:256:1 -a',traj2,rawdata);
+% Transform regridded image back to k-space 
+adjk = bart('fft -u 7', adj);
+sensemaps = bart('caldir 20', adjk);
+[calib emaps] = bart('ecalib -r 20',adjk);
+size(sensemaps)
+imagesc(real(sensemaps(:,:,1,6)))
+_make_figures("/tmp/tmpii3qy9ie", "png", "Figure", -1, -1, 0, 0)
+traj2  = bart('scale 0.5',trajectory);
+% Adjoint NUFFT to interpolate data onto cartesian grid. 
+% -d denotes dimension (x:y:z, which is 256X256X1)
+% -a denotes adjoint transform 
+adj = bart('nufft -d256:256:1 -a',traj2,rawdata);
+% Transform regridded image back to k-space 
+adjk = bart('fft -u 8', adj);
+sensemaps = bart('caldir 20', adjk);
+[calib emaps] = bart('ecalib -r 20',adjk);
+size(sensemaps)
+imagesc(real(sensemaps(:,:,1,6)))
+_make_figures("/tmp/tmp5qlwl0fa", "png", "Figure", -1, -1, 0, 0)
+traj2  = bart('scale 0.5',trajectory);
+% Adjoint NUFFT to interpolate data onto cartesian grid. 
+% -d denotes dimension (x:y:z, which is 256X256X1)
+% -a denotes adjoint transform 
+adj = bart('nufft -d256:256:1 -a',traj2,rawdata);
+% Transform regridded image back to k-space 
+adjk = bart('fft -u 16', adj);
+sensemaps = bart('caldir 20', adjk);
+[calib emaps] = bart('ecalib -r 20',adjk);
+size(sensemaps)
+imagesc(real(sensemaps(:,:,1,6)))
+_make_figures("/tmp/tmpo8bddwpe", "png", "Figure", -1, -1, 0, 0)
+traj2  = bart('scale 0.5',trajectory);
+% Adjoint NUFFT to interpolate data onto cartesian grid. 
+% -d denotes dimension (x:y:z, which is 256X256X1)
+% -a denotes adjoint transform 
+adj = bart('nufft -d256:256:1 -a',traj2,rawdata);
+% Transform regridded image back to k-space 
+adjk = bart('fft -u 3', adj);
+sensemaps = bart('caldir 20', adjk);
+[calib emaps] = bart('ecalib -r 20',adjk);
+size(sensemaps)
+imagesc(real(sensemaps(:,:,1,6)))
+_make_figures("/tmp/tmpib4aniat", "png", "Figure", -1, -1, 0, 0)
+traj2  = bart('scale 0.5',trajectory);
+% Adjoint NUFFT to interpolate data onto cartesian grid. 
+% -d denotes dimension (x:y:z, which is 256X256X1)
+% -a denotes adjoint transform 
+adj = bart('nufft -d256:256:1 -a',traj2,rawdata);
+% Transform regridded image back to k-space 
+adjk = bart('fft -u 5', adj);
+sensemaps = bart('caldir 20', adjk);
+[calib emaps] = bart('ecalib -r 20',adjk);
+size(sensemaps)
+imagesc(real(sensemaps(:,:,1,6)))
+_make_figures("/tmp/tmp9ygdzwsn", "png", "Figure", -1, -1, 0, 0)
+traj2  = bart('scale 0.5',trajectory);
+% Adjoint NUFFT to interpolate data onto cartesian grid. 
+% -d denotes dimension (x:y:z, which is 256X256X1)
+% -a denotes adjoint transform 
+adj = bart('nufft -d256:256:1 -a',traj2,rawdata);
+% Transform regridded image back to k-space 
+adjk = bart('fft -u 6', adj);
+sensemaps = bart('caldir 20', adjk);
+[calib emaps] = bart('ecalib -r 20',adjk);
+size(sensemaps)
+imagesc(real(sensemaps(:,:,1,6)))
+_make_figures("/tmp/tmpvqc1n_4q", "png", "Figure", -1, -1, 0, 0)
+traj2  = bart('scale 0.5',trajectory);
+% Adjoint NUFFT to interpolate data onto cartesian grid. 
+% -d denotes dimension (x:y:z, which is 256X256X1)
+% -a denotes adjoint transform 
+adj = bart('nufft -d256:256:1 -a',traj2,rawdata);
+% Transform regridded image back to k-space 
+adjk = bart('fft -u 7', adj);
+sensemaps = bart('caldir 20', adjk);
+[calib emaps] = bart('ecalib -r 20',adjk);
+size(sensemaps)
+imagesc(real(sensemaps(:,:,1,6)))
+_make_figures("/tmp/tmpqqj7h4k6", "png", "Figure", -1, -1, 0, 0)
+traj2  = bart('scale 0.5',trajectory);
+% Adjoint NUFFT to interpolate data onto cartesian grid. 
+% -d denotes dimension (x:y:z, which is 256X256X1)
+% -a denotes adjoint transform 
+adj = bart('nufft -d256:256:1 -a',traj2,rawdata);
+% Transform regridded image back to k-space 
+adjk = bart('fft -u 3', adj);
+sensemaps = bart('caldir 20', adjk);
+[calib emaps] = bart('ecalib -r 20',adjk);
+size(sensemaps)
+imagesc(real(sensemaps(:,:,1,6)))
+_make_figures("/tmp/tmptsz1cu3v", "png", "Figure", -1, -1, 0, 0)
+traj2  = bart('scale 0.5',trajectory);
+% Adjoint NUFFT to interpolate data onto cartesian grid. 
+% -d denotes dimension (x:y:z, which is 256X256X1)
+% -a denotes adjoint transform 
+adj = bart('nufft -d256:256:1 -a',traj2,rawdata);
+% Transform regridded image back to k-space 
+adjk = bart('fft -u 3', adj);
+sensemaps = bart('caldir 20', adjk);
+[calib emaps] = bart('ecalib -r 20',adjk);
+size(sensemaps)
+imagesc(real(sensemaps(:,:,1,7)))
+_make_figures("/tmp/tmp07_7noz9", "png", "Figure", -1, -1, 0, 0)
+traj2  = bart('scale 0.5',trajectory);
+% Adjoint NUFFT to interpolate data onto cartesian grid. 
+% -d denotes dimension (x:y:z, which is 256X256X1)
+% -a denotes adjoint transform 
+adj = bart('nufft -d256:256:1 -i',traj2,rawdata);
+% Transform regridded image back to k-space 
+adjk = bart('fft -u 3', adj);
+sensemaps = bart('caldir 20', adjk);
+[calib emaps] = bart('ecalib -r 20',adjk);
+size(sensemaps)
+imagesc(real(sensemaps(:,:,1,7)))
+_make_figures("/tmp/tmpybpe7lr1", "png", "Figure", -1, -1, 0, 0)
+traj2  = bart('scale 0.5',trajectory);
+% Adjoint NUFFT to interpolate data onto cartesian grid. 
+% -d denotes dimension (x:y:z, which is 256X256X1)
+% -a denotes adjoint transform 
+adj = bart('nufft -d256:256:1 -a',traj2,rawdata);
+% Transform regridded image back to k-space 
+adjk = bart('fft -u 3', adj);
+sensemaps = bart('caldir 20', adjk);
+[calib emaps] = bart('ecalib -r 20',adjk);
+size(sensemaps)
+imagesc(real(sensemaps(:,:,1,7)))
+_make_figures("/tmp/tmper874r7a", "png", "Figure", -1, -1, 0, 0)
+traj2  = bart('scale 0.5',trajectory);
+% Adjoint NUFFT to interpolate data onto cartesian grid. 
+% -d denotes dimension (x:y:z, which is 256X256X1)
+% -a denotes adjoint transform 
+adj = bart('nufft -d256:256:1 -a',traj2,rawdata);
+% Transform regridded image back to k-space 
+adjk = bart('fft -u 3', adj);
+sensemaps = bart('caldir 20', adjk);
+[calib emaps] = bart('ecalib -m1',adjk);
+size(sensemaps)
+imagesc(real(sensemaps(:,:,1,7)))
+_make_figures("/tmp/tmpvg1y427v", "png", "Figure", -1, -1, 0, 0)
+size(calib)
+size(emaps)
+_make_figures("/tmp/tmp2_qyh6ve", "png", "Figure", -1, -1, 0, 0)
+size(calib)
+size(emaps)
+_make_figures("/tmp/tmphdwife11", "png", "Figure", -1, -1, 0, 0)
+size(calib)
+size(emaps)
+imagesc(real(emaps))
+_make_figures("/tmp/tmp3j3wavch", "png", "Figure", -1, -1, 0, 0)
+size(calib)
+size(emaps)
+imagesc(real(calib(:,:,1,6)))
+_make_figures("/tmp/tmpiu6tu0r4", "png", "Figure", -1, -1, 0, 0)
+%traj2  = bart('scale 0.5',trajectory);
+% Adjoint NUFFT to interpolate data onto cartesian grid. 
+% -d denotes dimension (x:y:z, which is 256X256X1)
+% -a denotes adjoint transform 
+adj = bart('nufft -d256:256:1 -a',traj2,rawdata);
+% Transform regridded image back to k-space 
+adjk = bart('fft -u 3', adj);
+sensemaps = bart('caldir 20', adjk);
+[calib emaps] = bart('ecalib -m1',adjk);
+size(sensemaps)
+imagesc(real(sensemaps(:,:,1,7)))
+_make_figures("/tmp/tmpmkz9e6pd", "png", "Figure", -1, -1, 0, 0)
+# Octave 4.2.2, Mon Apr 08 18:56:47 2019 UTC <agah@05cb39751d53>
+PS1('PEXPECT_PROMPT>'); PS2('PEXPECT_PROMPT_')
+available_graphics_toolkits
+graphics_toolkit('gnuplot')
+more off; source ~/.octaverc; cd("/home/agah");PS1('PEXPECT_PROMPT>'); PS2('PEXPECT_PROMPT_')
+addpath("/srv/conda/lib/python3.7/site-packages/octave_kernel")
+set(0, 'defaultfigurevisible', 'off');
+version
+load('/tmp/rrsg_challenge/brain_radial_96proj_12ch.mat');
+whos % Show variables in the current scope
+_make_figures("/tmp/tmp6bzskfrz", "png", "Figure", -1, -1, 0, 0)
+rawdata = permute(rawdata,[4,3,2,1]); 
+trajectory = permute(trajectory,[3,2,1]);
+[~,nFE,nSpokes,nCh] = size(rawdata);
+whos
+_make_figures("/tmp/tmp4yicn4zr", "png", "Figure", -1, -1, 0, 0)
+for ii=1:12
+cc = squeeze((rawdata(1,:,:,ii)));
+% Brighten convention is not 1/1 with matlab.  
+subplot(2,6,ii);
+imshow(log(1+abs(cc)),[-0 0.0001]); brighten(0.4); title(['Ch ' num2str(ii)]);
+end
+_make_figures("/tmp/tmp7b6va1b9", "png", "Figure", -1, -1, 0, 0)
+%traj2  = bart('scale 0.5',trajectory);
+% Adjoint NUFFT to interpolate data onto cartesian grid. 
+% -d denotes dimension (x:y:z, which is 256X256X1)
+% -a denotes adjoint transform 
+adj = bart('nufft -d256:256:1 -a',trajectory,rawdata);
+% Transform regridded image back to k-space 
+adjk = bart('fft -u 3', adj);
+sensemaps = bart('caldir 20', adjk);
+[calib emaps] = bart('ecalib -m1',adjk);
+size(sensemaps)
+imagesc(real(sensemaps(:,:,1,7)))
+_make_figures("/tmp/tmp2k_g0lz2", "png", "Figure", -1, -1, 0, 0)
+traj2  = bart('scale 0.5',trajectory);
+% Adjoint NUFFT to interpolate data onto cartesian grid. 
+% -d denotes dimension (x:y:z, which is 256X256X1)
+% -a denotes adjoint transform 
+adj = bart('nufft -d256:256:1 -a',traj2,rawdata);
+% Transform regridded image back to k-space 
+adjk = bart('fft -u 3', adj);
+sensemaps = bart('caldir 20', adjk);
+[calib emaps] = bart('ecalib -m1',adjk);
+size(sensemaps)
+imagesc(real(sensemaps(:,:,1,7)))
+_make_figures("/tmp/tmpb9a0f9i6", "png", "Figure", -1, -1, 0, 0)
+traj2  = bart('scale 0.6',trajectory);
+% Adjoint NUFFT to interpolate data onto cartesian grid. 
+% -d denotes dimension (x:y:z, which is 256X256X1)
+% -a denotes adjoint transform 
+adj = bart('nufft -d256:256:1 -a',traj2,rawdata);
+% Transform regridded image back to k-space 
+adjk = bart('fft -u 3', adj);
+sensemaps = bart('caldir 20', adjk);
+[calib emaps] = bart('ecalib -m1',adjk);
+size(sensemaps)
+imagesc(real(sensemaps(:,:,1,7)))
+_make_figures("/tmp/tmppb6j4afu", "png", "Figure", -1, -1, 0, 0)
+sens = bart('slice 4 0', calib);
+_make_figures("/tmp/tmptf8zrptt", "png", "Figure", -1, -1, 0, 0)
+sens = bart('slice 4 0', calib);
+size(sens)
+_make_figures("/tmp/tmplyx4vhft", "png", "Figure", -1, -1, 0, 0)
+sens = bart('slice 4 0', calib);
+size(sens)
+imagesc(sens(:,:,1,1))
+_make_figures("/tmp/tmpphb1cap3", "png", "Figure", -1, -1, 0, 0)
+sens = bart('slice 4 0', calib);
+size(sens)
+imagesc(abs(sens(:,:,1,1)))
+_make_figures("/tmp/tmpz23s85a0", "png", "Figure", -1, -1, 0, 0)
+traj2  = bart('scale 0.6',trajectory);
+% Adjoint NUFFT to interpolate data onto cartesian grid. 
+% -d denotes dimension (x:y:z, which is 256X256X1)
+% -a denotes adjoint transform 
+adj = bart('nufft -d256:256:1 -a',traj2,rawdata);
+% Transform regridded image back to k-space 
+adjk = bart('fft -u 3', adj);
+sensemaps = bart('caldir 20', adjk);
+[calib emaps] = bart('ecalib -r 20',adjk);
+size(sensemaps)
+imagesc(real(sensemaps(:,:,1,7)))
+_make_figures("/tmp/tmp3_6tm9cy", "png", "Figure", -1, -1, 0, 0)
+sens = bart('slice 4 0', calib);
+size(sens)
+imagesc(abs(sens(:,:,1,1)))
+_make_figures("/tmp/tmpf1vap4fa", "png", "Figure", -1, -1, 0, 0)
+sens = bart('slice 4 0', calib);
+size(calib)
+imagesc(abs(sens(:,:,1,1)))
+_make_figures("/tmp/tmpdv9_dtd8", "png", "Figure", -1, -1, 0, 0)
+sens = bart('slice 4 0', calib);
+sens_maps = squeeze(sens);
+subplot(121), imshow3(abs(sens_maps), [],[2,4]);
+_make_figures("/tmp/tmprh7z8nhm", "png", "Figure", -1, -1, 0, 0)
+sens = bart('slice 4 0', calib);
+sens_maps = squeeze(sens);
+size(sens_maps)
+_make_figures("/tmp/tmpokvkzz8s", "png", "Figure", -1, -1, 0, 0)
+sens = bart('slice 4 0', calib);
+sens_maps = squeeze(sens);
+figure();
+for ii=1:12
+cc = squeeze((rawdata(1,:,:,ii)));
+% Brighten convention is not 1/1 with matlab.  
+subplot(2,6,ii);
+imagesc(sens_maps(:,:,ii))
+end
+_make_figures("/tmp/tmpviws4bfs", "png", "Figure", -1, -1, 0, 0)
+sens = bart('slice 4 0', calib);
+sens_maps = abs(squeeze(sens));
+figure();
+for ii=1:12
+cc = squeeze((rawdata(1,:,:,ii)));
+% Brighten convention is not 1/1 with matlab.  
+subplot(2,6,ii);
+imagesc(sens_maps(:,:,ii))
+end
+_make_figures("/tmp/tmpwpwl9fxl", "png", "Figure", -1, -1, 0, 0)
+sens = bart('slice 4 0', calib);
+sens_maps = abs(squeeze(sens));
+figure();
+for ii=1:12
+cc = squeeze((rawdata(1,:,:,ii)));
+% Brighten convention is not 1/1 with matlab.  
+subplot(3,4,ii);
+imagesc(sens_maps(:,:,ii))
+end
+_make_figures("/tmp/tmp3l4ca4q6", "png", "Figure", -1, -1, 0, 0)
+traj2  = bart('scale 0.5',trajectory);
+% Adjoint NUFFT to interpolate data onto cartesian grid. 
+% -d denotes dimension (x:y:z, which is 256X256X1)
+% -a denotes adjoint transform 
+adj = bart('nufft -d256:256:1 -a',traj2,rawdata);
+% Transform regridded image back to k-space 
+adjk = bart('fft -u 3', adj);
+sensemaps = bart('caldir 20', adjk);
+[calib emaps] = bart('ecalib -r 20',adjk);
+size(sensemaps)
+imagesc(real(sensemaps(:,:,1,7)))
+_make_figures("/tmp/tmpfwe8x4qj", "png", "Figure", -1, -1, 0, 0)
+sens = bart('slice 4 0', calib);
+sens_maps = abs(squeeze(sens));
+figure();
+for ii=1:12
+cc = squeeze((rawdata(1,:,:,ii)));
+% Brighten convention is not 1/1 with matlab.  
+subplot(3,4,ii);
+imagesc(sens_maps(:,:,ii))
+end
+_make_figures("/tmp/tmp9f20mgqg", "png", "Figure", -1, -1, 0, 0)
+traj2  = bart('scale 0.5',trajectory);
+% Adjoint NUFFT to interpolate data onto cartesian grid. 
+% -d denotes dimension (x:y:z, which is 256X256X1)
+% -a denotes adjoint transform 
+adj = bart('nufft -d256:256:1 -a',traj2,rawdata);
+% Transform regridded image back to k-space 
+adjk = bart('fft -u 3', adj);
+[calib emaps] = bart('ecalib -r 20',adjk);
+_make_figures("/tmp/tmpx0fpfiwa", "png", "Figure", -1, -1, 0, 0)
+traj2  = bart('scale 0.5',trajectory);
+% Adjoint NUFFT to interpolate data onto cartesian grid. 
+% -d denotes dimension (x:y:z, which is 256X256X1)
+% -a denotes adjoint transform 
+adj = bart('nufft -d256:256:1 -i',traj2,rawdata);
+% Transform regridded image back to k-space 
+adjk = bart('fft -u 3', adj);
+[calib emaps] = bart('ecalib -r 20',adjk);
+_make_figures("/tmp/tmp3q7_2krf", "png", "Figure", -1, -1, 0, 0)
+sens = bart('slice 4 0', calib);
+sens_maps = abs(squeeze(sens));
+figure();
+for ii=1:12
+cc = squeeze((rawdata(1,:,:,ii)));
+% Brighten convention is not 1/1 with matlab.  
+subplot(3,4,ii);
+imagesc(sens_maps(:,:,ii))
+end
+_make_figures("/tmp/tmp7cx8jl_o", "png", "Figure", -1, -1, 0, 0)
+traj2  = bart('scale 0.5',trajectory);
+% Adjoint NUFFT to interpolate data onto cartesian grid. 
+% -d denotes dimension (x:y:z, which is 256X256X1)
+% -a denotes adjoint transform 
+adj = bart('nufft -d256:256:1 -a',traj2,rawdata);
+% Transform regridded image back to k-space 
+adjk = bart('fft -u 3', adj);
+[calib emaps] = bart('ecalib -r 20',adj);
+_make_figures("/tmp/tmp38o8sy4k", "png", "Figure", -1, -1, 0, 0)
+sens = bart('slice 4 0', calib);
+sens_maps = abs(squeeze(sens));
+figure();
+for ii=1:12
+cc = squeeze((rawdata(1,:,:,ii)));
+% Brighten convention is not 1/1 with matlab.  
+subplot(3,4,ii);
+imagesc(sens_maps(:,:,ii))
+end
+_make_figures("/tmp/tmp3qrt6_p_", "png", "Figure", -1, -1, 0, 0)
+traj2  = bart('scale 0.5',trajectory);
+% Adjoint NUFFT to interpolate data onto cartesian grid. 
+% -d denotes dimension (x:y:z, which is 256X256X1)
+% -a denotes adjoint transform 
+adj = bart('nufft -d256:256:1 -i',traj2,rawdata);
+% Transform regridded image back to k-space 
+adjk = bart('fft -u 3', adj);
+[calib emaps] = bart('ecalib -r 20',adj);
+_make_figures("/tmp/tmpgb7boxyr", "png", "Figure", -1, -1, 0, 0)
+sens = bart('slice 4 0', calib);
+sens_maps = abs(squeeze(sens));
+figure();
+for ii=1:12
+cc = squeeze((rawdata(1,:,:,ii)));
+% Brighten convention is not 1/1 with matlab.  
+subplot(3,4,ii);
+imagesc(sens_maps(:,:,ii))
+end
+_make_figures("/tmp/tmp_inxi3dw", "png", "Figure", -1, -1, 0, 0)
+traj2  = bart('scale 0.5',trajectory);
+% Adjoint NUFFT to interpolate data onto cartesian grid. 
+% -d denotes dimension (x:y:z, which is 256X256X1)
+% -a denotes adjoint transform 
+adj = bart('nufft -d256:256:1 -a',traj2,rawdata);
+% Transform regridded image back to k-space 
+adjk = bart('fft -u 3', adj);
+[calib emaps] = bart('ecalib -r 30',adj);
+_make_figures("/tmp/tmpme0ym98o", "png", "Figure", -1, -1, 0, 0)
+sens = bart('slice 4 0', calib);
+sens_maps = abs(squeeze(sens));
+figure();
+for ii=1:12
+cc = squeeze((rawdata(1,:,:,ii)));
+% Brighten convention is not 1/1 with matlab.  
+subplot(3,4,ii);
+imagesc(sens_maps(:,:,ii))
+end
+_make_figures("/tmp/tmpv2hgt4y4", "png", "Figure", -1, -1, 0, 0)
+traj2  = bart('scale 0.5',trajectory);
+% Adjoint NUFFT to interpolate data onto cartesian grid. 
+% -d denotes dimension (x:y:z, which is 256X256X1)
+% -a denotes adjoint transform 
+adj = bart('nufft -d256:256:1 -a',traj2,rawdata);
+% Transform regridded image back to k-space 
+adjk = bart('fft -u 3', adj);
+[calib emaps] = bart('ecalib -r 30',adjk);
+_make_figures("/tmp/tmpjy7s05wz", "png", "Figure", -1, -1, 0, 0)
+sens = bart('slice 4 0', calib);
+sens_maps = abs(squeeze(sens));
+figure();
+for ii=1:12
+cc = squeeze((rawdata(1,:,:,ii)));
+% Brighten convention is not 1/1 with matlab.  
+subplot(3,4,ii);
+imagesc(sens_maps(:,:,ii))
+end
+_make_figures("/tmp/tmpuj0fnwai", "png", "Figure", -1, -1, 0, 0)
+traj2  = bart('scale 0.5',trajectory);
+% Adjoint NUFFT to interpolate data onto cartesian grid. 
+% -d denotes dimension (x:y:z, which is 256X256X1)
+% -a denotes adjoint transform 
+adj = bart('nufft -d256:256:1 -a',traj2,rawdata);
+% Transform regridded image back to k-space 
+adjk = bart('fft -u 3', adj);
+[calib emaps] = bart('ecalib -r 40',adjk);
+_make_figures("/tmp/tmpi_15yod0", "png", "Figure", -1, -1, 0, 0)
+sens = bart('slice 4 0', calib);
+sens_maps = abs(squeeze(sens));
+figure();
+for ii=1:12
+cc = squeeze((rawdata(1,:,:,ii)));
+% Brighten convention is not 1/1 with matlab.  
+subplot(3,4,ii);
+imagesc(sens_maps(:,:,ii))
+end
+_make_figures("/tmp/tmpvhplsopr", "png", "Figure", -1, -1, 0, 0)
+traj2  = bart('scale 0.5',trajectory);
+% Adjoint NUFFT to interpolate data onto cartesian grid. 
+% -d denotes dimension (x:y:z, which is 256X256X1)
+% -a denotes adjoint transform 
+adj = bart('nufft -d256:256:1 -a',traj2,rawdata);
+% Transform regridded image back to k-space 
+adjk = bart('fft -u 3', adj);
+[calib emaps] = bart('ecalib -r 100',adjk);
+_make_figures("/tmp/tmpvqvb15o4", "png", "Figure", -1, -1, 0, 0)
+sens = bart('slice 4 0', calib);
+sens_maps = abs(squeeze(sens));
+figure();
+for ii=1:12
+cc = squeeze((rawdata(1,:,:,ii)));
+% Brighten convention is not 1/1 with matlab.  
+subplot(3,4,ii);
+imagesc(sens_maps(:,:,ii))
+end
+_make_figures("/tmp/tmpuw6xutbt", "png", "Figure", -1, -1, 0, 0)
+traj2  = bart('scale 0.5',trajectory);
+% Adjoint NUFFT to interpolate data onto cartesian grid. 
+% -d denotes dimension (x:y:z, which is 256X256X1)
+% -a denotes adjoint transform 
+adj = bart('nufft -d256:256:1 -a',traj2,rawdata);
+% Transform regridded image back to k-space 
+adjk = bart('fft -u 3', adj);
+[calib emaps] = bart('ecalib -r 100',adjk);
+size(calib)
+_make_figures("/tmp/tmp_ncod0sm", "png", "Figure", -1, -1, 0, 0)
+traj2  = bart('scale 0.5',trajectory);
+% Adjoint NUFFT to interpolate data onto cartesian grid. 
+% -d denotes dimension (x:y:z, which is 256X256X1)
+% -a denotes adjoint transform 
+adj = bart('nufft -d256:256:1 -a',traj2,rawdata);
+% Transform regridded image back to k-space 
+adjk = bart('fft -u 3', adj);
+calib = bart('caldir 20',adjk);
+%[calib emaps] = bart('ecalib -r 100',adjk);
+size(calib)
+_make_figures("/tmp/tmp2gytatq3", "png", "Figure", -1, -1, 0, 0)
+sens_maps = abs(squeeze(sens));
+figure();
+for ii=1:12
+cc = squeeze((rawdata(1,:,:,ii)));
+% Brighten convention is not 1/1 with matlab.  
+subplot(3,4,ii);
+imagesc(sens_maps(:,:,ii))
+end
+_make_figures("/tmp/tmp4wzk_r5l", "png", "Figure", -1, -1, 0, 0)
+sens_maps = abs(squeeze(calib));
+figure();
+for ii=1:12
+cc = squeeze((rawdata(1,:,:,ii)));
+% Brighten convention is not 1/1 with matlab.  
+subplot(3,4,ii);
+imagesc(sens_maps(:,:,ii))
+end
+_make_figures("/tmp/tmprpholdwj", "png", "Figure", -1, -1, 0, 0)
+traj2  = bart('scale 0.5',trajectory);
+% Adjoint NUFFT to interpolate data onto cartesian grid. 
+% -d denotes dimension (x:y:z, which is 256X256X1)
+% -a denotes adjoint transform 
+adj = bart('nufft -d256:256:1 -a',traj2,rawdata);
+% Transform regridded image back to k-space 
+adjk = bart('fft -u 3', adj);
+calib = bart('caldir 30',adjk);
+%[calib emaps] = bart('ecalib -r 100',adjk);
+size(calib)
+_make_figures("/tmp/tmpooql0u2m", "png", "Figure", -1, -1, 0, 0)
+sens_maps = abs(squeeze(calib));
+figure();
+for ii=1:12
+subplot(3,4,ii);
+imagesc(sens_maps(:,:,ii))
+end
+_make_figures("/tmp/tmplrv0wlde", "png", "Figure", -1, -1, 0, 0)
+traj2  = bart('scale 0.5',trajectory);
+% Adjoint NUFFT to interpolate data onto cartesian grid. 
+% -d denotes dimension (x:y:z, which is 256X256X1)
+% -a denotes adjoint transform 
+adj = bart('nufft -d256:256:1 -a',traj2,rawdata);
+% Transform regridded image back to k-space 
+adjk = bart('fft -u 3', adj);
+calib = bart('caldir 1000',adjk);
+%[calib emaps] = bart('ecalib -r 100',adjk);
+size(calib)
+_make_figures("/tmp/tmp3vcjry2i", "png", "Figure", -1, -1, 0, 0)
+traj2  = bart('scale 0.5',trajectory);
+% Adjoint NUFFT to interpolate data onto cartesian grid. 
+% -d denotes dimension (x:y:z, which is 256X256X1)
+% -a denotes adjoint transform 
+adj = bart('nufft -d256:256:1 -a',traj2,rawdata);
+% Transform regridded image back to k-space 
+adjk = bart('fft -u 3', adj);
+calib = bart('caldir 100',adjk);
+%[calib emaps] = bart('ecalib -r 100',adjk);
+size(calib)
+_make_figures("/tmp/tmpld93z6lp", "png", "Figure", -1, -1, 0, 0)
+sens_maps = abs(squeeze(calib));
+figure();
+for ii=1:12
+subplot(3,4,ii);
+imagesc(sens_maps(:,:,ii))
+end
+_make_figures("/tmp/tmpffpfxadi", "png", "Figure", -1, -1, 0, 0)
+sens_maps = abs(squeeze(calib));
+figure();
+for ii=1:12
+subplot(3,4,ii);
+imshow(sens_maps(:,:,ii),[])
+end
+_make_figures("/tmp/tmp4nqy62ne", "png", "Figure", -1, -1, 0, 0)
+traj2  = bart('scale 0.5',trajectory);
+% Adjoint NUFFT to interpolate data onto cartesian grid. 
+% -d denotes dimension (x:y:z, which is 256X256X1)
+% -a denotes adjoint transform 
+adj = bart('nufft -d300:300:1 -a',traj2,rawdata);
+% Transform regridded image back to k-space 
+adjk = bart('fft -u 3', adj);
+calib = bart('caldir 100',adjk);
+%[calib emaps] = bart('ecalib -r 100',adjk);
+size(calib)
+_make_figures("/tmp/tmp6rnzw53z", "png", "Figure", -1, -1, 0, 0)
+sens_maps = abs(squeeze(calib));
+figure();
+for ii=1:12
+subplot(3,4,ii);
+imshow(sens_maps(:,:,ii),[])
+end
+_make_figures("/tmp/tmptryyv2_w", "png", "Figure", -1, -1, 0, 0)
+traj2  = bart('scale 0.5',trajectory);
+% Adjoint NUFFT to interpolate data onto cartesian grid. 
+% -d denotes dimension (x:y:z, which is 256X256X1)
+% -a denotes adjoint transform 
+adj = bart('nufft -d300:300:1 -a',traj2,rawdata);
+% Transform regridded image back to k-space 
+adjk = bart('fft -u 3', adj);
+calib = bart('caldir 200',adjk);
+%[calib emaps] = bart('ecalib -r 100',adjk);
+size(calib)
+_make_figures("/tmp/tmp2gz4gzgn", "png", "Figure", -1, -1, 0, 0)
+sens_maps = abs(squeeze(calib));
+figure();
+for ii=1:12
+subplot(3,4,ii);
+imshow(sens_maps(:,:,ii),[])
+end
+_make_figures("/tmp/tmph4syvnf_", "png", "Figure", -1, -1, 0, 0)
+traj2  = bart('scale 0.5',trajectory);
+% Adjoint NUFFT to interpolate data onto cartesian grid. 
+% -d denotes dimension (x:y:z, which is 256X256X1)
+% -a denotes adjoint transform 
+adj = bart('nufft -d300:300:1 -a',traj2,rawdata);
+% Transform regridded image back to k-space 
+adjk = bart('fft -u 7', adj);
+calib = bart('caldir 200',adjk);
+%[calib emaps] = bart('ecalib -r 100',adjk);
+size(calib)
+_make_figures("/tmp/tmpnk2ubh1_", "png", "Figure", -1, -1, 0, 0)
+sens_maps = abs(squeeze(calib));
+figure();
+for ii=1:12
+subplot(3,4,ii);
+imshow(sens_maps(:,:,ii),[])
+end
+_make_figures("/tmp/tmphdxmbbx9", "png", "Figure", -1, -1, 0, 0)
+traj2  = bart('scale 0.5',trajectory);
+% Adjoint NUFFT to interpolate data onto cartesian grid. 
+% -d denotes dimension (x:y:z, which is 256X256X1)
+% -a denotes adjoint transform 
+adj = bart('nufft -d300:300:1 -i',traj2,rawdata);
+% Transform regridded image back to k-space 
+adjk = bart('fft -u 7', adj);
+calib = bart('caldir 200',adjk);
+%[calib emaps] = bart('ecalib -r 100',adjk);
+size(calib)
+_make_figures("/tmp/tmpelwhq8ym", "png", "Figure", -1, -1, 0, 0)
+sens_maps = abs(squeeze(calib));
+figure();
+for ii=1:12
+subplot(3,4,ii);
+imshow(sens_maps(:,:,ii),[])
+end
+_make_figures("/tmp/tmp815s2ktm", "png", "Figure", -1, -1, 0, 0)
+traj2  = bart('scale 0.5',trajectory);
+% Adjoint NUFFT to interpolate data onto cartesian grid. 
+% -d denotes dimension (x:y:z, which is 256X256X1)
+% -a denotes adjoint transform 
+adj = bart('nufft -d256:256:1 -a',traj2,rawdata);
+% Transform regridded image back to k-space 
+adjk = bart('fft -u 7', adj);
+calib = bart('caldir 200',adjk);
+%[calib emaps] = bart('ecalib -r 100',adjk);
+size(calib)
+_make_figures("/tmp/tmpzgu0hksk", "png", "Figure", -1, -1, 0, 0)
+traj2  = bart('scale 0.5',trajectory);
+% Adjoint NUFFT to interpolate data onto cartesian grid. 
+% -d denotes dimension (x:y:z, which is 256X256X1)
+% -a denotes adjoint transform 
+adj = bart('nufft -d256:256:1 -a',traj2,rawdata);
+% Transform regridded image back to k-space 
+adjk = bart('fft -u 7', adj);
+calib = bart('caldir',adjk);
+%[calib emaps] = bart('ecalib -r 100',adjk);
+size(calib)
+_make_figures("/tmp/tmpii0oxfs_", "png", "Figure", -1, -1, 0, 0)
+traj2  = bart('scale 0.5',trajectory);
+% Adjoint NUFFT to interpolate data onto cartesian grid. 
+% -d denotes dimension (x:y:z, which is 256X256X1)
+% -a denotes adjoint transform 
+adj = bart('nufft -d256:256:1 -a',traj2,rawdata);
+% Transform regridded image back to k-space 
+adjk = bart('fft -u 7', adj);
+calib = bart('caldir 20',adjk);
+%[calib emaps] = bart('ecalib -r 100',adjk);
+size(calib)
+_make_figures("/tmp/tmpq_qay8p0", "png", "Figure", -1, -1, 0, 0)
+sens_maps = abs(squeeze(calib));
+figure();
+for ii=1:12
+subplot(3,4,ii);
+imshow(sens_maps(:,:,ii),[])
+end
+_make_figures("/tmp/tmpfruf6c8q", "png", "Figure", -1, -1, 0, 0)
+sens_maps = abs(squeeze(calib));
+figure();
+for ii=1:12
+subplot(3,4,ii);
+imagesc(sens_maps(:,:,ii))
+end
+_make_figures("/tmp/tmp81iei6rs", "png", "Figure", -1, -1, 0, 0)
+sens_maps = abs(squeeze(calib));
+figure();
+for ii=1:12
+subplot(3,4,ii);
+imagesc(sens_maps(:,:,ii)); axis off;
+end
+_make_figures("/tmp/tmpoxu760uu", "png", "Figure", -1, -1, 0, 0)
+sens_maps = abs(squeeze(adj));
+figure();
+for ii=1:12
+subplot(3,4,ii);
+imagesc(sens_maps(:,:,ii)); axis off;
+end
+_make_figures("/tmp/tmpa7x1hlg9", "png", "Figure", -1, -1, 0, 0)
+traj2  = bart('scale 0.5',trajectory);
+% Adjoint NUFFT to interpolate data onto cartesian grid. 
+% -d denotes dimension (x:y:z, which is 256X256X1)
+% -a denotes adjoint transform 
+adj = bart('nufft -d256:256:1 -i',traj2,rawdata);
+% Transform regridded image back to k-space 
+adjk = bart('fft -u 7', adj);
+calib = bart('caldir 20',adjk);
+_make_figures("/tmp/tmp3hm4itp6", "png", "Figure", -1, -1, 0, 0)
+sens_maps = abs(squeeze(adj));
+figure();
+for ii=1:12
+subplot(3,4,ii);
+imagesc(sens_maps(:,:,ii)); axis off;
+end
+_make_figures("/tmp/tmpfhy425od", "png", "Figure", -1, -1, 0, 0)
+sens_maps = real(squeeze(adj));
+figure();
+for ii=1:12
+subplot(3,4,ii);
+imagesc(sens_maps(:,:,ii)); axis off;
+end
+_make_figures("/tmp/tmpesp5dpl4", "png", "Figure", -1, -1, 0, 0)
+sens_maps = abs(squeeze(adj));
+figure();
+for ii=1:12
+subplot(3,4,ii);
+imagesc(sens_maps(:,:,ii)); axis off;
+end
+_make_figures("/tmp/tmpm5044ozc", "png", "Figure", -1, -1, 0, 0)
+traj2  = bart('scale 0.5',trajectory);
+% Adjoint NUFFT to interpolate data onto cartesian grid. 
+% -d denotes dimension (x:y:z, which is 256X256X1)
+% -a denotes adjoint transform 
+adj = bart('nufft -d256:256:1 -i',trajectory,rawdata);
+% Transform regridded image back to k-space 
+adjk = bart('fft -u 7', adj);
+calib = bart('caldir 20',adjk);
+_make_figures("/tmp/tmp_mdvf7yd", "png", "Figure", -1, -1, 0, 0)
+sens_maps = abs(squeeze(adj));
+figure();
+for ii=1:12
+subplot(3,4,ii);
+imagesc(sens_maps(:,:,ii)); axis off;
+end
+_make_figures("/tmp/tmpf5ht7pro", "png", "Figure", -1, -1, 0, 0)
+traj2  = bart('scale 0.5',trajectory);
+% Adjoint NUFFT to interpolate data onto cartesian grid. 
+% -d denotes dimension (x:y:z, which is 256X256X1)
+% -a denotes adjoint transform 
+adj = bart('nufft -i',traj2,rawdata);
+% Transform regridded image back to k-space 
+adjk = bart('fft -u 7', adj);
+calib = bart('caldir 20',adjk);
+_make_figures("/tmp/tmpo13z71u9", "png", "Figure", -1, -1, 0, 0)
+sens_maps = abs(squeeze(adj));
+figure();
+for ii=1:12
+subplot(3,4,ii);
+imagesc(sens_maps(:,:,ii)); axis off;
+end
+_make_figures("/tmp/tmpg8ayuwg0", "png", "Figure", -1, -1, 0, 0)
+% Adjoint NUFFT to interpolate data onto cartesian grid. 
+% -d denotes dimension (x:y:z, which is 256X256X1)
+% -a denotes adjoint transform 
+adj = bart('nufft -d256:256:1 -a',traj2,rawdata);
+% Transform regridded image back to k-space 
+adjk = bart('fft -u 7', adj);
+calib = bart('caldir 20',adjk);
+_make_figures("/tmp/tmp35edbu44", "png", "Figure", -1, -1, 0, 0)
+sens_maps = abs(squeeze(calib));
+figure();
+for ii=1:12
+subplot(3,4,ii);
+imagesc(sens_maps(:,:,ii)); axis off;
+end
+_make_figures("/tmp/tmp3r4jro5w", "png", "Figure", -1, -1, 0, 0)
+% Adjoint NUFFT to interpolate data onto cartesian grid. 
+% -d denotes dimension (x:y:z, which is 256X256X1)
+% -a denotes adjoint transform 
+adj = bart('nufft -d256:256:1 -a',trajectory,rawdata);
+% Transform regridded image back to k-space 
+adjk = bart('fft -u 7', adj);
+calib = bart('caldir 20',adjk);
+_make_figures("/tmp/tmpwya5do1u", "png", "Figure", -1, -1, 0, 0)
+sens_maps = abs(squeeze(calib));
+figure();
+for ii=1:12
+subplot(3,4,ii);
+imagesc(sens_maps(:,:,ii)); axis off;
+end
+_make_figures("/tmp/tmpm5bfkphl", "png", "Figure", -1, -1, 0, 0)
+% Adjoint NUFFT to interpolate data onto cartesian grid. 
+% -d denotes dimension (x:y:z, which is 256X256X1)
+% -a denotes adjoint transform 
+adj = bart('nufft -d256:256:1 -a',trajectory,rawdata);
+% Transform regridded image back to k-space 
+adjk = bart('fft -u 7', adj);
+calib = bart('calib -r 20 -m1',adjk);
+_make_figures("/tmp/tmp73q0xsn8", "png", "Figure", -1, -1, 0, 0)
+% Adjoint NUFFT to interpolate data onto cartesian grid. 
+% -d denotes dimension (x:y:z, which is 256X256X1)
+% -a denotes adjoint transform 
+adj = bart('nufft -d256:256:1 -a',trajectory,rawdata);
+% Transform regridded image back to k-space 
+adjk = bart('fft -u 7', adj);
+calib = bart('ecalib -r 20 -m1',adjk);
+_make_figures("/tmp/tmpz4fzqone", "png", "Figure", -1, -1, 0, 0)
+sens_maps = abs(squeeze(calib));
+figure();
+for ii=1:12
+subplot(3,4,ii);
+imagesc(sens_maps(:,:,ii)); axis off;
+end
+_make_figures("/tmp/tmp1s9td76h", "png", "Figure", -1, -1, 0, 0)
+% Adjoint NUFFT to interpolate data onto cartesian grid. 
+% -d denotes dimension (x:y:z, which is 256X256X1)
+% -a denotes adjoint transform 
+adj = bart('nufft -d256:256:1 -a',trajectory,rawdata);
+% Transform regridded image back to k-space 
+adjk = bart('fft -u 7', adj);
+adjk2 = bart('scale 0.5',adjk)
+# Octave 4.2.2, Mon Apr 08 20:06:04 2019 UTC <agah@05cb39751d53>
+PS1('PEXPECT_PROMPT>'); PS2('PEXPECT_PROMPT_')
+available_graphics_toolkits
+graphics_toolkit('gnuplot')
+more off; source ~/.octaverc; cd("/home/agah");PS1('PEXPECT_PROMPT>'); PS2('PEXPECT_PROMPT_')
+addpath("/srv/conda/lib/python3.7/site-packages/octave_kernel")
+set(0, 'defaultfigurevisible', 'off');
+version
+# Octave 4.2.2, Wed May 01 11:57:13 2019 UTC <agah@05cb39751d53>

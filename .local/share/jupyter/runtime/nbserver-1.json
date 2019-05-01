@@ -1,0 +1,11 @@
+{
+  "base_url": "/",
+  "hostname": "0.0.0.0",
+  "notebook_dir": "/home/agah",
+  "password": false,
+  "pid": 1,
+  "port": 46875,
+  "secure": false,
+  "token": "82cd260ffb348e7f228da68ab5088867810d7999f9c457c0",
+  "url": "http://0.0.0.0:46875/"
+}
