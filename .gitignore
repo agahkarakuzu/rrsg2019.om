@@ -1,1 +1,13 @@
 octave-workspace
+.ipython
+.ipynb_checkpoints
+.jupyter/nbconfig
+.local/share
+.conda
+.cache
+.bash_history
+.bash_logout
+.bashrc
+.profile
+.octaverc
+.wget-hsts
