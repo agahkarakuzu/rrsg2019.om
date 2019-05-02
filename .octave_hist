@@ -1,11 +1,3 @@
-_make_figures("/tmp/tmppwmxdtof", "png", "Figure", -1, -1, 0, 0)
-display(cell2mat(who('sos*')))
-_make_figures("/tmp/tmp347wap8b", "png", "Figure", -1, -1, 0, 0)
-display(sos_py_repr(rawdata_py))
-_make_figures("/tmp/tmprrigccy8", "png", "Figure", -1, -1, 0, 0)
-display(cell2mat(who('sos*')))
-_make_figures("/tmp/tmp5ytv66w8", "png", "Figure", -1, -1, 0, 0)
-display(sos_py_repr(rawdata_py))
 _make_figures("/tmp/tmphqph4jnv", "png", "Figure", -1, -1, 0, 0)
 display(cell2mat(who('sos*')))
 _make_figures("/tmp/tmp47fbr6mg", "png", "Figure", -1, -1, 0, 0)
@@ -998,3 +990,11 @@ _make_figures("/tmp/tmpz5sl3kuz", "png", "Figure", -1, -1, 0, 0)
 display(cell2mat(who('sos*')))
 _make_figures("/tmp/tmp0qdcrjyw", "png", "Figure", -1, -1, 0, 0)
 # Octave 4.2.2, Thu May 02 15:38:01 2019 UTC <agah@4eef2a62f30d>
+PS1('PEXPECT_PROMPT>'); PS2('PEXPECT_PROMPT_')
+available_graphics_toolkits
+graphics_toolkit('gnuplot')
+more off; source ~/.octaverc; cd("/home/agah");PS1('PEXPECT_PROMPT>'); PS2('PEXPECT_PROMPT_')
+addpath("/srv/conda/lib/python3.7/site-packages/octave_kernel")
+set(0, 'defaultfigurevisible', 'off');
+version
+# Octave 4.2.2, Thu May 02 20:51:41 2019 UTC <agah@4eef2a62f30d>
