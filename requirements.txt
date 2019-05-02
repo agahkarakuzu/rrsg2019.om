@@ -1,7 +1,13 @@
-sos==0.17.7
-sos-notebook==0.17.2
-sos-python==0.9.12.1
-sos-matlab==0.9.12.1
+sos
+sos-notebook
+sos-python
+sos-bash
+sos-matlab
+sos-ruby
+sos-sas
+sos-julia
+sos-javascript
+sos-r
 plotly
 plotly_express
 dash

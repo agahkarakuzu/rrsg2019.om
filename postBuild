@@ -12,6 +12,12 @@ unzip rssg_2019.zip -d /tmp/rrsg_challenge
 # Add /tmp and subfolders in the Octave search path. 
 octave --no-gui --eval "addpath(genpath('/tmp')); savepath;"
 
+# Install Python dependencies 
+pip install -r requirements.txt
+
+# Install SoS kernel 
+python -m sos_notebook.install
+
 # This section was used to install h5read into Octave, however not functional. For additional explanation, see https://osf.io/xne9w/
 # git clone --single-branch -b master https://github.com/tmullins/hdf5oct.git
 # cd /tmp/hdf5oct
