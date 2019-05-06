@@ -2,7 +2,7 @@ sos
 sos-notebook
 sos-python
 sos-bash
-sos-matlab
+sos-matlab==0.18.3
 sos-ruby
 sos-sas
 sos-julia
