@@ -13,8 +13,7 @@ unzip rssg_2019.zip -d /tmp/rrsg_challenge
 octave --no-gui --eval "addpath(genpath('/tmp')); savepath;"
 
 # Install Python dependencies 
-pip install &&\
-sos &&\
+pip install sos &&\
 sos-notebook &&\
 sos-python &&\
 sos-bash &&\
