@@ -36,4 +36,9 @@ python -m sos_notebook.install
 # make
 # make install
 
+jupyter nbextension enable --py --sys-prefix ipyleaflet
+pip install jupyter_contrib_nbextensions
+jupyter contrib nbextension install --user
+jupyter nbextension enable hide_input/main
+jupyter nbextension enable init_cell/main
 
