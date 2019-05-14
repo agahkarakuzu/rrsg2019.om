@@ -47,10 +47,8 @@ jupyter contrib nbextension install --user
 jupyter nbextension enable hide_input/main
 jupyter nbextension enable init_cell/main
 
-wget -O calibrations.html https://osf.io/vh6kc/download/ -P $HOME
-wget -O kspace.html https://osf.io/jhpdv/download/ -P $HOME
-wget -O rawdata.html https://osf.io/7vb3z/download/ -P $HOME
-wget -O sub_bart_compare.html https://osf.io/nzjp2/download/ -P $HOME
-wget -O bart_cart_non.html https://osf.io/7jcsm/download/ -P $HOME
-
-
+wget -O $HOME/calibrations.html https://osf.io/vh6kc/download/
+wget -O $HOME/kspace.html https://osf.io/jhpdv/download/
+wget -O $HOME/rawdata.html https://osf.io/7vb3z/download/
+wget -O $HOME/sub_bart_compare.html https://osf.io/nzjp2/download/
+wget -O $HOME/bart_cart_non.html https://osf.io/7jcsm/download/
