@@ -8,10 +8,6 @@ git clone --single-branch -b master https://github.com/mikgroup/espirit-matlab-e
 # Download RRSG 2019 challenge dataset from  https://osf.io/xne9w/
 wget -O rssg_2019.zip https://osf.io/g9ay3/download/
 
-
-
-
-
 unzip rssg_2019.zip -d /tmp/rrsg_challenge
 
 # Add /tmp and subfolders in the Octave search path. 
@@ -46,6 +42,17 @@ pip install jupyter_contrib_nbextensions
 jupyter contrib nbextension install --user
 jupyter nbextension enable hide_input/main
 jupyter nbextension enable init_cell/main
+python -m pip install statsmodels
+jupyter nbextension enable --py --sys-prefix ipyleaflet
+pip install jupyter_contrib_nbextensions
+jupyter contrib nbextension install --user
+jupyter nbextension enable codefolding/main
+jupyter nbextension enable collapsible_headings/main
+jupyter labextension install @jupyterlab/plotly-extension
+jupyter labextension install @jupyter-voila/jupyterlab-preview
+jupyter labextension install jupyterlab_iframe
+jupyter serverextension enable --py jupyterlab_iframe
+
 
 wget -O $HOME/calibrations.html https://osf.io/vh6kc/download/
 wget -O $HOME/kspace.html https://osf.io/jhpdv/download/
