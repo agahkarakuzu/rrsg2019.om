@@ -38,8 +38,12 @@ python -m sos_notebook.install
 # make install
 
 jupyter nbextension enable --py --sys-prefix ipyleaflet
-pip install jupyter_contrib_nbextensions
+
+git clone https://github.com/ipython-contrib/jupyter_contrib_nbextensions.git
+pip install -e jupyter_contrib_nbextensions
 jupyter contrib nbextension install --user
+
+
 jupyter nbextension enable hide_input/main
 jupyter nbextension enable init_cell/main
 python -m pip install statsmodels
