@@ -8,6 +8,8 @@
     "nbextensions_configurator/config_menu/main": true,
     "contrib_nbextensions_help_item/main": true,
     "hide_input/main": true,
-    "init_cell/main": true
+    "init_cell/main": true,
+    "codefolding/main": true,
+    "collapsible_headings/main": true
   }
 }

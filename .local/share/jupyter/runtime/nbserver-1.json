@@ -1,11 +1,11 @@
 {
   "base_url": "/",
   "hostname": "0.0.0.0",
-  "notebook_dir": "/home/agah",
+  "notebook_dir": "/home/jovyan",
   "password": false,
   "pid": 1,
-  "port": 48873,
+  "port": 64295,
   "secure": false,
-  "token": "84a634455636bdb823bf050041faa69f1e410b74f805b92f",
-  "url": "http://0.0.0.0:48873/"
+  "token": "66656eb6ab45ac5cfd640a5f0e0d7825dd7a32acd1fcd1f1",
+  "url": "http://0.0.0.0:64295/"
 }
