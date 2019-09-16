@@ -1,977 +1,711 @@
-_make_figures("/tmp/tmph89j8yry", "png", "Figure", -1, -1, 0, 0)
-function EH = opEH(dcf,inp,S,traj,I)
-  tmp = bart('nufft -d300:300:1 -i -l -t',traj,inp.*sqrt(dcf(1,:,:))); % NUFFT to image domain (see implementation notes)
+  end
   
   Sstar = conj(S(:,:,1,:)); %  Complex conjugate of sensitivity profiles (see Fig. 1)
   
-  tmp2 = bart('rss 8 ',tmp.*Sstar); % Images scaled by complex conjugate of sensitivity profiles and SOS combined
+  EH = bart('rss 8 ',tmp.*Sstar); % Images scaled by complex conjugate of sensitivity profiles and SOS combined
   
-  EH = tmp2.*I; % Scale output image by intensity correction
 end
-_make_figures("/tmp/tmpzdyas3j1", "png", "Figure", -1, -1, 0, 0)
+_make_figures("/tmp/tmpxhc82vth", "png", "Figure", -1, -1, 0, 0)
 who('sos*')
-_make_figures("/tmp/tmpvsq_r5lg", "png", "Figure", -1, -1, 0, 0)
-function out = opF(im,beta,r,N,I)
-    
-    im = im./I;
-    %imagesc(im);
-    im(isnan(im)==1) = 0;
-    f_k = zeros(N,N);
-    f_k(N/2+1,N/2+1) = 1;
-    f_k = bwdist(f_k);
-    f_k = 0.5 + 1/pi.*atan(beta.*((r-abs(f_k))/r));
-    f_k = fftshift(f_k);
-    im_k = fft2(im);
-    out = abs(ifft2(ifftshift(im_k.*f_k)));
+_make_figures("/tmp/tmprchohy7q", "png", "Figure", -1, -1, 0, 0)
+[im,deltas] = main_sense(rawdata, calib, trajectory,I,dcf,10);
+#[im_x2,deltas_x2] = main_sense(outRD_x2, calib, outTR_x2,I,dcf(:,:,1:2:end),10);
+#[im_x3,deltas_x3] = main_sense(outRD_x3, calib, outTR_x3,I,dcf(:,:,1:3:end),10);
+#[im_x4,deltas_x4] = main_sense(outRD_x4, calib, outTR_x4,I,dcf(:,:,1:4:end),10);
+_make_figures("/tmp/tmp7gvxt3zr", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmpz15rsw88", "png", "Figure", -1, -1, 0, 0)
+function EH = opEH(inp,S,traj)
+  
+  tmp = squeeze((1+1i)*ones(size(S)));
+  size(tmp)
+  size(traj)
+  size(inp)
+  size(inp(:,:,:,1))
+  for ii=1:12
+      tmp(:,:,ii) = bart('nufft -d300:300:1 -a -t',traj,inp(:,:,:,ii)); % NUFFT to image domain (see implementation notes)
+  end
+  
+  Sstar = conj(S(:,:,1,:)); %  Complex conjugate of sensitivity profiles (see Fig. 1)
+  
+  EH = bart('rss 8 ',tmp.*Sstar); % Images scaled by complex conjugate of sensitivity profiles and SOS combined
+  
 end
-_make_figures("/tmp/tmps_kyw9uv", "png", "Figure", -1, -1, 0, 0)
+_make_figures("/tmp/tmpl1yutpf0", "png", "Figure", -1, -1, 0, 0)
 who('sos*')
-_make_figures("/tmp/tmp0nfd26p5", "png", "Figure", -1, -1, 0, 0)
-function [b,deltas] = cg_solve(a,I,S,dcf,maxstep,trajectory)
-    p = a;
-    r = a;
-    b = zeros(300,300);
-    deltas = zeros(maxstep,1);
-    for ii=1:maxstep
-    disp(['Iteration -->' num2str(ii)]);
-    delta = r(:)'*r(:)/(a(:)'*a(:));
-    
-    disp(delta);
-    deltas(ii) = delta;
-    E = opE(p,S,trajectory);
-    q = opEH(dcf,E,S,trajectory,I);
-    % dot(r,r) is equivalent to r(:)'*r(:). Used dot for easy reading. 
-    term = dot(r,r)/dot(p,q);
-    b = b + term*p;
-    rprev = r;
-    r = r - term*q;
-    term2 = dot(r,r)/dot(rprev,rprev);
-    p = r + term2*p;
-    end
-    
-end
-_make_figures("/tmp/tmpkqnnt6zt", "png", "Figure", -1, -1, 0, 0)
+_make_figures("/tmp/tmplte4e12p", "png", "Figure", -1, -1, 0, 0)
+[im,deltas] = main_sense(rawdata, calib, trajectory,I,dcf,10);
+#[im_x2,deltas_x2] = main_sense(outRD_x2, calib, outTR_x2,I,dcf(:,:,1:2:end),10);
+#[im_x3,deltas_x3] = main_sense(outRD_x3, calib, outTR_x3,I,dcf(:,:,1:3:end),10);
+#[im_x4,deltas_x4] = main_sense(outRD_x4, calib, outTR_x4,I,dcf(:,:,1:4:end),10);
+_make_figures("/tmp/tmp2b6v2xx0", "png", "Figure", -1, -1, 0, 0)
 who('sos*')
-_make_figures("/tmp/tmpvzkapbod", "png", "Figure", -1, -1, 0, 0)
+_make_figures("/tmp/tmpztzfymgv", "png", "Figure", -1, -1, 0, 0)
 function [im,deltas] = main_sense(rawdata, calib, trajectory,I,dcf,maxiter)
-    a = opEH(dcf,rawdata,calib,trajectory,I);
+    size(dcf)
+    size(rawdata)
+    size(dcf.*rawdata)
+    a = I.*opEH(dcf.*rawdata,calib,trajectory);
     [im,deltas] = cg_solve(a,I,calib,dcf,maxiter,trajectory);
-    im = opF(im,100,40,300,I);
+    im = opF(im,100,40);
 end
-_make_figures("/tmp/tmp04uarwz4", "png", "Figure", -1, -1, 0, 0)
+_make_figures("/tmp/tmpmauflnmz", "png", "Figure", -1, -1, 0, 0)
 who('sos*')
-_make_figures("/tmp/tmp80wepw6_", "png", "Figure", -1, -1, 0, 0)
-# Octave 4.2.2, Mon Sep 16 01:16:06 2019 UTC <jovyan@2fe52cfb110c>
-PS1('PEXPECT_PROMPT>'); PS2('PEXPECT_PROMPT_')
-graphics_toolkit
-more off; source ~/.octaverc; cd("/home/jovyan");PS1('PEXPECT_PROMPT>'); PS2('PEXPECT_PROMPT_')
-addpath("/srv/conda/envs/notebook/lib/python3.7/site-packages/octave_kernel")
-graphics_toolkit('gnuplot')
-set(0, 'defaultfigurevisible', 'off');
-version
-path(path, '/srv/conda/envs/notebook/lib/python3.7/site-packages/sos_matlab')
-pkg load dataframe
-_make_figures("/tmp/tmp8k6_jhk4", "png", "Figure", -1, -1, 0, 0)
-disp('Executed automatically');
-disp('Cell to load octave packages. To show, select the cell and click arrow up icon in the toolbar.');
-pkg load image 
-pkg load optim
-_make_figures("/tmp/tmp1tg0v855", "png", "Figure", -1, -1, 0, 0)
+_make_figures("/tmp/tmpto9gp306", "png", "Figure", -1, -1, 0, 0)
+[im,deltas] = main_sense(rawdata, calib, trajectory,I,dcf,10);
+#[im_x2,deltas_x2] = main_sense(outRD_x2, calib, outTR_x2,I,dcf(:,:,1:2:end),10);
+#[im_x3,deltas_x3] = main_sense(outRD_x3, calib, outTR_x3,I,dcf(:,:,1:3:end),10);
+#[im_x4,deltas_x4] = main_sense(outRD_x4, calib, outTR_x4,I,dcf(:,:,1:4:end),10);
+_make_figures("/tmp/tmp4ld8nrmc", "png", "Figure", -1, -1, 0, 0)
 who('sos*')
-_make_figures("/tmp/tmp46buy_e0", "png", "Figure", -1, -1, 0, 0)
-% Mex c files for gridding by Brian Hargreaves and Philip Beatty 
-% http://mrsrl.stanford.edu/~brian/gridding/
-disp('Executed automatically');
-disp('Cell to MEX c functions for dcf. To show, select the cell and click arrow up icon in the toolbar.');
-mex gridlut_mex.c
-mex calcdcflut_mex.c
-_make_figures("/tmp/tmpi8k8cvan", "png", "Figure", -1, -1, 0, 0)
+_make_figures("/tmp/tmpo_vttg5k", "png", "Figure", -1, -1, 0, 0)
+densCor = abs(trajectory(1,:,:) + 1i*trajectory(2,:,:));
+densCor = densCor/max(densCor(:));
+_make_figures("/tmp/tmpr1ddglw6", "png", "Figure", -1, -1, 0, 0)
 who('sos*')
-_make_figures("/tmp/tmpcpavkpq0", "png", "Figure", -1, -1, 0, 0)
-load('/tmp/rrsg_challenge/brain_radial_96proj_12ch.mat');
-whos % Show variables in the current scope
-_make_figures("/tmp/tmp4vr54zv4", "png", "Figure", -1, -1, 0, 0)
+_make_figures("/tmp/tmpz7635ccx", "png", "Figure", -1, -1, 0, 0)
+densCor = abs(trajectory(1,:,:) + 1i*trajectory(2,:,:));
+densCor = densCor/max(densCor(:));
+size(densCor)
+_make_figures("/tmp/tmpp79gcxvf", "png", "Figure", -1, -1, 0, 0)
 who('sos*')
-_make_figures("/tmp/tmptp4a3isc", "png", "Figure", -1, -1, 0, 0)
-function E = opE(inp,S,traj,I)
-    inp = inp.*I; % Scale with the intensity correction matrix, as operation I precedes operation E (see Fig. 1)
+_make_figures("/tmp/tmp_bbkr_y9", "png", "Figure", -1, -1, 0, 0)
+size(dcf)
+_make_figures("/tmp/tmp1strtwsi", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmp2x4nxybm", "png", "Figure", -1, -1, 0, 0)
+#dcf = calcdcflut(trajectory,300); 
+#dcf = reshape(dcf,[3 nFE nSpokes]);
+dcf = abs(trajectory(1,:,:) + 1i*trajectory(2,:,:));
+dcf = densCor/max(densCor(:));
+_make_figures("/tmp/tmp8ncpn7zz", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmpkwf2r76q", "png", "Figure", -1, -1, 0, 0)
+#dcf = calcdcflut(trajectory,300); 
+#dcf = reshape(dcf,[3 nFE nSpokes]);
+dcf = abs(trajectory(1,:,:) + 1i*trajectory(2,:,:));
+dcf = densCor/max(densCor(:));
+densCor = repmat(dcf,[1, 1, 1, 12]);
+_make_figures("/tmp/tmpw2pdudh4", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmprr3pty87", "png", "Figure", -1, -1, 0, 0)
+#dcf = calcdcflut(trajectory,300); 
+#dcf = reshape(dcf,[3 nFE nSpokes]);
+dcf = abs(trajectory(1,:,:) + 1i*trajectory(2,:,:));
+dcf = densCor/max(densCor(:));
+densCor = repmat(dcf,[1, 1, 1, 12]);
+size(densCor)
+_make_figures("/tmp/tmp4kzf60ru", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmpv_e475qc", "png", "Figure", -1, -1, 0, 0)
+#dcf = calcdcflut(trajectory,300); 
+#dcf = reshape(dcf,[3 nFE nSpokes]);
+dcf = abs(trajectory(1,:,:) + 1i*trajectory(2,:,:));
+dcf = densCor/max(densCor(:));
+size(dcf)
+densCor = repmat(dcf,[1, 1, 1, 12]);
+size(densCor)
+_make_figures("/tmp/tmpnuc_3x9n", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmp60fetx2_", "png", "Figure", -1, -1, 0, 0)
+#dcf = calcdcflut(trajectory,300); 
+#dcf = reshape(dcf,[3 nFE nSpokes]);
+dcf = abs(trajectory(1,:,:) + 1i*trajectory(2,:,:));
+dcf = dcf/max(dcf(:));
+_make_figures("/tmp/tmpuqgzudi3", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmp6i6vr_xk", "png", "Figure", -1, -1, 0, 0)
+#dcf = calcdcflut(trajectory,300); 
+#dcf = reshape(dcf,[3 nFE nSpokes]);
+dcf = abs(trajectory(1,:,:) + 1i*trajectory(2,:,:));
+dcf = dcf/max(dcf(:));
+size(dcf)
+_make_figures("/tmp/tmp4hlpyntp", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmpbfiqve6v", "png", "Figure", -1, -1, 0, 0)
+function [im,deltas] = main_sense(rawdata, calib, trajectory,I,dcf,maxiter)
+    dcf = repmat(dcf,[1,1,1,12]);
+    a = I.*opEH(dcf.*rawdata,calib,trajectory);
+    [im,deltas] = cg_solve(a,I,calib,dcf,maxiter,trajectory);
+    im = opF(im,100,40);
+end
+_make_figures("/tmp/tmpqzoainlj", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmp9bv4qig4", "png", "Figure", -1, -1, 0, 0)
+[im,deltas] = main_sense(rawdata, calib, trajectory,I,dcf,10);
+#[im_x2,deltas_x2] = main_sense(outRD_x2, calib, outTR_x2,I,dcf(:,:,1:2:end),10);
+#[im_x3,deltas_x3] = main_sense(outRD_x3, calib, outTR_x3,I,dcf(:,:,1:3:end),10);
+#[im_x4,deltas_x4] = main_sense(outRD_x4, calib, outTR_x4,I,dcf(:,:,1:4:end),10);
+_make_figures("/tmp/tmp8zhrjmht", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmpro_bmh0f", "png", "Figure", -1, -1, 0, 0)
+function E = opE(inp,S,traj)
+    tmp = S.*inp; % Multiply the intensity corrected image with coil sensitivities. This will produce one image per channel stored in tmp variable
+    E = bart('nufft -a -t',traj,tmp); % Transform back to the non-uniform k-space (see implementation notes for details)
+end
+_make_figures("/tmp/tmp0dfq42sa", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmp3hc1sijh", "png", "Figure", -1, -1, 0, 0)
+function EH = opEH(inp,S,traj)
+  
+  tmp = squeeze((1+1i)*ones(size(S)));
+  size(tmp)
+  size(traj)
+  size(inp)
+  size(inp(:,:,:,1))
+  #for ii=1:12
+      tmp = bart('nufft -d300:300:1 -a -t',traj,inp); % NUFFT to image domain (see implementation notes)
+#      tmp(:,:,ii) = bart('nufft -d300:300:1 -a -t',traj,inp(:,:,:,ii)); % NUFFT to image domain (see implementation notes)
+  #end
+  
+  Sstar = conj(S(:,:,1,:)); %  Complex conjugate of sensitivity profiles (see Fig. 1)
+  
+  EH = bart('rss 8 ',tmp.*Sstar); % Images scaled by complex conjugate of sensitivity profiles and SOS combined
+  
+end
+_make_figures("/tmp/tmpl202cxxk", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmpniwi29ug", "png", "Figure", -1, -1, 0, 0)
+[im,deltas] = main_sense(rawdata, calib, trajectory,I,dcf,10);
+#[im_x2,deltas_x2] = main_sense(outRD_x2, calib, outTR_x2,I,dcf(:,:,1:2:end),10);
+#[im_x3,deltas_x3] = main_sense(outRD_x3, calib, outTR_x3,I,dcf(:,:,1:3:end),10);
+#[im_x4,deltas_x4] = main_sense(outRD_x4, calib, outTR_x4,I,dcf(:,:,1:4:end),10);
+_make_figures("/tmp/tmpdcu4uorj", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmpossttxp4", "png", "Figure", -1, -1, 0, 0)
+function E = opE(inp,S,traj)
     tmp = S.*inp; % Multiply the intensity corrected image with coil sensitivities. This will produce one image per channel stored in tmp variable
     E = bart('nufft',traj,tmp); % Transform back to the non-uniform k-space (see implementation notes for details)
 end
-_make_figures("/tmp/tmpn4s2pdzi", "png", "Figure", -1, -1, 0, 0)
+_make_figures("/tmp/tmp1fhh0el5", "png", "Figure", -1, -1, 0, 0)
 who('sos*')
-_make_figures("/tmp/tmp7ojat7k7", "png", "Figure", -1, -1, 0, 0)
-function EH = opEH(dcf,inp,S,traj,I)
-  tmp = bart('nufft -d300:300:1 -i -l -t',traj,inp.*sqrt(dcf(1,:,:))); % NUFFT to image domain (see implementation notes)
+_make_figures("/tmp/tmpeavyhkf4", "png", "Figure", -1, -1, 0, 0)
+function EH = opEH(inp,S,traj)
+  
+  tmp = squeeze((1+1i)*ones(size(S)));
+  #for ii=1:12
+      tmp = bart('nufft -d300:300:1 -a -t',traj,inp); % NUFFT to image domain (see implementation notes)
+#      tmp(:,:,ii) = bart('nufft -d300:300:1 -a -t',traj,inp(:,:,:,ii)); % NUFFT to image domain (see implementation notes)
+  #end
   
   Sstar = conj(S(:,:,1,:)); %  Complex conjugate of sensitivity profiles (see Fig. 1)
   
-  tmp2 = bart('rss 8 ',tmp.*Sstar); % Images scaled by complex conjugate of sensitivity profiles and SOS combined
+  EH = bart('rss 8 ',tmp.*Sstar); % Images scaled by complex conjugate of sensitivity profiles and SOS combined
   
-  EH = tmp2.*I; % Scale output image by intensity correction
 end
-_make_figures("/tmp/tmpmknzgevo", "png", "Figure", -1, -1, 0, 0)
+_make_figures("/tmp/tmpcp098asf", "png", "Figure", -1, -1, 0, 0)
 who('sos*')
-_make_figures("/tmp/tmp44umr1ey", "png", "Figure", -1, -1, 0, 0)
-function out = opF(im,beta,r,N,I)
+_make_figures("/tmp/tmpq8uccfgh", "png", "Figure", -1, -1, 0, 0)
+[im,deltas] = main_sense(rawdata, calib, trajectory,I,dcf,10);
+#[im_x2,deltas_x2] = main_sense(outRD_x2, calib, outTR_x2,I,dcf(:,:,1:2:end),10);
+#[im_x3,deltas_x3] = main_sense(outRD_x3, calib, outTR_x3,I,dcf(:,:,1:3:end),10);
+#[im_x4,deltas_x4] = main_sense(outRD_x4, calib, outTR_x4,I,dcf(:,:,1:4:end),10);
+_make_figures("/tmp/tmpus4sj_jo", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmpkzrj68ju", "png", "Figure", -1, -1, 0, 0)
+function out = opF(im,beta,r)
     
-    im = im./I;
-    %imagesc(im);
-    im(isnan(im)==1) = 0;
-    f_k = zeros(N,N);
-    f_k(N/2+1,N/2+1) = 1;
-    f_k = bwdist(f_k);
-    f_k = 0.5 + 1/pi.*atan(beta.*((r-abs(f_k))/r));
-    f_k = fftshift(f_k);
-    im_k = fft2(im);
-    out = abs(ifft2(ifftshift(im_k.*f_k)));
+    ks = 1/sqrt(numel(im))*fftshift(fftn(ifftshift(im)));
+    
+    dim = size(ks);
+    center = (dim + 1)/2;
+    [x,y] = meshgrid(-(center(2)-1):(dim(2)-center(2)),-(center(1)-1):(dim(1)-center(1)));
+    kRadius = sqrt(x.^2 + y.^2);
+    f_k = 0.5 + 1/pi.*atan(beta.*((r-kRadius)/r)); 
+    out_ks = abs(ifft2(ifftshift(ks.*f_k)));
+    out = sqrt(numel(out_ks))*fftshift(ifftn(ifftshift(out_ks)));
 end
-_make_figures("/tmp/tmp8u3tr3eu", "png", "Figure", -1, -1, 0, 0)
+_make_figures("/tmp/tmpcy7vvpzo", "png", "Figure", -1, -1, 0, 0)
 who('sos*')
-_make_figures("/tmp/tmpg0oijpvl", "png", "Figure", -1, -1, 0, 0)
-function [b,deltas] = cg_solve(a,I,S,dcf,maxstep,trajectory)
-    p = a;
-    r = a;
-    b = zeros(300,300);
-    deltas = zeros(maxstep,1);
-    for ii=1:maxstep
-    disp(['Iteration -->' num2str(ii)]);
-    delta = r(:)'*r(:)/(a(:)'*a(:));
-    
-    disp(delta);
-    deltas(ii) = delta;
-    E = opE(p,S,trajectory);
-    q = opEH(dcf,E,S,trajectory,I);
-    % dot(r,r) is equivalent to r(:)'*r(:). Used dot for easy reading. 
-    term = dot(r,r)/dot(p,q);
-    b = b + term*p;
-    rprev = r;
-    r = r - term*q;
-    term2 = dot(r,r)/dot(rprev,rprev);
-    p = r + term2*p;
-    end
-    
-end
-_make_figures("/tmp/tmpu1beenx8", "png", "Figure", -1, -1, 0, 0)
+_make_figures("/tmp/tmpqbb9xa86", "png", "Figure", -1, -1, 0, 0)
+[im,deltas] = main_sense(rawdata, calib, trajectory,I,dcf,5);
+#[im_x2,deltas_x2] = main_sense(outRD_x2, calib, outTR_x2,I,dcf(:,:,1:2:end),10);
+#[im_x3,deltas_x3] = main_sense(outRD_x3, calib, outTR_x3,I,dcf(:,:,1:3:end),10);
+#[im_x4,deltas_x4] = main_sense(outRD_x4, calib, outTR_x4,I,dcf(:,:,1:4:end),10);
+_make_figures("/tmp/tmprn8fiw6r", "png", "Figure", -1, -1, 0, 0)
 who('sos*')
-_make_figures("/tmp/tmp5_ntx_va", "png", "Figure", -1, -1, 0, 0)
+_make_figures("/tmp/tmpqsqm2b6l", "png", "Figure", -1, -1, 0, 0)
+imagesc(abs(im))
+_make_figures("/tmp/tmpqyc0509u", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmpcd6o42o3", "png", "Figure", -1, -1, 0, 0)
 function [im,deltas] = main_sense(rawdata, calib, trajectory,I,dcf,maxiter)
-    a = opEH(dcf,rawdata,calib,trajectory,I);
+    dcf = repmat(dcf,[1,1,1,12]);
+    a = I.*opEH(dcf.*rawdata,calib,trajectory);
     [im,deltas] = cg_solve(a,I,calib,dcf,maxiter,trajectory);
-    im = opF(im,100,40,300,I);
+    %im = opF(im,100,40);
 end
-_make_figures("/tmp/tmp0krooqsq", "png", "Figure", -1, -1, 0, 0)
-# Octave 4.2.2, Mon Sep 16 01:18:09 2019 UTC <jovyan@2fe52cfb110c>
-PS1('PEXPECT_PROMPT>'); PS2('PEXPECT_PROMPT_')
-graphics_toolkit
-more off; source ~/.octaverc; cd("/home/jovyan");PS1('PEXPECT_PROMPT>'); PS2('PEXPECT_PROMPT_')
-addpath("/srv/conda/envs/notebook/lib/python3.7/site-packages/octave_kernel")
-graphics_toolkit('gnuplot')
-set(0, 'defaultfigurevisible', 'off');
-version
-path(path, '/srv/conda/envs/notebook/lib/python3.7/site-packages/sos_matlab')
-pkg load dataframe
-_make_figures("/tmp/tmpl4ufepz8", "png", "Figure", -1, -1, 0, 0)
-disp('Executed automatically');
-disp('Cell to load octave packages. To show, select the cell and click arrow up icon in the toolbar.');
-pkg load image 
-pkg load optim
-_make_figures("/tmp/tmpat7598ra", "png", "Figure", -1, -1, 0, 0)
+_make_figures("/tmp/tmpgw8i_vep", "png", "Figure", -1, -1, 0, 0)
 who('sos*')
-_make_figures("/tmp/tmp9pld7r9e", "png", "Figure", -1, -1, 0, 0)
-% Mex c files for gridding by Brian Hargreaves and Philip Beatty 
-% http://mrsrl.stanford.edu/~brian/gridding/
-disp('Executed automatically');
-disp('Cell to MEX c functions for dcf. To show, select the cell and click arrow up icon in the toolbar.');
-mex gridlut_mex.c
-mex calcdcflut_mex.c
-_make_figures("/tmp/tmpfw00ohgh", "png", "Figure", -1, -1, 0, 0)
+_make_figures("/tmp/tmpn_s7py8c", "png", "Figure", -1, -1, 0, 0)
+[im,deltas] = main_sense(rawdata, calib, trajectory,I,dcf,3);
+#[im_x2,deltas_x2] = main_sense(outRD_x2, calib, outTR_x2,I,dcf(:,:,1:2:end),10);
+#[im_x3,deltas_x3] = main_sense(outRD_x3, calib, outTR_x3,I,dcf(:,:,1:3:end),10);
+#[im_x4,deltas_x4] = main_sense(outRD_x4, calib, outTR_x4,I,dcf(:,:,1:4:end),10);
+_make_figures("/tmp/tmpi41ycdx6", "png", "Figure", -1, -1, 0, 0)
 who('sos*')
-_make_figures("/tmp/tmpkq3d_20d", "png", "Figure", -1, -1, 0, 0)
-load('/tmp/rrsg_challenge/brain_radial_96proj_12ch.mat');
-whos % Show variables in the current scope
-_make_figures("/tmp/tmpnr2i66fq", "png", "Figure", -1, -1, 0, 0)
+_make_figures("/tmp/tmpz_g9n_my", "png", "Figure", -1, -1, 0, 0)
+imagesc(abs(im))
+_make_figures("/tmp/tmp0u01mwjd", "png", "Figure", -1, -1, 0, 0)
 who('sos*')
-_make_figures("/tmp/tmp_sffm953", "png", "Figure", -1, -1, 0, 0)
-function E = opE(inp,S,traj,I)
-    inp = inp.*I; % Scale with the intensity correction matrix, as operation I precedes operation E (see Fig. 1)
-    tmp = S.*inp; % Multiply the intensity corrected image with coil sensitivities. This will produce one image per channel stored in tmp variable
-    E = bart('nufft',traj,tmp); % Transform back to the non-uniform k-space (see implementation notes for details)
-end
-_make_figures("/tmp/tmpoxxbt8p2", "png", "Figure", -1, -1, 0, 0)
-who('sos*')
-_make_figures("/tmp/tmprw541l57", "png", "Figure", -1, -1, 0, 0)
-function EH = opEH(dcf,inp,S,traj,I)
-  tmp = bart('nufft -d300:300:1 -i -l -t',traj,inp.*sqrt(dcf(1,:,:))); % NUFFT to image domain (see implementation notes)
-  
-  Sstar = conj(S(:,:,1,:)); %  Complex conjugate of sensitivity profiles (see Fig. 1)
-  
-  tmp2 = bart('rss 8 ',tmp.*Sstar); % Images scaled by complex conjugate of sensitivity profiles and SOS combined
-  
-  EH = tmp2.*I; % Scale output image by intensity correction
-end
-_make_figures("/tmp/tmpnjyrm4dy", "png", "Figure", -1, -1, 0, 0)
-who('sos*')
-_make_figures("/tmp/tmpzg1a6a2z", "png", "Figure", -1, -1, 0, 0)
-function out = opF(im,beta,r,N,I)
+_make_figures("/tmp/tmpzcojgbfx", "png", "Figure", -1, -1, 0, 0)
+function out = opF(im,beta,r)
     
-    im = im./I;
-    %imagesc(im);
-    im(isnan(im)==1) = 0;
-    f_k = zeros(N,N);
-    f_k(N/2+1,N/2+1) = 1;
-    f_k = bwdist(f_k);
-    f_k = 0.5 + 1/pi.*atan(beta.*((r-abs(f_k))/r));
-    f_k = fftshift(f_k);
-    im_k = fft2(im);
-    out = abs(ifft2(ifftshift(im_k.*f_k)));
-end
-_make_figures("/tmp/tmpbphfelqv", "png", "Figure", -1, -1, 0, 0)
-who('sos*')
-_make_figures("/tmp/tmp_19td8j7", "png", "Figure", -1, -1, 0, 0)
-function [b,deltas] = cg_solve(a,I,S,dcf,maxstep,trajectory)
-    p = a;
-    r = a;
-    b = zeros(300,300);
-    deltas = zeros(maxstep,1);
-    for ii=1:maxstep
-    disp(['Iteration -->' num2str(ii)]);
-    delta = r(:)'*r(:)/(a(:)'*a(:));
+    ks = 1/sqrt(numel(im))*fftshift(fftn(ifftshift(im)));
     
-    disp(delta);
-    deltas(ii) = delta;
-    E = opE(p,S,trajectory);
-    q = opEH(dcf,E,S,trajectory,I);
-    % dot(r,r) is equivalent to r(:)'*r(:). Used dot for easy reading. 
-    term = dot(r,r)/dot(p,q);
-    b = b + term*p;
-    rprev = r;
-    r = r - term*q;
-    term2 = dot(r,r)/dot(rprev,rprev);
-    p = r + term2*p;
-    end
+    dim = size(ks);
+    center = (dim + 1)/2;
+    [x,y] = meshgrid(-(center(2)-1):(dim(2)-center(2)),-(center(1)-1):(dim(1)-center(1)));
+    kRadius = sqrt(x.^2 + y.^2);
+    f_k = 0.5 + 1/pi.*atan(beta.*((r-kRadius)/r)); 
+    out = sqrt(numel(ks.*f_k))*fftshift(ifftn(ifftshift(ks.*f_k)));
+end
+_make_figures("/tmp/tmpztdjwo1z", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmpbc64pre4", "png", "Figure", -1, -1, 0, 0)
+imagesc(abs(im))
+ima = opF(im,100,40);
+_make_figures("/tmp/tmp5s6h2net", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmpkitfjkp9", "png", "Figure", -1, -1, 0, 0)
+ima = opF(im,100,40);
+imagesc(ima)
+_make_figures("/tmp/tmp4ruvsj4o", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmphhpxfyqa", "png", "Figure", -1, -1, 0, 0)
+ima = opF(im,100,40);
+imagesc(abs(ima))
+_make_figures("/tmp/tmp0xy5j8fs", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmp_r17k_z6", "png", "Figure", -1, -1, 0, 0)
+ima = opF(im,100,40);
+imagesc(abs(im))
+_make_figures("/tmp/tmpub29cav6", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmptyaa9__o", "png", "Figure", -1, -1, 0, 0)
+ima = opF(im,100,20);
+imagesc(abs(im))
+_make_figures("/tmp/tmpv3g43sxz", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmpmq5gu_ec", "png", "Figure", -1, -1, 0, 0)
+ima = opF(im,100,20);
+imagesc(abs(ima))
+_make_figures("/tmp/tmpb2otnv0f", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmpgiyxt8pd", "png", "Figure", -1, -1, 0, 0)
+ima = opF(im,100,60);
+imagesc(abs(ima))
+_make_figures("/tmp/tmp9xovtgmw", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmphb0h9d3d", "png", "Figure", -1, -1, 0, 0)
+ima = opF(im,100,70);
+imagesc(abs(ima))
+_make_figures("/tmp/tmpajaqejv9", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmpla9ca7uy", "png", "Figure", -1, -1, 0, 0)
+im3 = im.*I;
+ima = opF(im,100,70);
+imagesc(abs(im3))
+_make_figures("/tmp/tmpcc2q5mqa", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmpjb1pzj9f", "png", "Figure", -1, -1, 0, 0)
+im3 = im./I;
+ima = opF(im,100,70);
+imagesc(abs(im3))
+_make_figures("/tmp/tmp7ypoh7dy", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmp4lov28ue", "png", "Figure", -1, -1, 0, 0)
+im3 = im./I;
+ima = opF(im3,100,70);
+imagesc(abs(ima))
+_make_figures("/tmp/tmprpkr9_nj", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmpiupys5f3", "png", "Figure", -1, -1, 0, 0)
+im3 = im./I;
+ima = opF(abs(im3),100,70);
+imagesc(abs(ima))
+_make_figures("/tmp/tmpbq2v1mug", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmpnkgd_0uj", "png", "Figure", -1, -1, 0, 0)
+imagesc(im)
+_make_figures("/tmp/tmp7pnqol35", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmpv_fpphjt", "png", "Figure", -1, -1, 0, 0)
+imagesc(im./I)
+_make_figures("/tmp/tmp01m1352o", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmprlooeh9j", "png", "Figure", -1, -1, 0, 0)
+imagesc(im.*I)
+_make_figures("/tmp/tmp4mtj1nl_", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmplmf4av3x", "png", "Figure", -1, -1, 0, 0)
+imagesc(im./I)
+_make_figures("/tmp/tmp68zt2k9o", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmpvzuf47tw", "png", "Figure", -1, -1, 0, 0)
+im2 = opF(im,100,50);
+_make_figures("/tmp/tmpp2953wx9", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmpcsu7rnmn", "png", "Figure", -1, -1, 0, 0)
+im2 = opF(im,100,50);
+imagesc(abs(im2))
+_make_figures("/tmp/tmptor6b8m0", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmpmf0kwhev", "png", "Figure", -1, -1, 0, 0)
+im2 = opF(im,100,60);
+imagesc(abs(im2))
+_make_figures("/tmp/tmp1ah0abny", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmpq3d_thr0", "png", "Figure", -1, -1, 0, 0)
+im2 = opF(im,100,60);
+imagesc(abs(im2./I))
+_make_figures("/tmp/tmpz3ff2m5s", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmpaplzskva", "png", "Figure", -1, -1, 0, 0)
+im2 = opF(im,100,60);
+imagesc(abs(im2)./I)
+_make_figures("/tmp/tmpo3ps4a9i", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmp2p96r1wm", "png", "Figure", -1, -1, 0, 0)
+im2 = opF(im,100,60);
+imagesc(abs(im2))
+_make_figures("/tmp/tmpgyv7r8z9", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmpnb0sp0f9", "png", "Figure", -1, -1, 0, 0)
+im2 = opF(im./I,100,60);
+imagesc(abs(im2))
+_make_figures("/tmp/tmp_54pvqn8", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmpadkkbdha", "png", "Figure", -1, -1, 0, 0)
+im2 = opF(im,100,60);
+imagesc(abs(im2))
+_make_figures("/tmp/tmp5xheg0j0", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmppwr6re3h", "png", "Figure", -1, -1, 0, 0)
+im2 = opF(im,100,60);
+im2 = im2./I;
+imagesc(abs(im2))
+_make_figures("/tmp/tmpw04v8lsb", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmpq8jtkg5f", "png", "Figure", -1, -1, 0, 0)
+im2 = opF(im,100,60);
+im2 = abs(im2)./I;
+imagesc(abs(im2))
+_make_figures("/tmp/tmpr6vcljj3", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmpr73djww4", "png", "Figure", -1, -1, 0, 0)
+im2 = opF(im,100,60);
+size(im2)
+size(I)
+_make_figures("/tmp/tmp9w8q2z17", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmpawbq9et_", "png", "Figure", -1, -1, 0, 0)
+# Root sum of square of sensitivities (estimated in section 2.1) from 12 channels 
+I = abs(bart('rss 8',calib.*calib));
+I  = 1/sqrt(I);
+_make_figures("/tmp/tmpevkq9et7", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmpp0_qb_0i", "png", "Figure", -1, -1, 0, 0)
+# Root sum of square of sensitivities (estimated in section 2.1) from 12 channels 
+I = abs(bart('rss 8',calib.*calib));
+I  = 1./sqrt(I);
+_make_figures("/tmp/tmpu2sahinh", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmpgwutri3m", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmpkfava87a", "png", "Figure", -1, -1, 0, 0)
+display(sos_py_repr(I))
+_make_figures("/tmp/tmprowehhtn", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmpba1fur09", "png", "Figure", -1, -1, 0, 0)
+display(sos_py_repr(I))
+_make_figures("/tmp/tmp2hm41n5i", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmpe_2yg_ea", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmpctvscjw2", "png", "Figure", -1, -1, 0, 0)
+display(sos_py_repr(I))
+_make_figures("/tmp/tmpu8ojt0gy", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmp3t69dq__", "png", "Figure", -1, -1, 0, 0)
+display(sos_py_repr(I))
+_make_figures("/tmp/tmptogs9261", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmp0ndotq43", "png", "Figure", -1, -1, 0, 0)
+[im,deltas] = main_sense(rawdata, calib, trajectory,I,dcf,3);
+#[im_x2,deltas_x2] = main_sense(outRD_x2, calib, outTR_x2,I,dcf(:,:,1:2:end),10);
+#[im_x3,deltas_x3] = main_sense(outRD_x3, calib, outTR_x3,I,dcf(:,:,1:3:end),10);
+#[im_x4,deltas_x4] = main_sense(outRD_x4, calib, outTR_x4,I,dcf(:,:,1:4:end),10);
+_make_figures("/tmp/tmpu2q7wptk", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmp93qq0i9b", "png", "Figure", -1, -1, 0, 0)
+# Root sum of square of sensitivities (estimated in section 2.1) from 12 channels 
+I = abs(bart('rss 8',calib.*calib));
+_make_figures("/tmp/tmpdaa739es", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmpez9e8bfe", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmpdn1j0d97", "png", "Figure", -1, -1, 0, 0)
+display(sos_py_repr(I))
+_make_figures("/tmp/tmpazgjdlsn", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmp86nnm1t2", "png", "Figure", -1, -1, 0, 0)
+display(sos_py_repr(I))
+_make_figures("/tmp/tmp4eur884j", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmppuym71f7", "png", "Figure", -1, -1, 0, 0)
+[im,deltas] = main_sense(rawdata, calib, trajectory,I,dcf,3);
+#[im_x2,deltas_x2] = main_sense(outRD_x2, calib, outTR_x2,I,dcf(:,:,1:2:end),10);
+#[im_x3,deltas_x3] = main_sense(outRD_x3, calib, outTR_x3,I,dcf(:,:,1:3:end),10);
+#[im_x4,deltas_x4] = main_sense(outRD_x4, calib, outTR_x4,I,dcf(:,:,1:4:end),10);
+_make_figures("/tmp/tmp71h_qzxl", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmp_ybc3ddh", "png", "Figure", -1, -1, 0, 0)
+imagesc(im)
+_make_figures("/tmp/tmp_6krl632", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmp54wbgb57", "png", "Figure", -1, -1, 0, 0)
+imagesc(im./I)
+_make_figures("/tmp/tmp5txy63ng", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmpglf_pzdl", "png", "Figure", -1, -1, 0, 0)
+imagesc(im.*I)
+_make_figures("/tmp/tmpehx5tbek", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmpsp1h8stx", "png", "Figure", -1, -1, 0, 0)
+imagesc(im..I)
+_make_figures("/tmp/tmpannutdsf", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmp_8q3z3m9", "png", "Figure", -1, -1, 0, 0)
+imagesc(im/I)
+_make_figures("/tmp/tmpur47gmoi", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmpdx9fkdng", "png", "Figure", -1, -1, 0, 0)
+imagesc(im./I)
+_make_figures("/tmp/tmpvb_r6d90", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmp2umbr74w", "png", "Figure", -1, -1, 0, 0)
+function out = opF(im,beta,r)
     
-end
-_make_figures("/tmp/tmpm5kpxt5z", "png", "Figure", -1, -1, 0, 0)
-who('sos*')
-_make_figures("/tmp/tmpz2vj_ykl", "png", "Figure", -1, -1, 0, 0)
-function [im,deltas] = main_sense(rawdata, calib, trajectory,I,dcf,maxiter)
-    a = opEH(dcf,rawdata,calib,trajectory,I);
-    [im,deltas] = cg_solve(a,I,calib,dcf,maxiter,trajectory);
-    im = opF(im,100,40,300,I);
-end
-_make_figures("/tmp/tmpdxeogza3", "png", "Figure", -1, -1, 0, 0)
-who('sos*')
-_make_figures("/tmp/tmpcn1cysls", "png", "Figure", -1, -1, 0, 0)
-disp('Executed automatically');
-disp('Cell to load octave packages. To show, select the cell and click arrow up icon in the toolbar.');
-pkg load image 
-pkg load optim
-_make_figures("/tmp/tmpr00l1tli", "png", "Figure", -1, -1, 0, 0)
-who('sos*')
-_make_figures("/tmp/tmpgeb77tnn", "png", "Figure", -1, -1, 0, 0)
-% Mex c files for gridding by Brian Hargreaves and Philip Beatty 
-% http://mrsrl.stanford.edu/~brian/gridding/
-disp('Executed automatically');
-disp('Cell to MEX c functions for dcf. To show, select the cell and click arrow up icon in the toolbar.');
-mex gridlut_mex.c
-mex calcdcflut_mex.c
-_make_figures("/tmp/tmpbx_petcc", "png", "Figure", -1, -1, 0, 0)
-who('sos*')
-_make_figures("/tmp/tmp8wq_dctc", "png", "Figure", -1, -1, 0, 0)
-load('/tmp/rrsg_challenge/brain_radial_96proj_12ch.mat');
-whos % Show variables in the current scope
-_make_figures("/tmp/tmpn5lsurkx", "png", "Figure", -1, -1, 0, 0)
-who('sos*')
-_make_figures("/tmp/tmpvlpxok4k", "png", "Figure", -1, -1, 0, 0)
-function E = opE(inp,S,traj,I)
-    inp = inp.*I; % Scale with the intensity correction matrix, as operation I precedes operation E (see Fig. 1)
-    tmp = S.*inp; % Multiply the intensity corrected image with coil sensitivities. This will produce one image per channel stored in tmp variable
-    E = bart('nufft',traj,tmp); % Transform back to the non-uniform k-space (see implementation notes for details)
-end
-_make_figures("/tmp/tmpkxkc5fad", "png", "Figure", -1, -1, 0, 0)
-who('sos*')
-_make_figures("/tmp/tmpkt4kz2hd", "png", "Figure", -1, -1, 0, 0)
-function EH = opEH(dcf,inp,S,traj,I)
-  tmp = bart('nufft -d300:300:1 -i -l -t',traj,inp.*sqrt(dcf(1,:,:))); % NUFFT to image domain (see implementation notes)
-  
-  Sstar = conj(S(:,:,1,:)); %  Complex conjugate of sensitivity profiles (see Fig. 1)
-  
-  tmp2 = bart('rss 8 ',tmp.*Sstar); % Images scaled by complex conjugate of sensitivity profiles and SOS combined
-  
-  EH = tmp2.*I; % Scale output image by intensity correction
-end
-_make_figures("/tmp/tmpu2e1qcl3", "png", "Figure", -1, -1, 0, 0)
-who('sos*')
-_make_figures("/tmp/tmp2o3i63z6", "png", "Figure", -1, -1, 0, 0)
-function out = opF(im,beta,r,N,I)
+    ks = 1/sqrt(numel(im))*fftshift(fftn(ifftshift(im)));
     
-    im = im./I;
-    %imagesc(im);
-    im(isnan(im)==1) = 0;
-    f_k = zeros(N,N);
-    f_k(N/2+1,N/2+1) = 1;
-    f_k = bwdist(f_k);
-    f_k = 0.5 + 1/pi.*atan(beta.*((r-abs(f_k))/r));
-    f_k = fftshift(f_k);
-    im_k = fft2(im);
-    out = abs(ifft2(ifftshift(im_k.*f_k)));
+    dim = size(ks);
+    center = (dim + 1)/2;
+    [x,y] = meshgrid(-(center(2)-1):(dim(2)-center(2)),-(center(1)-1):(dim(1)-center(1)));
+    kRadius = sqrt(x.^2 + y.^2);
+    f_k = 0.5 + 1/pi.*atan(beta.*((r-kRadius)/r)); 
+    out = abs(sqrt(numel(ks.*f_k))*fftshift(ifftn(ifftshift(ks.*f_k))));
 end
-_make_figures("/tmp/tmppvl14wcf", "png", "Figure", -1, -1, 0, 0)
+_make_figures("/tmp/tmptei__emb", "png", "Figure", -1, -1, 0, 0)
 who('sos*')
-_make_figures("/tmp/tmp2534yad8", "png", "Figure", -1, -1, 0, 0)
-function [b,deltas] = cg_solve(a,I,S,dcf,maxstep,trajectory)
-    p = a;
-    r = a;
-    b = zeros(300,300);
-    deltas = zeros(maxstep,1);
-    for ii=1:maxstep
-    disp(['Iteration -->' num2str(ii)]);
-    delta = r(:)'*r(:)/(a(:)'*a(:));
+_make_figures("/tmp/tmp6xld6hza", "png", "Figure", -1, -1, 0, 0)
+im4 = opF(im./I,100,50);
+imagesc(im4)
+_make_figures("/tmp/tmpqy20_h3j", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmp3_q3e4hm", "png", "Figure", -1, -1, 0, 0)
+im4 = opF(im,100,50);
+imagesc(im4)
+_make_figures("/tmp/tmpv8_8snpw", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmp0hil1u25", "png", "Figure", -1, -1, 0, 0)
+im4 = opF(im,100,60);
+imagesc(im4)
+_make_figures("/tmp/tmpj98btwr_", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmpim1re8k5", "png", "Figure", -1, -1, 0, 0)
+im4 = opF(im,100,60);
+imagesc(abs(im4)
+_make_figures("/tmp/tmpuklppw6w", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmpe7sttbvu", "png", "Figure", -1, -1, 0, 0)
+im4 = opF(im,100,60);
+imagesc(abs(im4))
+_make_figures("/tmp/tmpw9tvrqgr", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmpz85hltj9", "png", "Figure", -1, -1, 0, 0)
+im4 = opF(im,100,60);
+imagesc(im4.*I)
+_make_figures("/tmp/tmp140cbleq", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmp42z6quzm", "png", "Figure", -1, -1, 0, 0)
+im4 = opF(im,100,60);
+imagesc(im4./I)
+_make_figures("/tmp/tmpwpdwqqak", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmpgesvqhba", "png", "Figure", -1, -1, 0, 0)
+im4 = opF(im,100,60);
+imagesc(im4./abs(I)
+_make_figures("/tmp/tmpze5sggub", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmp89y36a3_", "png", "Figure", -1, -1, 0, 0)
+im4 = opF(im,100,60);
+imagesc(im4./abs(I))
+_make_figures("/tmp/tmpz4mxjepn", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmpgf8luw8l", "png", "Figure", -1, -1, 0, 0)
+im4 = opF(im,100,60);
+imagesc(abs(im4)./abs(I))
+_make_figures("/tmp/tmp_p043rqb", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmp5u75m28s", "png", "Figure", -1, -1, 0, 0)
+ima = im./I;
+im4 = opF(ima,100,60);
+_make_figures("/tmp/tmpk_8kjdfx", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmpjbepw2x1", "png", "Figure", -1, -1, 0, 0)
+ima = im./I;
+im4 = opF(ima,100,60);
+imagesc(im4)
+_make_figures("/tmp/tmp5z745wn6", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmphwhx_frh", "png", "Figure", -1, -1, 0, 0)
+ima = im./I;
+im4 = opF(ima,100,60);
+imagesc(abs(im4))
+_make_figures("/tmp/tmpsbaiq6yp", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmp4l3_ml_4", "png", "Figure", -1, -1, 0, 0)
+ima = im./I;
+im4 = opF(ima,100,40);
+imagesc(abs(im4))
+_make_figures("/tmp/tmpidccb30m", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmprbme7g63", "png", "Figure", -1, -1, 0, 0)
+ima = im./I;
+im4 = opF(ima,100,30);
+imagesc(abs(im4))
+_make_figures("/tmp/tmp_v_340ev", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmpv44pc89p", "png", "Figure", -1, -1, 0, 0)
+ima = im./I;
+imagesc(ima)
+im4 = opF(ima,100,30);
+imagesc(abs(im4))
+_make_figures("/tmp/tmpcu2ktvhh", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmpo958nk25", "png", "Figure", -1, -1, 0, 0)
+ima = im./I;
+imagesc(abs(ima))
+im4 = opF(ima,100,30);
+imagesc(abs(im4))
+_make_figures("/tmp/tmps22fgicm", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmptem0uc9a", "png", "Figure", -1, -1, 0, 0)
+ima = im./I;
+imagesc(abs(im))
+im4 = opF(ima,100,30);
+imagesc(abs(im4))
+_make_figures("/tmp/tmp7029xq2u", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmp8ea4z5wo", "png", "Figure", -1, -1, 0, 0)
+ima = im./I;
+imagesc(abs(im))
+im4 = opF(ima,100,30);
+_make_figures("/tmp/tmpqen02zn3", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmp7qdc2xu4", "png", "Figure", -1, -1, 0, 0)
+ima = im./I;
+imagesc(abs(ima))
+im4 = opF(ima,100,30);
+_make_figures("/tmp/tmp05i9nyxy", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmpfnvf4anl", "png", "Figure", -1, -1, 0, 0)
+function out = opF(im,beta,r)
     
-    disp(delta);
-    deltas(ii) = delta;
-    E = opE(p,S,trajectory);
-    q = opEH(dcf,E,S,trajectory,I);
-    % dot(r,r) is equivalent to r(:)'*r(:). Used dot for easy reading. 
-    term = dot(r,r)/dot(p,q);
-    b = b + term*p;
-    rprev = r;
-    r = r - term*q;
-    term2 = dot(r,r)/dot(rprev,rprev);
-    p = r + term2*p;
-    end
+    ks = 1/sqrt(numel(im))*fftshift(fftn(ifftshift(im)));
     
+    dim = size(ks);
+    center = (dim + 1)/2;
+    [x,y] = meshgrid(-(center(2)-1):(dim(2)-center(2)),-(center(1)-1):(dim(1)-center(1)));
+    kRadius = sqrt(x.^2 + y.^2);
+    f_k = 0.5 + 1/pi.*atan(beta.*((r-kRadius)/r)); 
+    out = sqrt(numel(ks.*f_k))*fftshift(ifftn(ifftshift(ks.*f_k)));
 end
-_make_figures("/tmp/tmp7e0eb3wc", "png", "Figure", -1, -1, 0, 0)
-who('sos*')
-_make_figures("/tmp/tmprlxywqup", "png", "Figure", -1, -1, 0, 0)
-function [im,deltas] = main_sense(rawdata, calib, trajectory,I,dcf,maxiter)
-    a = opEH(dcf,rawdata,calib,trajectory,I);
-    [im,deltas] = cg_solve(a,I,calib,dcf,maxiter,trajectory);
-    im = opF(im,100,40,300,I);
-end
-_make_figures("/tmp/tmp_5zsrzwj", "png", "Figure", -1, -1, 0, 0)
-# Octave 4.2.2, Mon Sep 16 01:20:57 2019 UTC <jovyan@2fe52cfb110c>
-PS1('PEXPECT_PROMPT>'); PS2('PEXPECT_PROMPT_')
-graphics_toolkit
-more off; source ~/.octaverc; cd("/home/jovyan");PS1('PEXPECT_PROMPT>'); PS2('PEXPECT_PROMPT_')
-addpath("/srv/conda/envs/notebook/lib/python3.7/site-packages/octave_kernel")
-graphics_toolkit('gnuplot')
-set(0, 'defaultfigurevisible', 'off');
-version
-path(path, '/srv/conda/envs/notebook/lib/python3.7/site-packages/sos_matlab')
-pkg load dataframe
-_make_figures("/tmp/tmprbj3b_bq", "png", "Figure", -1, -1, 0, 0)
-disp('Executed automatically');
-disp('Cell to load octave packages. To show, select the cell and click arrow up icon in the toolbar.');
-pkg load image 
-pkg load optim
-_make_figures("/tmp/tmp_3bpltfo", "png", "Figure", -1, -1, 0, 0)
-who('sos*')
-_make_figures("/tmp/tmpwcco8bps", "png", "Figure", -1, -1, 0, 0)
-% Mex c files for gridding by Brian Hargreaves and Philip Beatty 
-% http://mrsrl.stanford.edu/~brian/gridding/
-disp('Executed automatically');
-disp('Cell to MEX c functions for dcf. To show, select the cell and click arrow up icon in the toolbar.');
-mex gridlut_mex.c
-mex calcdcflut_mex.c
-_make_figures("/tmp/tmp7teinr30", "png", "Figure", -1, -1, 0, 0)
-who('sos*')
-_make_figures("/tmp/tmp9xru7vc2", "png", "Figure", -1, -1, 0, 0)
-load('/tmp/rrsg_challenge/brain_radial_96proj_12ch.mat');
-whos % Show variables in the current scope
-_make_figures("/tmp/tmpx6d9zx5i", "png", "Figure", -1, -1, 0, 0)
-who('sos*')
-_make_figures("/tmp/tmppip7o8x7", "png", "Figure", -1, -1, 0, 0)
-rawdata = permute(rawdata,[4,3,2,1]); 
-trajectory = permute(trajectory,[3,2,1]);
-[~,nFE,nSpokes,nCh] = size(rawdata);
-whos
-_make_figures("/tmp/tmp5ex1h7n1", "png", "Figure", -1, -1, 0, 0)
-who('sos*')
-_make_figures("/tmp/tmpi05x99qp", "png", "Figure", -1, -1, 0, 0)
-function E = opE(inp,S,traj,I)
-    inp = inp.*I; % Scale with the intensity correction matrix, as operation I precedes operation E (see Fig. 1)
-    tmp = S.*inp; % Multiply the intensity corrected image with coil sensitivities. This will produce one image per channel stored in tmp variable
-    E = bart('nufft',traj,tmp); % Transform back to the non-uniform k-space (see implementation notes for details)
-end
-_make_figures("/tmp/tmpunovnl5n", "png", "Figure", -1, -1, 0, 0)
-who('sos*')
-_make_figures("/tmp/tmp3pu0bzsk", "png", "Figure", -1, -1, 0, 0)
-function EH = opEH(dcf,inp,S,traj,I)
-  tmp = bart('nufft -d300:300:1 -i -l -t',traj,inp.*sqrt(dcf(1,:,:))); % NUFFT to image domain (see implementation notes)
-  
-  Sstar = conj(S(:,:,1,:)); %  Complex conjugate of sensitivity profiles (see Fig. 1)
-  
-  tmp2 = bart('rss 8 ',tmp.*Sstar); % Images scaled by complex conjugate of sensitivity profiles and SOS combined
-  
-  EH = tmp2.*I; % Scale output image by intensity correction
-end
-_make_figures("/tmp/tmpjkemujhh", "png", "Figure", -1, -1, 0, 0)
-who('sos*')
-_make_figures("/tmp/tmpr7uoe3xh", "png", "Figure", -1, -1, 0, 0)
-function out = opF(im,beta,r,N,I)
-    
-    im = im./I;
-    %imagesc(im);
-    im(isnan(im)==1) = 0;
-    f_k = zeros(N,N);
-    f_k(N/2+1,N/2+1) = 1;
-    f_k = bwdist(f_k);
-    f_k = 0.5 + 1/pi.*atan(beta.*((r-abs(f_k))/r));
-    f_k = fftshift(f_k);
-    im_k = fft2(im);
-    out = abs(ifft2(ifftshift(im_k.*f_k)));
-end
-_make_figures("/tmp/tmpza0gd05f", "png", "Figure", -1, -1, 0, 0)
-who('sos*')
-_make_figures("/tmp/tmpewrsr9q9", "png", "Figure", -1, -1, 0, 0)
-function [b,deltas] = cg_solve(a,I,S,dcf,maxstep,trajectory)
-    p = a;
-    r = a;
-    b = zeros(300,300);
-    deltas = zeros(maxstep,1);
-    for ii=1:maxstep
-    disp(['Iteration -->' num2str(ii)]);
-    delta = r(:)'*r(:)/(a(:)'*a(:));
-    
-    disp(delta);
-    deltas(ii) = delta;
-    E = opE(p,S,trajectory);
-    q = opEH(dcf,E,S,trajectory,I);
-    % dot(r,r) is equivalent to r(:)'*r(:). Used dot for easy reading. 
-    term = dot(r,r)/dot(p,q);
-    b = b + term*p;
-    rprev = r;
-    r = r - term*q;
-    term2 = dot(r,r)/dot(rprev,rprev);
-    p = r + term2*p;
-    end
-    
-end
-_make_figures("/tmp/tmphmp807cy", "png", "Figure", -1, -1, 0, 0)
-who('sos*')
-_make_figures("/tmp/tmp3u77alb7", "png", "Figure", -1, -1, 0, 0)
-function [im,deltas] = main_sense(rawdata, calib, trajectory,I,dcf,maxiter)
-    a = opEH(dcf,rawdata,calib,trajectory,I);
-    [im,deltas] = cg_solve(a,I,calib,dcf,maxiter,trajectory);
-    im = opF(im,100,40,300,I);
-end
-_make_figures("/tmp/tmp11ymmhr_", "png", "Figure", -1, -1, 0, 0)
-who('sos*')
-_make_figures("/tmp/tmpwnmg3_wo", "png", "Figure", -1, -1, 0, 0)
-disp('Executed automatically');
-disp('Cell to load octave packages. To show, select the cell and click arrow up icon in the toolbar.');
-pkg load image 
-pkg load optim
-_make_figures("/tmp/tmpeje32b7x", "png", "Figure", -1, -1, 0, 0)
-who('sos*')
-_make_figures("/tmp/tmp2d8j_4iu", "png", "Figure", -1, -1, 0, 0)
-% Mex c files for gridding by Brian Hargreaves and Philip Beatty 
-% http://mrsrl.stanford.edu/~brian/gridding/
-disp('Executed automatically');
-disp('Cell to MEX c functions for dcf. To show, select the cell and click arrow up icon in the toolbar.');
-mex gridlut_mex.c
-mex calcdcflut_mex.c
-_make_figures("/tmp/tmpz_tw1xbb", "png", "Figure", -1, -1, 0, 0)
-who('sos*')
-_make_figures("/tmp/tmpptx8xdv5", "png", "Figure", -1, -1, 0, 0)
-load('/tmp/rrsg_challenge/brain_radial_96proj_12ch.mat');
-whos % Show variables in the current scope
-_make_figures("/tmp/tmpw46qjzoj", "png", "Figure", -1, -1, 0, 0)
-who('sos*')
-_make_figures("/tmp/tmpy11vomsn", "png", "Figure", -1, -1, 0, 0)
-rawdata = permute(rawdata,[4,3,2,1]); 
-trajectory = permute(trajectory,[3,2,1]);
-[~,nFE,nSpokes,nCh] = size(rawdata);
-whos
-_make_figures("/tmp/tmpzfaufw5y", "png", "Figure", -1, -1, 0, 0)
-who('sos*')
-_make_figures("/tmp/tmpr6vkz8e7", "png", "Figure", -1, -1, 0, 0)
-function E = opE(inp,S,traj,I)
-    inp = inp.*I; % Scale with the intensity correction matrix, as operation I precedes operation E (see Fig. 1)
-    tmp = S.*inp; % Multiply the intensity corrected image with coil sensitivities. This will produce one image per channel stored in tmp variable
-    E = bart('nufft',traj,tmp); % Transform back to the non-uniform k-space (see implementation notes for details)
-end
-_make_figures("/tmp/tmp678az5ab", "png", "Figure", -1, -1, 0, 0)
-who('sos*')
-_make_figures("/tmp/tmpusc3pc49", "png", "Figure", -1, -1, 0, 0)
-function EH = opEH(dcf,inp,S,traj,I)
-  tmp = bart('nufft -d300:300:1 -i -l -t',traj,inp.*sqrt(dcf(1,:,:))); % NUFFT to image domain (see implementation notes)
-  
-  Sstar = conj(S(:,:,1,:)); %  Complex conjugate of sensitivity profiles (see Fig. 1)
-  
-  tmp2 = bart('rss 8 ',tmp.*Sstar); % Images scaled by complex conjugate of sensitivity profiles and SOS combined
-  
-  EH = tmp2.*I; % Scale output image by intensity correction
-end
-_make_figures("/tmp/tmpyzm2ev67", "png", "Figure", -1, -1, 0, 0)
-who('sos*')
-_make_figures("/tmp/tmp5pjwd8u3", "png", "Figure", -1, -1, 0, 0)
-function out = opF(im,beta,r,N,I)
-    
-    im = im./I;
-    %imagesc(im);
-    im(isnan(im)==1) = 0;
-    f_k = zeros(N,N);
-    f_k(N/2+1,N/2+1) = 1;
-    f_k = bwdist(f_k);
-    f_k = 0.5 + 1/pi.*atan(beta.*((r-abs(f_k))/r));
-    f_k = fftshift(f_k);
-    im_k = fft2(im);
-    out = abs(ifft2(ifftshift(im_k.*f_k)));
-end
-_make_figures("/tmp/tmpxhpyqaml", "png", "Figure", -1, -1, 0, 0)
-who('sos*')
-_make_figures("/tmp/tmpu49nhsur", "png", "Figure", -1, -1, 0, 0)
-function [b,deltas] = cg_solve(a,I,S,dcf,maxstep,trajectory)
-    p = a;
-    r = a;
-    b = zeros(300,300);
-    deltas = zeros(maxstep,1);
-    for ii=1:maxstep
-    disp(['Iteration -->' num2str(ii)]);
-    delta = r(:)'*r(:)/(a(:)'*a(:));
-    
-    disp(delta);
-    deltas(ii) = delta;
-    E = opE(p,S,trajectory);
-    q = opEH(dcf,E,S,trajectory,I);
-    % dot(r,r) is equivalent to r(:)'*r(:). Used dot for easy reading. 
-    term = dot(r,r)/dot(p,q);
-    b = b + term*p;
-    rprev = r;
-    r = r - term*q;
-    term2 = dot(r,r)/dot(rprev,rprev);
-    p = r + term2*p;
-    end
-    
-end
-_make_figures("/tmp/tmpbf8vc1lm", "png", "Figure", -1, -1, 0, 0)
-who('sos*')
-_make_figures("/tmp/tmp9zgte62y", "png", "Figure", -1, -1, 0, 0)
-function [im,deltas] = main_sense(rawdata, calib, trajectory,I,dcf,maxiter)
-    a = opEH(dcf,rawdata,calib,trajectory,I);
-    [im,deltas] = cg_solve(a,I,calib,dcf,maxiter,trajectory);
-    im = opF(im,100,40,300,I);
-end
-_make_figures("/tmp/tmpa6voovzi", "png", "Figure", -1, -1, 0, 0)
-who('sos*')
-_make_figures("/tmp/tmpx7crrhk2", "png", "Figure", -1, -1, 0, 0)
-who('sos*')
-_make_figures("/tmp/tmpkx07i4mp", "png", "Figure", -1, -1, 0, 0)
-display(sos_py_repr(rawdata))
-_make_figures("/tmp/tmplrjaabrk", "png", "Figure", -1, -1, 0, 0)
-who('sos*')
-_make_figures("/tmp/tmpciuk1yiy", "png", "Figure", -1, -1, 0, 0)
-display(sos_py_repr(rawdata))
-_make_figures("/tmp/tmph_kh62xv", "png", "Figure", -1, -1, 0, 0)
-who('sos*')
-_make_figures("/tmp/tmp3oebmylk", "png", "Figure", -1, -1, 0, 0)
-who('sos*')
-_make_figures("/tmp/tmpwhu1z7h_", "png", "Figure", -1, -1, 0, 0)
-display(sos_py_repr(nFE))
-_make_figures("/tmp/tmpqlobwad0", "png", "Figure", -1, -1, 0, 0)
-who('sos*')
-_make_figures("/tmp/tmpips4v5j2", "png", "Figure", -1, -1, 0, 0)
-display(sos_py_repr(nFE))
-_make_figures("/tmp/tmpxyows_8o", "png", "Figure", -1, -1, 0, 0)
-who('sos*')
-_make_figures("/tmp/tmpiz_e3qfz", "png", "Figure", -1, -1, 0, 0)
-who('sos*')
-_make_figures("/tmp/tmpyeaj0ixg", "png", "Figure", -1, -1, 0, 0)
-display(sos_py_repr(nSpokes))
-_make_figures("/tmp/tmppw7wuyyx", "png", "Figure", -1, -1, 0, 0)
-who('sos*')
-_make_figures("/tmp/tmp966709gq", "png", "Figure", -1, -1, 0, 0)
-display(sos_py_repr(nSpokes))
-_make_figures("/tmp/tmp9unjj5s1", "png", "Figure", -1, -1, 0, 0)
-who('sos*')
-_make_figures("/tmp/tmpriz4jlow", "png", "Figure", -1, -1, 0, 0)
-who('sos*')
-_make_figures("/tmp/tmpu9e8scak", "png", "Figure", -1, -1, 0, 0)
-display(sos_py_repr(nCh))
-_make_figures("/tmp/tmprxn9xotx", "png", "Figure", -1, -1, 0, 0)
-who('sos*')
-_make_figures("/tmp/tmpeu6oesgt", "png", "Figure", -1, -1, 0, 0)
-display(sos_py_repr(nCh))
-_make_figures("/tmp/tmpm87x_1iu", "png", "Figure", -1, -1, 0, 0)
-who('sos*')
-_make_figures("/tmp/tmp1e0iqkbt", "png", "Figure", -1, -1, 0, 0)
-who('sos*')
-_make_figures("/tmp/tmp_l5qtc9j", "png", "Figure", -1, -1, 0, 0)
-display(sos_py_repr(rawdata))
-_make_figures("/tmp/tmpd66uq_9d", "png", "Figure", -1, -1, 0, 0)
-who('sos*')
-_make_figures("/tmp/tmpnbc7ogsy", "png", "Figure", -1, -1, 0, 0)
-display(sos_py_repr(rawdata))
-_make_figures("/tmp/tmpwvghhgi8", "png", "Figure", -1, -1, 0, 0)
-who('sos*')
-_make_figures("/tmp/tmprpuw6dg_", "png", "Figure", -1, -1, 0, 0)
-who('sos*')
-_make_figures("/tmp/tmploytlg6i", "png", "Figure", -1, -1, 0, 0)
-display(sos_py_repr(nFE))
-_make_figures("/tmp/tmptf8b4pzk", "png", "Figure", -1, -1, 0, 0)
-who('sos*')
-_make_figures("/tmp/tmpdqq4gqdc", "png", "Figure", -1, -1, 0, 0)
-display(sos_py_repr(nFE))
-_make_figures("/tmp/tmpevqgwl0f", "png", "Figure", -1, -1, 0, 0)
-who('sos*')
-_make_figures("/tmp/tmpyq4siwkz", "png", "Figure", -1, -1, 0, 0)
-who('sos*')
-_make_figures("/tmp/tmp7y8jigv7", "png", "Figure", -1, -1, 0, 0)
-display(sos_py_repr(nSpokes))
-_make_figures("/tmp/tmpzxhtleob", "png", "Figure", -1, -1, 0, 0)
-who('sos*')
-_make_figures("/tmp/tmpuegvj1ks", "png", "Figure", -1, -1, 0, 0)
-display(sos_py_repr(nSpokes))
-_make_figures("/tmp/tmpv87shceu", "png", "Figure", -1, -1, 0, 0)
-who('sos*')
-_make_figures("/tmp/tmplv3gds7y", "png", "Figure", -1, -1, 0, 0)
-who('sos*')
-_make_figures("/tmp/tmpn5p0dojp", "png", "Figure", -1, -1, 0, 0)
-display(sos_py_repr(nCh))
-_make_figures("/tmp/tmphyqxmmu5", "png", "Figure", -1, -1, 0, 0)
-who('sos*')
-_make_figures("/tmp/tmphlpyx7x4", "png", "Figure", -1, -1, 0, 0)
-display(sos_py_repr(nCh))
-_make_figures("/tmp/tmp9pgzurdq", "png", "Figure", -1, -1, 0, 0)
-who('sos*')
-_make_figures("/tmp/tmpq0e7rrry", "png", "Figure", -1, -1, 0, 0)
-who('sos*')
-_make_figures("/tmp/tmpu_a8a3au", "png", "Figure", -1, -1, 0, 0)
-display(sos_py_repr(rawdata))
-_make_figures("/tmp/tmp5gltkzag", "png", "Figure", -1, -1, 0, 0)
-who('sos*')
-_make_figures("/tmp/tmpuo52v_70", "png", "Figure", -1, -1, 0, 0)
-display(sos_py_repr(rawdata))
-_make_figures("/tmp/tmp0kq3idbd", "png", "Figure", -1, -1, 0, 0)
-who('sos*')
-_make_figures("/tmp/tmpwz16hfhl", "png", "Figure", -1, -1, 0, 0)
-# Octave 4.2.2, Mon Sep 16 01:25:53 2019 UTC <jovyan@2fe52cfb110c>
-PS1('PEXPECT_PROMPT>'); PS2('PEXPECT_PROMPT_')
-graphics_toolkit
-more off; source ~/.octaverc; cd("/home/jovyan");PS1('PEXPECT_PROMPT>'); PS2('PEXPECT_PROMPT_')
-addpath("/srv/conda/envs/notebook/lib/python3.7/site-packages/octave_kernel")
-graphics_toolkit('gnuplot')
-set(0, 'defaultfigurevisible', 'off');
-version
-path(path, '/srv/conda/envs/notebook/lib/python3.7/site-packages/sos_matlab')
-pkg load dataframe
-_make_figures("/tmp/tmpbofspt8g", "png", "Figure", -1, -1, 0, 0)
-disp('Executed automatically');
-disp('Cell to load octave packages. To show, select the cell and click arrow up icon in the toolbar.');
-pkg load image 
-pkg load optim
-_make_figures("/tmp/tmp1avb6kmz", "png", "Figure", -1, -1, 0, 0)
-who('sos*')
-_make_figures("/tmp/tmp772q85p5", "png", "Figure", -1, -1, 0, 0)
-% Mex c files for gridding by Brian Hargreaves and Philip Beatty 
-% http://mrsrl.stanford.edu/~brian/gridding/
-disp('Executed automatically');
-disp('Cell to MEX c functions for dcf. To show, select the cell and click arrow up icon in the toolbar.');
-mex gridlut_mex.c
-mex calcdcflut_mex.c
-_make_figures("/tmp/tmpwc2fjpyt", "png", "Figure", -1, -1, 0, 0)
-who('sos*')
-_make_figures("/tmp/tmp3m_cytf6", "png", "Figure", -1, -1, 0, 0)
-load('/tmp/rrsg_challenge/brain_radial_96proj_12ch.mat');
-whos % Show variables in the current scope
-_make_figures("/tmp/tmp3spbd2rd", "png", "Figure", -1, -1, 0, 0)
-who('sos*')
-_make_figures("/tmp/tmp_ium2i8n", "png", "Figure", -1, -1, 0, 0)
-rawdata = permute(rawdata,[4,3,2,1]); 
-trajectory = permute(trajectory,[3,2,1]);
-[~,nFE,nSpokes,nCh] = size(rawdata);
-whos
-_make_figures("/tmp/tmpqe9qxk2i", "png", "Figure", -1, -1, 0, 0)
-who('sos*')
-_make_figures("/tmp/tmpr98gwt7h", "png", "Figure", -1, -1, 0, 0)
-function E = opE(inp,S,traj,I)
-    inp = inp.*I; % Scale with the intensity correction matrix, as operation I precedes operation E (see Fig. 1)
-    tmp = S.*inp; % Multiply the intensity corrected image with coil sensitivities. This will produce one image per channel stored in tmp variable
-    E = bart('nufft',traj,tmp); % Transform back to the non-uniform k-space (see implementation notes for details)
-end
-_make_figures("/tmp/tmpc1gwa43p", "png", "Figure", -1, -1, 0, 0)
-who('sos*')
-_make_figures("/tmp/tmpk9wuqq08", "png", "Figure", -1, -1, 0, 0)
-function EH = opEH(dcf,inp,S,traj,I)
-  tmp = bart('nufft -d300:300:1 -i -l -t',traj,inp.*sqrt(dcf(1,:,:))); % NUFFT to image domain (see implementation notes)
-  
-  Sstar = conj(S(:,:,1,:)); %  Complex conjugate of sensitivity profiles (see Fig. 1)
-  
-  tmp2 = bart('rss 8 ',tmp.*Sstar); % Images scaled by complex conjugate of sensitivity profiles and SOS combined
-  
-  EH = tmp2.*I; % Scale output image by intensity correction
-end
-_make_figures("/tmp/tmph7e3us6e", "png", "Figure", -1, -1, 0, 0)
-who('sos*')
-_make_figures("/tmp/tmpfm3m47pi", "png", "Figure", -1, -1, 0, 0)
-function out = opF(im,beta,r,N,I)
-    
-    im = im./I;
-    %imagesc(im);
-    im(isnan(im)==1) = 0;
-    f_k = zeros(N,N);
-    f_k(N/2+1,N/2+1) = 1;
-    f_k = bwdist(f_k);
-    f_k = 0.5 + 1/pi.*atan(beta.*((r-abs(f_k))/r));
-    f_k = fftshift(f_k);
-    im_k = fft2(im);
-    out = abs(ifft2(ifftshift(im_k.*f_k)));
-end
-_make_figures("/tmp/tmpz4f3n_nm", "png", "Figure", -1, -1, 0, 0)
-who('sos*')
-_make_figures("/tmp/tmp2l442heb", "png", "Figure", -1, -1, 0, 0)
-function [b,deltas] = cg_solve(a,I,S,dcf,maxstep,trajectory)
-    p = a;
-    r = a;
-    b = zeros(300,300);
-    deltas = zeros(maxstep,1);
-    for ii=1:maxstep
-    disp(['Iteration -->' num2str(ii)]);
-    delta = r(:)'*r(:)/(a(:)'*a(:));
-    
-    disp(delta);
-    deltas(ii) = delta;
-    E = opE(p,S,trajectory);
-    q = opEH(dcf,E,S,trajectory,I);
-    % dot(r,r) is equivalent to r(:)'*r(:). Used dot for easy reading. 
-    term = dot(r,r)/dot(p,q);
-    b = b + term*p;
-    rprev = r;
-    r = r - term*q;
-    term2 = dot(r,r)/dot(rprev,rprev);
-    p = r + term2*p;
-    end
-    
-end
-_make_figures("/tmp/tmp1l64l55d", "png", "Figure", -1, -1, 0, 0)
-who('sos*')
-_make_figures("/tmp/tmp_l8o9i2q", "png", "Figure", -1, -1, 0, 0)
-function [im,deltas] = main_sense(rawdata, calib, trajectory,I,dcf,maxiter)
-    a = opEH(dcf,rawdata,calib,trajectory,I);
-    [im,deltas] = cg_solve(a,I,calib,dcf,maxiter,trajectory);
-    im = opF(im,100,40,300,I);
-end
-_make_figures("/tmp/tmpjffs44rr", "png", "Figure", -1, -1, 0, 0)
-who('sos*')
-_make_figures("/tmp/tmpt9ylv5yp", "png", "Figure", -1, -1, 0, 0)
-who('sos*')
-_make_figures("/tmp/tmp01tsdkog", "png", "Figure", -1, -1, 0, 0)
-display(sos_py_repr(rawdata))
-_make_figures("/tmp/tmpaz_ab5tj", "png", "Figure", -1, -1, 0, 0)
-who('sos*')
-_make_figures("/tmp/tmphdaj294l", "png", "Figure", -1, -1, 0, 0)
-display(sos_py_repr(rawdata))
-_make_figures("/tmp/tmpzrsp0oht", "png", "Figure", -1, -1, 0, 0)
-who('sos*')
-_make_figures("/tmp/tmpu9gnd1a_", "png", "Figure", -1, -1, 0, 0)
-who('sos*')
-_make_figures("/tmp/tmpxfynyoms", "png", "Figure", -1, -1, 0, 0)
-display(sos_py_repr(nFE))
-_make_figures("/tmp/tmpwuzuwrl0", "png", "Figure", -1, -1, 0, 0)
-who('sos*')
-_make_figures("/tmp/tmplf7vgw0h", "png", "Figure", -1, -1, 0, 0)
-display(sos_py_repr(nFE))
-_make_figures("/tmp/tmpwkbztk5_", "png", "Figure", -1, -1, 0, 0)
-who('sos*')
-_make_figures("/tmp/tmp68c7h65w", "png", "Figure", -1, -1, 0, 0)
-who('sos*')
-_make_figures("/tmp/tmpqq8cfwnm", "png", "Figure", -1, -1, 0, 0)
-display(sos_py_repr(nSpokes))
-_make_figures("/tmp/tmps4mltxkz", "png", "Figure", -1, -1, 0, 0)
-who('sos*')
-_make_figures("/tmp/tmpsbghrj39", "png", "Figure", -1, -1, 0, 0)
-display(sos_py_repr(nSpokes))
-_make_figures("/tmp/tmpz17z_iiq", "png", "Figure", -1, -1, 0, 0)
-who('sos*')
-_make_figures("/tmp/tmpf0v_dk6b", "png", "Figure", -1, -1, 0, 0)
-who('sos*')
-_make_figures("/tmp/tmpunvr6qbv", "png", "Figure", -1, -1, 0, 0)
-display(sos_py_repr(nCh))
-_make_figures("/tmp/tmpgdtakpqq", "png", "Figure", -1, -1, 0, 0)
-who('sos*')
-_make_figures("/tmp/tmp5ewv2f45", "png", "Figure", -1, -1, 0, 0)
-display(sos_py_repr(nCh))
-_make_figures("/tmp/tmpqtzohk01", "png", "Figure", -1, -1, 0, 0)
-who('sos*')
-_make_figures("/tmp/tmphbvz4et7", "png", "Figure", -1, -1, 0, 0)
-who('sos*')
-_make_figures("/tmp/tmpdajfnks3", "png", "Figure", -1, -1, 0, 0)
-display(sos_py_repr(rawdata))
-_make_figures("/tmp/tmpowdy_sq2", "png", "Figure", -1, -1, 0, 0)
-who('sos*')
-_make_figures("/tmp/tmpyp70jiqs", "png", "Figure", -1, -1, 0, 0)
-display(sos_py_repr(rawdata))
-_make_figures("/tmp/tmp5c2btnal", "png", "Figure", -1, -1, 0, 0)
-who('sos*')
-_make_figures("/tmp/tmp3w4ilv8c", "png", "Figure", -1, -1, 0, 0)
-who('sos*')
-_make_figures("/tmp/tmp5mhkikud", "png", "Figure", -1, -1, 0, 0)
-display(sos_py_repr(nFE))
-_make_figures("/tmp/tmpyvoaj5nr", "png", "Figure", -1, -1, 0, 0)
-who('sos*')
-_make_figures("/tmp/tmpxzm3tqsn", "png", "Figure", -1, -1, 0, 0)
-display(sos_py_repr(nFE))
-_make_figures("/tmp/tmpdmxnorv_", "png", "Figure", -1, -1, 0, 0)
-who('sos*')
-_make_figures("/tmp/tmpt3ccn91p", "png", "Figure", -1, -1, 0, 0)
-who('sos*')
-_make_figures("/tmp/tmpnx1p_cha", "png", "Figure", -1, -1, 0, 0)
-display(sos_py_repr(nSpokes))
-_make_figures("/tmp/tmp7u9cctgq", "png", "Figure", -1, -1, 0, 0)
-who('sos*')
-_make_figures("/tmp/tmpe5oqs835", "png", "Figure", -1, -1, 0, 0)
-display(sos_py_repr(nSpokes))
-_make_figures("/tmp/tmpddhdgs_h", "png", "Figure", -1, -1, 0, 0)
-who('sos*')
-_make_figures("/tmp/tmpjzfjhga8", "png", "Figure", -1, -1, 0, 0)
-who('sos*')
-_make_figures("/tmp/tmp5_x59g06", "png", "Figure", -1, -1, 0, 0)
-display(sos_py_repr(nCh))
-_make_figures("/tmp/tmpvx7n3wx5", "png", "Figure", -1, -1, 0, 0)
-who('sos*')
-_make_figures("/tmp/tmpi695sjh0", "png", "Figure", -1, -1, 0, 0)
-display(sos_py_repr(nCh))
-_make_figures("/tmp/tmp90f39vbf", "png", "Figure", -1, -1, 0, 0)
-who('sos*')
-_make_figures("/tmp/tmpnhrtwqpu", "png", "Figure", -1, -1, 0, 0)
-# First we will parse data on Octave 
-# Use bart to obtain root sum of squares of the rawdata over channels
-#rd = real(rawdata) + 1i*imag(rawdata);
-#rd = bart('rss 8', rd);
-#clr = squeeze(log(rd)); clear rd;
-#trajx = squeeze(trajectory(1,:,:));
-#trajy = squeeze(trajectory(2,:,:));
-disp('This (hidden) cell will parse data on Octave and use BART');
-_make_figures("/tmp/tmpygxzjz65", "png", "Figure", -1, -1, 0, 0)
-who('sos*')
-_make_figures("/tmp/tmp40i2kpe2", "png", "Figure", -1, -1, 0, 0)
-# First we will parse data on Octave 
-# Use bart to obtain root sum of squares of the rawdata over channels
-#rd = real(rawdata) + 1i*imag(rawdata);
-#rd = bart('rss 8', rd);
-#clr = squeeze(log(rd)); clear rd;
-#trajx = squeeze(trajectory(1,:,:));
-#trajy = squeeze(trajectory(2,:,:));
-disp('This (hidden) cell parses data on Octave and use BART to visualize it in the next cell.');
-_make_figures("/tmp/tmptyavm37a", "png", "Figure", -1, -1, 0, 0)
-who('sos*')
-_make_figures("/tmp/tmpinykoxsa", "png", "Figure", -1, -1, 0, 0)
-# First we will parse data on Octave 
-# Use bart to obtain root sum of squares of the rawdata over channels
-rd = real(rawdata) + 1i*imag(rawdata);
-rd = bart('rss 8', rd);
-clr = squeeze(log(rd)); clear rd;
-trajx = squeeze(trajectory(1,:,:));
-trajy = squeeze(trajectory(2,:,:));
-disp('This (hidden) cell parses data on Octave and use BART to visualize it in the next cell.');
-_make_figures("/tmp/tmp1ds6gxtm", "png", "Figure", -1, -1, 0, 0)
-who('sos*')
-_make_figures("/tmp/tmpzuumbnn2", "png", "Figure", -1, -1, 0, 0)
-who('sos*')
-_make_figures("/tmp/tmpo7b_fvcg", "png", "Figure", -1, -1, 0, 0)
-display(sos_py_repr(trajx))
-_make_figures("/tmp/tmpe2mgcp5w", "png", "Figure", -1, -1, 0, 0)
-who('sos*')
-_make_figures("/tmp/tmpys_8m555", "png", "Figure", -1, -1, 0, 0)
-display(sos_py_repr(trajx))
-_make_figures("/tmp/tmpcua63v0m", "png", "Figure", -1, -1, 0, 0)
-who('sos*')
-_make_figures("/tmp/tmpzzsq9bws", "png", "Figure", -1, -1, 0, 0)
-who('sos*')
-_make_figures("/tmp/tmp8ps5l3rt", "png", "Figure", -1, -1, 0, 0)
-display(sos_py_repr(trajy))
-_make_figures("/tmp/tmpfbxkte1u", "png", "Figure", -1, -1, 0, 0)
-who('sos*')
-_make_figures("/tmp/tmpefwc7exr", "png", "Figure", -1, -1, 0, 0)
-display(sos_py_repr(trajy))
-_make_figures("/tmp/tmpdb4lmy90", "png", "Figure", -1, -1, 0, 0)
-who('sos*')
-_make_figures("/tmp/tmpr8fdezjy", "png", "Figure", -1, -1, 0, 0)
-who('sos*')
-_make_figures("/tmp/tmpok2va10l", "png", "Figure", -1, -1, 0, 0)
-display(sos_py_repr(clr))
-_make_figures("/tmp/tmp29k5t6im", "png", "Figure", -1, -1, 0, 0)
-who('sos*')
-_make_figures("/tmp/tmpohefo3wd", "png", "Figure", -1, -1, 0, 0)
-display(sos_py_repr(clr))
-_make_figures("/tmp/tmpsg2ivw2s", "png", "Figure", -1, -1, 0, 0)
-who('sos*')
-_make_figures("/tmp/tmpaxpnqq8r", "png", "Figure", -1, -1, 0, 0)
-# First we will parse data on Octave 
-# Use bart to obtain root sum of squares of the rawdata over channels
-rd = real(rawdata) + 1i*imag(rawdata);
-rd = bart('rss 8', rd);
-clr = squeeze(log(rd)); clear rd;
-trajx = squeeze(trajectory(1,:,:));
-trajy = squeeze(trajectory(2,:,:));
-disp('This (hidden) cell parses data on Octave and use BART to visualize it in the next cell.');
-_make_figures("/tmp/tmpm6dlecvr", "png", "Figure", -1, -1, 0, 0)
-who('sos*')
-_make_figures("/tmp/tmpjo_apyvi", "png", "Figure", -1, -1, 0, 0)
-who('sos*')
-_make_figures("/tmp/tmpyhl7c57r", "png", "Figure", -1, -1, 0, 0)
-display(sos_py_repr(trajx))
-_make_figures("/tmp/tmpzm726syj", "png", "Figure", -1, -1, 0, 0)
-who('sos*')
-_make_figures("/tmp/tmpql5ww9z4", "png", "Figure", -1, -1, 0, 0)
-display(sos_py_repr(trajx))
-_make_figures("/tmp/tmpjqonjmii", "png", "Figure", -1, -1, 0, 0)
-who('sos*')
-_make_figures("/tmp/tmpiub47nbv", "png", "Figure", -1, -1, 0, 0)
-who('sos*')
-_make_figures("/tmp/tmp904crweb", "png", "Figure", -1, -1, 0, 0)
-display(sos_py_repr(trajy))
-_make_figures("/tmp/tmp8f8_4iw8", "png", "Figure", -1, -1, 0, 0)
-who('sos*')
-_make_figures("/tmp/tmp2_f3x9y5", "png", "Figure", -1, -1, 0, 0)
-display(sos_py_repr(trajy))
-_make_figures("/tmp/tmp33nfyz5b", "png", "Figure", -1, -1, 0, 0)
-who('sos*')
-_make_figures("/tmp/tmpcizh2qie", "png", "Figure", -1, -1, 0, 0)
-who('sos*')
-_make_figures("/tmp/tmp5e9wap_3", "png", "Figure", -1, -1, 0, 0)
-display(sos_py_repr(clr))
-_make_figures("/tmp/tmpj_cmji_g", "png", "Figure", -1, -1, 0, 0)
-who('sos*')
-_make_figures("/tmp/tmpfw1akna1", "png", "Figure", -1, -1, 0, 0)
-display(sos_py_repr(clr))
-_make_figures("/tmp/tmpp9ayhs40", "png", "Figure", -1, -1, 0, 0)
-who('sos*')
-_make_figures("/tmp/tmpy6axloa2", "png", "Figure", -1, -1, 0, 0)
-who('sos*')
-_make_figures("/tmp/tmpq7xkqu_1", "png", "Figure", -1, -1, 0, 0)
-display(sos_py_repr(calib))
-_make_figures("/tmp/tmpac4yu5bq", "png", "Figure", -1, -1, 0, 0)
-who('sos*')
-_make_figures("/tmp/tmp7rbx24zb", "png", "Figure", -1, -1, 0, 0)
-display(sos_py_repr(calib))
-_make_figures("/tmp/tmpde34nq10", "png", "Figure", -1, -1, 0, 0)
-who('sos*')
-_make_figures("/tmp/tmp85adarbi", "png", "Figure", -1, -1, 0, 0)
-who('sos*')
-_make_figures("/tmp/tmp1tyw1r12", "png", "Figure", -1, -1, 0, 0)
-display(sos_py_repr(calib))
-_make_figures("/tmp/tmpamw6dhgz", "png", "Figure", -1, -1, 0, 0)
-who('sos*')
-_make_figures("/tmp/tmp_txtmo6u", "png", "Figure", -1, -1, 0, 0)
-display(sos_py_repr(calib))
-_make_figures("/tmp/tmp4hz51db2", "png", "Figure", -1, -1, 0, 0)
-who('sos*')
-_make_figures("/tmp/tmpyj4pki0r", "png", "Figure", -1, -1, 0, 0)
-who('sos*')
-_make_figures("/tmp/tmp3p0heo46", "png", "Figure", -1, -1, 0, 0)
-display(sos_py_repr(calib))
-_make_figures("/tmp/tmpxpapoqtp", "png", "Figure", -1, -1, 0, 0)
-who('sos*')
-_make_figures("/tmp/tmp3od02xqq", "png", "Figure", -1, -1, 0, 0)
-display(sos_py_repr(calib))
-_make_figures("/tmp/tmp1hovshiq", "png", "Figure", -1, -1, 0, 0)
-who('sos*')
-_make_figures("/tmp/tmpn1n2a2gk", "png", "Figure", -1, -1, 0, 0)
+_make_figures("/tmp/tmp0b_amaet", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmpgcgeh9md", "png", "Figure", -1, -1, 0, 0)
+ima = im./I;
+imagesc(abs(ima))
+im4 = opF(ima,100,30);
+_make_figures("/tmp/tmps0ktda59", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmphlhkrcao", "png", "Figure", -1, -1, 0, 0)
+ima = im./I;
+imagesc(abs(ima))
+im4 = opF(ima,100,30);
+imagesc(im4)
+_make_figures("/tmp/tmp7gscp528", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmp_s17_spb", "png", "Figure", -1, -1, 0, 0)
+ima = im./I;
+imagesc(abs(ima))
+im4 = opF(ima,100,30);
+imagesc(abs(im4))
+_make_figures("/tmp/tmpq0ytzlvf", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmpfg4ekot6", "png", "Figure", -1, -1, 0, 0)
+ima = im./I;
+imagesc(abs(ima))
+im4 = opF(ima,100,30);
+imagesc(real(im4))
+_make_figures("/tmp/tmpzjn70t6b", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmpqpldvduk", "png", "Figure", -1, -1, 0, 0)
+ima = im./I;
+imagesc(ima)
+im4 = opF(ima,100,30);
+imagesc(real(im4))
+_make_figures("/tmp/tmpj96ln3fz", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmpd0e29fgs", "png", "Figure", -1, -1, 0, 0)
+ima = im./I;
+imagesc(real(ima))
+im4 = opF(ima,100,30);
+imagesc(real(im4))
+_make_figures("/tmp/tmp17v7m345", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmpvs2q7zj2", "png", "Figure", -1, -1, 0, 0)
+ima = im./I;
+imagesc(real(ima))
+im4 = opF(ima,100,30);
+_make_figures("/tmp/tmpeerr9_i8", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmpk9pk_y77", "png", "Figure", -1, -1, 0, 0)
+ima = real(im./I);
+imagesc(real(ima))
+im4 = opF(ima,100,30);
+_make_figures("/tmp/tmpuy6x1bl8", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmpss9inak9", "png", "Figure", -1, -1, 0, 0)
+ima = real(im./I);
+imagesc(real(ima))
+im4 = opF(ima,100,30);
+imagesc(im4))
+_make_figures("/tmp/tmppuv1_8i6", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmpxou0bjii", "png", "Figure", -1, -1, 0, 0)
+ima = real(im./I);
+imagesc(real(ima))
+im4 = opF(ima,100,30);
+imagesc((im4))
+_make_figures("/tmp/tmpjzp0uz9z", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmphs5stiuq", "png", "Figure", -1, -1, 0, 0)
+ima = real(im./I);
+imagesc(real(ima))
+im4 = opF(ima,100,30);
+imagesc(abs(im4))
+_make_figures("/tmp/tmprmt88haz", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmpom_k25yc", "png", "Figure", -1, -1, 0, 0)
+ima = real(im./I);
+imagesc(real(ima))
+im4 = opF(ima,100,30);
+imagesc(real(im4))
+_make_figures("/tmp/tmp7pc224q0", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmpeqnx906u", "png", "Figure", -1, -1, 0, 0)
 % Perform NUFFT to interpolate data onto cartesian grid. 
 % -d denotes dimension (x:y:z, which is 300X300X1)
 % -i sets the transform type to inverse
@@ -979,22 +713,288 @@ _make_figures("/tmp/tmpn1n2a2gk", "png", "Figure", -1, -1, 0, 0)
 % -t enables Toeplitz embedding
 %  trajectory is the k-space locations of the acquired samples
 %  rawdata is the sampled raw data
-im = bart('nufft -d300:300:1 -i -l -t',trajectory,rawdata);
+#im = bart('nufft -d300:300:1 -i -l -t',trajectory,rawdata);
+im = bart('nufft -d300:300:1 -a -t',trajectory,rawdata);
 % Transform sensitivity maps to cartesian k-space using FFT
 % -u denotes unitary transform
 % 7 sets the bitmask level
 im_ks = bart('fft -u 7', im);
 % For details regarding BART's ECALIB, please see the implementation notes section.
 calib = bart('ecalib -m1 -I',im_ks);
-_make_figures("/tmp/tmpthidot3w", "png", "Figure", -1, -1, 0, 0)
+_make_figures("/tmp/tmpf_8fmove", "png", "Figure", -1, -1, 0, 0)
 who('sos*')
-_make_figures("/tmp/tmpyggpm9p2", "png", "Figure", -1, -1, 0, 0)
+_make_figures("/tmp/tmpzdae6777", "png", "Figure", -1, -1, 0, 0)
+# Root sum of square of sensitivities (estimated in section 2.1) from 12 channels 
+I = abs(bart('rss 8',calib.*calib));
+_make_figures("/tmp/tmpqte70z14", "png", "Figure", -1, -1, 0, 0)
 who('sos*')
-_make_figures("/tmp/tmpiidosblp", "png", "Figure", -1, -1, 0, 0)
+_make_figures("/tmp/tmpyrar33c_", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmp66ecqthp", "png", "Figure", -1, -1, 0, 0)
+display(sos_py_repr(I))
+_make_figures("/tmp/tmpf6c0fyhm", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmp_jhsfewf", "png", "Figure", -1, -1, 0, 0)
+display(sos_py_repr(I))
+_make_figures("/tmp/tmpuc_n0rcn", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmpph12j5xd", "png", "Figure", -1, -1, 0, 0)
+[im,deltas] = main_sense(rawdata, calib, trajectory,I,dcf,3);
+#[im_x2,deltas_x2] = main_sense(outRD_x2, calib, outTR_x2,I,dcf(:,:,1:2:end),10);
+#[im_x3,deltas_x3] = main_sense(outRD_x3, calib, outTR_x3,I,dcf(:,:,1:3:end),10);
+#[im_x4,deltas_x4] = main_sense(outRD_x4, calib, outTR_x4,I,dcf(:,:,1:4:end),10);
+_make_figures("/tmp/tmpzbxs_tyn", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmpqajkpgjr", "png", "Figure", -1, -1, 0, 0)
+ima = real(im./I);
+imagesc(real(ima))
+#im4 = opF(ima,100,30);
+#imagesc(real(im4))
+_make_figures("/tmp/tmp7_ce29wf", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmp_qe0tzfl", "png", "Figure", -1, -1, 0, 0)
+ima = real(im.*I);
+imagesc(real(ima))
+#im4 = opF(ima,100,30);
+#imagesc(real(im4))
+_make_figures("/tmp/tmpmoc6_n8i", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmpe4436sjq", "png", "Figure", -1, -1, 0, 0)
+ima = real(im./I);
+imagesc(real(ima))
+#im4 = opF(ima,100,30);
+#imagesc(real(im4))
+_make_figures("/tmp/tmpwuztepmk", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmprj4lzvtn", "png", "Figure", -1, -1, 0, 0)
+ima = real(im./I);
+imagesc(real(ima))
+im4 = opF(ima,100,30);
+imagesc(real(im4))
+_make_figures("/tmp/tmprpd866a_", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmpfxlngbxv", "png", "Figure", -1, -1, 0, 0)
+ima = real(im./I);
+imagesc(real(ima))
+im4 = opF(ima,100,60);
+imagesc(real(im4))
+_make_figures("/tmp/tmpbjqv8ea4", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmpihswi7_f", "png", "Figure", -1, -1, 0, 0)
+% Perform NUFFT to interpolate data onto cartesian grid. 
+% -d denotes dimension (x:y:z, which is 300X300X1)
+% -i sets the transform type to inverse
+% -l enables L2 regularization  
+% -t enables Toeplitz embedding
+%  trajectory is the k-space locations of the acquired samples
+%  rawdata is the sampled raw data
+dcf = abs(trajectory(1,:,:) + 1i*trajectory(2,:,:));
+dcf = dcf/max(dcf(:));
+#im = bart('nufft -d300:300:1 -i -l -t',trajectory,rawdata);
+im = bart('nufft -d300:300:1 -a -t',dcf.*trajectory,rawdata);
+% Transform sensitivity maps to cartesian k-space using FFT
+% -u denotes unitary transform
+% 7 sets the bitmask level
+im_ks = bart('fft -u 7', im);
+% For details regarding BART's ECALIB, please see the implementation notes section.
+calib = bart('ecalib -m1 -I',im_ks);
+_make_figures("/tmp/tmphlu1xj8c", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmp0nvlgfqf", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmpb_6cng77", "png", "Figure", -1, -1, 0, 0)
+display(sos_py_repr(I))
+_make_figures("/tmp/tmpbgkdgrql", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmph0cjal5t", "png", "Figure", -1, -1, 0, 0)
+display(sos_py_repr(I))
+_make_figures("/tmp/tmps40uo7j3", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmpvwwn65lc", "png", "Figure", -1, -1, 0, 0)
+# Root sum of square of sensitivities (estimated in section 2.1) from 12 channels 
+I = abs(bart('rss 8',calib.*conj(calib)));
+I = sqrt(I).^(-1);
+_make_figures("/tmp/tmpmpkdtr02", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmp626_ip4g", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmpbetgo_5y", "png", "Figure", -1, -1, 0, 0)
+display(sos_py_repr(I))
+_make_figures("/tmp/tmpvhqdvot3", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmpx220v3ya", "png", "Figure", -1, -1, 0, 0)
+display(sos_py_repr(I))
+_make_figures("/tmp/tmpm36uhx70", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmpn1hojxc2", "png", "Figure", -1, -1, 0, 0)
+[im,deltas] = main_sense(rawdata, calib, trajectory,I,dcf,3);
+#[im_x2,deltas_x2] = main_sense(outRD_x2, calib, outTR_x2,I,dcf(:,:,1:2:end),10);
+#[im_x3,deltas_x3] = main_sense(outRD_x3, calib, outTR_x3,I,dcf(:,:,1:3:end),10);
+#[im_x4,deltas_x4] = main_sense(outRD_x4, calib, outTR_x4,I,dcf(:,:,1:4:end),10);
+_make_figures("/tmp/tmp0hpr3mf0", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmp6nz0w9pc", "png", "Figure", -1, -1, 0, 0)
+ima = real(im.*I);
+imagesc(real(ima))
+im4 = opF(ima,100,60);
+imagesc(real(im4))
+_make_figures("/tmp/tmpjs_05_z2", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmpva8ilx14", "png", "Figure", -1, -1, 0, 0)
+ima = real(im.*I);
+imagesc(real(ima))
+im4 = opF(ima,100,40);
+imagesc(real(im4))
+_make_figures("/tmp/tmpb6x7twpp", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmpbc_7rosp", "png", "Figure", -1, -1, 0, 0)
+ima = real(im.*I);
+imagesc(real(ima))
+im4 = opF(ima,100,50);
+imagesc(real(im4))
+_make_figures("/tmp/tmpxa8t6fc7", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmpt4wzfqcz", "png", "Figure", -1, -1, 0, 0)
+[im,deltas] = main_sense(rawdata, calib, trajectory,I,dcf,10);
+#[im_x2,deltas_x2] = main_sense(outRD_x2, calib, outTR_x2,I,dcf(:,:,1:2:end),10);
+#[im_x3,deltas_x3] = main_sense(outRD_x3, calib, outTR_x3,I,dcf(:,:,1:3:end),10);
+#[im_x4,deltas_x4] = main_sense(outRD_x4, calib, outTR_x4,I,dcf(:,:,1:4:end),10);
+_make_figures("/tmp/tmpzpcdhfxm", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmpqadire8n", "png", "Figure", -1, -1, 0, 0)
+ima = real(im.*I);
+imagesc(real(ima))
+im4 = opF(ima,100,50);
+imagesc(real(im4))
+_make_figures("/tmp/tmporxzbsfk", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmpdfwlxuxr", "png", "Figure", -1, -1, 0, 0)
+ima = real(im.*I);
+imagesc(real(ima))
+im4 = opF(ima,100,40);
+imagesc(real(im4))
+_make_figures("/tmp/tmpnzxyplxd", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmplu0uysq9", "png", "Figure", -1, -1, 0, 0)
+ima = real(im.*I);
+imagesc(real(ima))
+im4 = opF(ima,100,60);
+imagesc(real(im4))
+_make_figures("/tmp/tmp_bfe8_7s", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmps_nunyia", "png", "Figure", -1, -1, 0, 0)
+ima = real(im.*I);
+imagesc(real(ima))
+im4 = opF(ima,100,70);
+imagesc(real(im4))
+_make_figures("/tmp/tmp8xg96n1w", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmp3ng9tt3i", "png", "Figure", -1, -1, 0, 0)
+ima = real(im.*I);
+imagesc(real(ima))
+im4 = opF(ima,100,70);
+#imagesc(real(im4))
+_make_figures("/tmp/tmpv7z7rvf3", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmpgl3ho204", "png", "Figure", -1, -1, 0, 0)
+ima = real(im.*I);
+imagesc(abs((ima)));
+im4 = opF(ima,100,70);
+#imagesc(real(im4))
+_make_figures("/tmp/tmpnvzzqkqb", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmpimf9d1nt", "png", "Figure", -1, -1, 0, 0)
+ima = real(im);
+imagesc(abs((ima)));
+im4 = opF(ima,100,70);
+#imagesc(real(im4))
+_make_figures("/tmp/tmpgk3huymz", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmpj6qe7lkt", "png", "Figure", -1, -1, 0, 0)
+ima = abs(im);
+imagesc(abs((ima)));
+im4 = opF(ima,100,70);
+#imagesc(real(im4))
+_make_figures("/tmp/tmpeb7k1_38", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmpqs0lvyd5", "png", "Figure", -1, -1, 0, 0)
+ima = abs(im./I);
+imagesc(abs((ima)));
+im4 = opF(ima,100,70);
+#imagesc(real(im4))
+_make_figures("/tmp/tmpkju65zul", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmpv64gax7p", "png", "Figure", -1, -1, 0, 0)
+imshow(abs(im))
+_make_figures("/tmp/tmplabexgvk", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmpj4e6ftc1", "png", "Figure", -1, -1, 0, 0)
+imshow(abs(im),[])
+_make_figures("/tmp/tmpr_a52xpm", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmprqsisu_3", "png", "Figure", -1, -1, 0, 0)
+imshow(abs(im),[0 100])
+_make_figures("/tmp/tmpj5subigd", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmpgiukf_cd", "png", "Figure", -1, -1, 0, 0)
+imshow(abs(im),[2 100])
+_make_figures("/tmp/tmp63dgv3en", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmpq8lrlhy5", "png", "Figure", -1, -1, 0, 0)
+imshow(abs(im),[10 100])
+_make_figures("/tmp/tmpm1g44kf9", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmpns407tnu", "png", "Figure", -1, -1, 0, 0)
+imshow(abs(im),[50 100])
+_make_figures("/tmp/tmp9icdmzss", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmpj1r3xuga", "png", "Figure", -1, -1, 0, 0)
+imshow(abs(im),[70 100])
+_make_figures("/tmp/tmpyp142n5n", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmpzhd1cyt0", "png", "Figure", -1, -1, 0, 0)
+% Perform NUFFT to interpolate data onto cartesian grid. 
+% -d denotes dimension (x:y:z, which is 300X300X1)
+% -i sets the transform type to inverse
+% -l enables L2 regularization  
+% -t enables Toeplitz embedding
+%  trajectory is the k-space locations of the acquired samples
+%  rawdata is the sampled raw data
+#im = bart('nufft -d300:300:1 -i -l -t',trajectory,rawdata);
+im = bart('nufft -d300:300:1 -a -t -l',trajectory,rawdata);
+% Transform sensitivity maps to cartesian k-space using FFT
+% -u denotes unitary transform
+% 7 sets the bitmask level
+im_ks = bart('fft -u 7', im);
+% For details regarding BART's ECALIB, please see the implementation notes section.
+calib = bart('ecalib -m1 -I',im_ks);
+_make_figures("/tmp/tmp5hi4ewne", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmp7hgflbqp", "png", "Figure", -1, -1, 0, 0)
+% Perform NUFFT to interpolate data onto cartesian grid. 
+% -d denotes dimension (x:y:z, which is 300X300X1)
+% -i sets the transform type to inverse
+% -l enables L2 regularization  
+% -t enables Toeplitz embedding
+%  trajectory is the k-space locations of the acquired samples
+%  rawdata is the sampled raw data
+#im = bart('nufft -d300:300:1 -i -l -t',trajectory,rawdata);
+im = bart('nufft -d300:300:1 -a -t -r',trajectory,rawdata);
+% Transform sensitivity maps to cartesian k-space using FFT
+% -u denotes unitary transform
+% 7 sets the bitmask level
+im_ks = bart('fft -u 7', im);
+% For details regarding BART's ECALIB, please see the implementation notes section.
+calib = bart('ecalib -m1 -I',im_ks);
+_make_figures("/tmp/tmp336rzhjo", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmp3pahawnq", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmpxh_rrkrh", "png", "Figure", -1, -1, 0, 0)
 display(sos_py_repr(calib))
-_make_figures("/tmp/tmp6a7ci112", "png", "Figure", -1, -1, 0, 0)
+_make_figures("/tmp/tmp5zf0nleq", "png", "Figure", -1, -1, 0, 0)
 who('sos*')
-_make_figures("/tmp/tmpfzqjaz1p", "png", "Figure", -1, -1, 0, 0)
+_make_figures("/tmp/tmpp96f8483", "png", "Figure", -1, -1, 0, 0)
 display(sos_py_repr(calib))
-_make_figures("/tmp/tmphl8h7otn", "png", "Figure", -1, -1, 0, 0)
-# Octave 4.2.2, Mon Sep 16 02:06:44 2019 UTC <jovyan@2fe52cfb110c>
+_make_figures("/tmp/tmpgs8f_dto", "png", "Figure", -1, -1, 0, 0)
+# Octave 4.2.2, Mon Sep 16 04:14:02 2019 UTC <jovyan@2fe52cfb110c>
