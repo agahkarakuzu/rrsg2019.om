@@ -1,262 +1,3 @@
-   
-end
-_make_figures("/tmp/tmpkjrbbhaq", "png", "Figure", -1, -1, 0, 0)
-who('sos*')
-_make_figures("/tmp/tmp92o68s7g", "png", "Figure", -1, -1, 0, 0)
-[im,deltas,a,refdif] = main_sense(outRD_x2,calib,outTR_x2,I,dcf(:,:,1:2:end),5,0.01,im_ref);
-_make_figures("/tmp/tmpw5u2x9q4", "png", "Figure", -1, -1, 0, 0)
-who('sos*')
-_make_figures("/tmp/tmpxjctr0np", "png", "Figure", -1, -1, 0, 0)
-function [b,deltas,refdif] = cg_solve(a,I,S,dcf,maxstep,trajectory,tol,ref)
-    p = a;
-    r = a;
-    b = zeros(300,300);
-    deltas = zeros(maxstep,1);
-    refdif = zeros(maxstep,1);
-    
-for ii=1:maxstep
-    disp(['Iteration -->' num2str(ii)]);
-    delta = r(:)'*r(:)/(a(:)'*a(:));
-    
-    disp(delta);
-    deltas(ii) = delta;
-    E = opE(p,S,trajectory);
-    q = opEH(E,S,trajectory);
-    % dot(r,r) is equivalent to r(:)'*r(:). Used dot for easy reading. 
-    term = dot(r,r)/dot(p,q);
-    b = b + term*p;
-    rprev = r;
-    r = r - term*q;
-    term2 = dot(r,r)/dot(rprev,rprev);
-    p = r + term2*p;
-    
-    if (delta <= tol)
-        printf ("%d has been reached\n", tol);
-        break;
-    endif
-    
-     if nargout ==3 && nargin ==8 
-    % This means that ref image is passed. 
-    
-    refN = ref(:)'*ref(:);
-    size(refN)
-    ref_dif = I.*b - ref;
-    size(ref_dif)
-    refdif(ii) = sqrt((ref_dif(:)'*ref_dif(:)))./refN);
-    
-    end 
-    
-end
-    
-    
-   
-end
-_make_figures("/tmp/tmp2up9et7h", "png", "Figure", -1, -1, 0, 0)
-who('sos*')
-_make_figures("/tmp/tmp21aa8z89", "png", "Figure", -1, -1, 0, 0)
-function [b,deltas,refdif] = cg_solve(a,I,S,dcf,maxstep,trajectory,tol,ref)
-    p = a;
-    r = a;
-    b = zeros(300,300);
-    deltas = zeros(maxstep,1);
-    refdif = zeros(maxstep,1);
-    
-for ii=1:maxstep
-    disp(['Iteration -->' num2str(ii)]);
-    delta = r(:)'*r(:)/(a(:)'*a(:));
-    
-    disp(delta);
-    deltas(ii) = delta;
-    E = opE(p,S,trajectory);
-    q = opEH(E,S,trajectory);
-    % dot(r,r) is equivalent to r(:)'*r(:). Used dot for easy reading. 
-    term = dot(r,r)/dot(p,q);
-    b = b + term*p;
-    rprev = r;
-    r = r - term*q;
-    term2 = dot(r,r)/dot(rprev,rprev);
-    p = r + term2*p;
-    
-    if (delta <= tol)
-        printf ("%d has been reached\n", tol);
-        break;
-    endif
-    
-     if nargout ==3 && nargin ==8 
-    % This means that ref image is passed. 
-    
-    refN = ref(:)'*ref(:);
-    size(refN)
-    ref_dif = I.*b - ref;
-    size(ref_dif)
-    refdif(ii) = sqrt((ref_dif(:)'*ref_dif(:)))./refN);
-    
-    end 
-    
-end
-    
-    
-   
-end
-_make_figures("/tmp/tmpbi6r7z3p", "png", "Figure", -1, -1, 0, 0)
-who('sos*')
-_make_figures("/tmp/tmp0cznu09v", "png", "Figure", -1, -1, 0, 0)
-function [b,deltas,refdif] = cg_solve(a,I,S,dcf,maxstep,trajectory,tol,ref)
-    p = a;
-    r = a;
-    b = zeros(300,300);
-    deltas = zeros(maxstep,1);
-    refdif = zeros(maxstep,1);
-    
-for ii=1:maxstep
-    disp(['Iteration -->' num2str(ii)]);
-    delta = r(:)'*r(:)/(a(:)'*a(:));
-    
-    disp(delta);
-    deltas(ii) = delta;
-    E = opE(p,S,trajectory);
-    q = opEH(E,S,trajectory);
-    % dot(r,r) is equivalent to r(:)'*r(:). Used dot for easy reading. 
-    term = dot(r,r)/dot(p,q);
-    b = b + term*p;
-    rprev = r;
-    r = r - term*q;
-    term2 = dot(r,r)/dot(rprev,rprev);
-    p = r + term2*p;
-    
-    if (delta <= tol)
-        printf ("%d has been reached\n", tol);
-        break;
-    endif
-    
-    if nargout ==3 && nargin ==8 
-    % This means that ref image is passed. 
-    
-    refN = ref(:)'*ref(:);
-    size(refN)
-    ref_dif = I.*b - ref;
-    size(ref_dif)
-    refdif(ii) = sqrt((ref_dif(:)'*ref_dif(:)))./refN);
-    
-    end 
-    
-end
-    
-    
-   
-end
-_make_figures("/tmp/tmp2uiwaj8y", "png", "Figure", -1, -1, 0, 0)
-who('sos*')
-_make_figures("/tmp/tmpytgc96wj", "png", "Figure", -1, -1, 0, 0)
-function [b,deltas,refdif] = cg_solve(a,I,S,dcf,maxstep,trajectory,tol,ref)
-        p = a;
-        r = a;
-        b = zeros(300,300);
-        deltas = zeros(maxstep,1);
-        refdif = zeros(maxstep,1);
-    for ii=1:maxstep
-        disp(['Iteration -->' num2str(ii)]);
-        delta = r(:)'*r(:)/(a(:)'*a(:));
-        disp(delta);
-        deltas(ii) = delta;
-        E = opE(p,S,trajectory);
-        q = opEH(E,S,trajectory);
-        % dot(r,r) is equivalent to r(:)'*r(:). Used dot for easy reading. 
-        term = dot(r,r)/dot(p,q);
-        b = b + term*p;
-        rprev = r;
-        r = r - term*q;
-        term2 = dot(r,r)/dot(rprev,rprev);
-        p = r + term2*p;
-        if (delta <= tol)
-            printf ("%d has been reached\n", tol);
-            break;
-        endif
-        if nargout ==3 && nargin ==8 
-        % This means that ref image is passed. 
-        refN = ref(:)'*ref(:);
-        size(refN)
-        ref_dif = I.*b - ref;
-        size(ref_dif)
-        refdif(ii) = sqrt((ref_dif(:)'*ref_dif(:)))./refN);
-        end 
-    end
-    
-    
-   
-end
-_make_figures("/tmp/tmp3iracioe", "png", "Figure", -1, -1, 0, 0)
-who('sos*')
-_make_figures("/tmp/tmp_pn2vhmw", "png", "Figure", -1, -1, 0, 0)
-function [b,deltas,refdif] = cg_solve(a,I,S,dcf,maxstep,trajectory,tol,ref)
-        p = a;
-        r = a;
-        b = zeros(300,300);
-        deltas = zeros(maxstep,1);
-        refdif = zeros(maxstep,1);
-    for ii=1:maxstep
-        disp(['Iteration -->' num2str(ii)]);
-        delta = r(:)'*r(:)/(a(:)'*a(:));
-        disp(delta);
-        deltas(ii) = delta;
-        E = opE(p,S,trajectory);
-        q = opEH(E,S,trajectory);
-        % dot(r,r) is equivalent to r(:)'*r(:). Used dot for easy reading. 
-        term = dot(r,r)/dot(p,q);
-        b = b + term*p;
-        rprev = r;
-        r = r - term*q;
-        term2 = dot(r,r)/dot(rprev,rprev);
-        p = r + term2*p;
-        if (delta <= tol)
-            printf ("%d has been reached\n", tol);
-            break;
-        endif
-        if nargout ==3 && nargin ==8 
-        % This means that ref image is passed. 
-        refN = ref(:)'*ref(:);
-        size(refN)
-        ref_dif = I.*b - ref;
-        size(ref_dif)
-        refdif(ii) = sqrt((ref_dif(:)'*ref_dif(:))./refN);
-        end 
-    end
-    
-    
-   
-end
-_make_figures("/tmp/tmpczb9loi9", "png", "Figure", -1, -1, 0, 0)
-who('sos*')
-_make_figures("/tmp/tmp5q_2wlba", "png", "Figure", -1, -1, 0, 0)
-[im,deltas,a,refdif] = main_sense(outRD_x2,calib,outTR_x2,I,dcf(:,:,1:2:end),5,0.01,im_ref);
-_make_figures("/tmp/tmpvln28cz6", "png", "Figure", -1, -1, 0, 0)
-who('sos*')
-_make_figures("/tmp/tmph2rob4q2", "png", "Figure", -1, -1, 0, 0)
-refdif
-_make_figures("/tmp/tmpeyi8iqqd", "png", "Figure", -1, -1, 0, 0)
-who('sos*')
-_make_figures("/tmp/tmpxxpl1fy8", "png", "Figure", -1, -1, 0, 0)
-function [b,deltas,refdif] = cg_solve(a,I,S,dcf,maxstep,trajectory,tol,ref)
-    p = a;
-    r = a;
-    b = zeros(300,300);
-    deltas = zeros(maxstep,1);
-    refdif = zeros(maxstep,1);
-    for ii=1:maxstep
-        disp(['Iteration -->' num2str(ii)]);
-        delta = r(:)'*r(:)/(a(:)'*a(:));
-        disp(delta);
-        deltas(ii) = delta;
-        E = opE(p,S,trajectory);
-        q = opEH(E,S,trajectory);
-        % dot(r,r) is equivalent to r(:)'*r(:). Used dot for easy reading. 
-        term = dot(r,r)/dot(p,q);
-        b = b + term*p;
-        rprev = r;
-        r = r - term*q;
-        term2 = dot(r,r)/dot(rprev,rprev);
-        p = r + term2*p;
-        if (delta <= tol)
             printf ("%d has been reached\n", tol);
             break;
         endif
@@ -998,3 +739,262 @@ _make_figures("/tmp/tmphhp0adox", "png", "Figure", -1, -1, 0, 0)
 display(sos_py_repr(calib))
 _make_figures("/tmp/tmp4qmj3qqk", "png", "Figure", -1, -1, 0, 0)
 # Octave 4.2.2, Thu Sep 19 19:22:40 2019 UTC <jovyan@41bebeae62a1>
+PS1('PEXPECT_PROMPT>'); PS2('PEXPECT_PROMPT_')
+graphics_toolkit
+more off; source ~/.octaverc; cd("/home/jovyan");PS1('PEXPECT_PROMPT>'); PS2('PEXPECT_PROMPT_')
+addpath("/srv/conda/envs/notebook/lib/python3.7/site-packages/octave_kernel")
+graphics_toolkit('gnuplot')
+set(0, 'defaultfigurevisible', 'off');
+version
+path(path, '/srv/conda/envs/notebook/lib/python3.7/site-packages/sos_matlab')
+pkg load dataframe
+_make_figures("/tmp/tmp156uadff", "png", "Figure", -1, -1, 0, 0)
+disp('Executed automatically');
+disp('Cell to load octave packages. To show, select the cell and click arrow up icon in the toolbar.');
+pkg load image 
+pkg load optim
+_make_figures("/tmp/tmpljcnlgm9", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmpn0ritj4z", "png", "Figure", -1, -1, 0, 0)
+% Mex c files for gridding by Brian Hargreaves and Philip Beatty 
+% http://mrsrl.stanford.edu/~brian/gridding/
+disp('Executed automatically');
+disp('Cell to MEX c functions for dcf. To show, select the cell and click arrow up icon in the toolbar.');
+mex gridlut_mex.c
+mex calcdcflut_mex.c
+_make_figures("/tmp/tmpc0h5g0j1", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmp11fdeg8l", "png", "Figure", -1, -1, 0, 0)
+load('/tmp/rrsg_challenge/brain_radial_96proj_12ch.mat');
+whos % Show variables in the current scope
+_make_figures("/tmp/tmpwbtjyyqr", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmpd56u4avy", "png", "Figure", -1, -1, 0, 0)
+rawdata = permute(rawdata,[4,3,2,1]); 
+trajectory = permute(trajectory,[3,2,1]);
+[~,nFE,nSpokes,nCh] = size(rawdata);
+whos
+_make_figures("/tmp/tmpl58k74g5", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmpd4jeqo1g", "png", "Figure", -1, -1, 0, 0)
+% Please see HelperFunctions folder for subSample.m 
+[outRD_x2, outTR_x2] = subSample(rawdata,trajectory,2,nSpokes);
+[outRD_x3, outTR_x3] = subSample(rawdata,trajectory,3,nSpokes);
+[outRD_x4, outTR_x4] = subSample(rawdata,trajectory,4,nSpokes);
+_make_figures("/tmp/tmp8qjt0xpq", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmpvhp3jwfo", "png", "Figure", -1, -1, 0, 0)
+function E = opE(inp,S,traj)
+    tmp = S.*inp; % Multiply the intensity corrected image with coil sensitivities. This will produce one image per channel stored in tmp variable
+    E = bart('nufft',traj,tmp); % Transform back to the non-uniform k-space (see implementation notes for details)
+end
+_make_figures("/tmp/tmpl5iicn0s", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmp0bxk4z6t", "png", "Figure", -1, -1, 0, 0)
+function EH = opEH(inp,S,traj)
+  
+  tmp = squeeze((1+1i)*ones(size(S)));
+  tmp = bart('nufft -d300:300:1 -a -t',traj,inp); % Adjoint NUFFT to image domain (see implementation notes)
+  
+  Sstar = conj(S(:,:,1,:)); %  Complex conjugate of sensitivity profiles (see Fig. 1)
+  
+  EH = bart('rss 8 ',tmp.*Sstar); % Images scaled by complex conjugate of sensitivity profiles and SOS combined
+  
+end
+_make_figures("/tmp/tmpr4pbsllb", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmpkttw9bck", "png", "Figure", -1, -1, 0, 0)
+function out = opF(im,beta,r)
+    
+    ks = 1/sqrt(numel(im))*fftshift(fftn(ifftshift(im)));
+    
+    dim = size(ks);
+    center = (dim + 1)/2;
+    [x,y] = meshgrid(-(center(2)-1):(dim(2)-center(2)),-(center(1)-1):(dim(1)-center(1)));
+    kRadius = sqrt(x.^2 + y.^2);
+    f_k = 0.5 + 1/pi.*atan(beta.*((r-kRadius)/r)); 
+    out = sqrt(numel(ks.*f_k))*fftshift(ifftn(ifftshift(ks.*f_k)));
+end
+_make_figures("/tmp/tmpgp_1c1fh", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmpgv2qooqo", "png", "Figure", -1, -1, 0, 0)
+function [b,deltas,refdif] = cg_solve(a,I,S,dcf,maxstep,trajectory,tol,ref)
+    p = a;
+    r = a;
+    b = zeros(300,300);
+    deltas = zeros(maxstep,1);
+    refdif = zeros(maxstep,1);
+    for ii=1:maxstep
+        disp(['Iteration -->' num2str(ii)]);
+        delta = r(:)'*r(:)/(a(:)'*a(:));
+        disp(delta);
+        deltas(ii) = delta;
+        E = opE(p,S,trajectory);
+        q = opEH(E,S,trajectory);
+        % dot(r,r) is equivalent to r(:)'*r(:). Used dot for easy reading. 
+        term = dot(r,r)/dot(p,q);
+        b = b + term*p;
+        rprev = r;
+        r = r - term*q;
+        term2 = dot(r,r)/dot(rprev,rprev);
+        p = r + term2*p;
+        if (delta <= tol)
+            printf ("%d has been reached\n", tol);
+            break;
+        endif
+        if nargout ==3 && nargin ==8 
+        % This means that ref image is passed. 
+        refN = ref(:)'*ref(:);
+        ref_dif = I.*b - ref;
+        refdif(ii) = sqrt((ref_dif(:)'*ref_dif(:))./refN);
+        end 
+    end
+    
+    
+   
+end
+_make_figures("/tmp/tmpb_42fdgd", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmpa6ltn_2x", "png", "Figure", -1, -1, 0, 0)
+function [im,deltas,a,refdif] = main_sense(rawdata, calib, trajectory,I,dcf,maxiter,tol,ref)
+    dcf = repmat(dcf,[1,1,1,12]);
+    
+    a = I.*opEH(dcf.*rawdata,calib,trajectory);
+    
+     if nargout ==4 && nargin ==8 
+    % This means that ref image is passed. 
+        disp('Reference image is passed.');
+        [im,deltas,refdif] = cg_solve(a,I,calib,dcf,maxiter,trajectory,tol,ref);
+    
+    else
+    
+        [im,deltas] = cg_solve(a,I,calib,dcf,maxiter,trajectory,tol);
+    
+    end 
+    
+    im = opF(im.*I,100,60);
+    
+    
+end
+_make_figures("/tmp/tmpi99z5wx5", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmpfif3sbqk", "png", "Figure", -1, -1, 0, 0)
+load('/tmp/rrsg_challenge/brain_radial_96proj_12ch.mat');
+whos % Show variables in the current scope
+_make_figures("/tmp/tmpy3fh_sje", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmpoh48yghg", "png", "Figure", -1, -1, 0, 0)
+rawdata = permute(rawdata,[4,3,2,1]); 
+trajectory = permute(trajectory,[3,2,1]);
+[~,nFE,nSpokes,nCh] = size(rawdata);
+whos
+_make_figures("/tmp/tmpy9m4ymqb", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmprznbf_42", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmpdsyi_1w3", "png", "Figure", -1, -1, 0, 0)
+S_select = 2
+_make_figures("/tmp/tmp214rbhck", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmp5p_1lk72", "png", "Figure", -1, -1, 0, 0)
+% This cell will be run automatically based upon your selection from the blue toggle above. 
+% Perform NUFFT to interpolate data onto cartesian grid. 
+im = bart('nufft -d300:300:1 -a -t',trajectory,rawdata);
+% Transform sensitivity maps to cartesian k-space using FFT
+% -u denotes unitary transform
+% 7 sets the bitmask level
+im_ks = bart('fft -u 7', im);
+% For details regarding BART's ECALIB, please see the implementation notes section.
+if S_select == 1
+    disp('Calculating S using ECALIB.');
+    calib = bart('ecalib -r 20 -m1 -I',im_ks);
+    calib_disp = abs(calib);
+    disp('--> Done...')
+elseif S_select == 2
+    disp('Calculating S using CALDIR.');
+    calib = bart('caldir 20',im_ks);
+    disp('--> Done...'); 
+    calib_disp = abs(calib);
+end
+_make_figures("/tmp/tmpsyn5dl10", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmpr5_vsd3d", "png", "Figure", -1, -1, 0, 0)
+size(calib_disp)
+_make_figures("/tmp/tmpuq_rtgoa", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmpo_vearew", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmpya40_x1b", "png", "Figure", -1, -1, 0, 0)
+S_select = 2
+_make_figures("/tmp/tmpc9rjaik4", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmpgrqkcd8w", "png", "Figure", -1, -1, 0, 0)
+% This cell will be run automatically based upon your selection from the blue toggle above. 
+% Perform NUFFT to interpolate data onto cartesian grid. 
+im = bart('nufft -d300:300:1 -a -t',trajectory,rawdata);
+% Transform sensitivity maps to cartesian k-space using FFT
+% -u denotes unitary transform
+% 7 sets the bitmask level
+im_ks = bart('fft -u 7', im);
+% For details regarding BART's ECALIB, please see the implementation notes section.
+if S_select == 1
+    disp('Calculating S using ECALIB.');
+    calib = bart('ecalib -r 20 -m1 -I',im_ks);
+    calib_disp = squeeze(abs(calib));
+    disp('--> Done...')
+elseif S_select == 2
+    disp('Calculating S using CALDIR.');
+    calib = bart('caldir 20',im_ks);
+    disp('--> Done...'); 
+    calib_disp = squeeze(abs(calib));
+end
+_make_figures("/tmp/tmpblatqayo", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmpnaqb1kvf", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmpryl17153", "png", "Figure", -1, -1, 0, 0)
+display(sos_py_repr(calib_disp))
+_make_figures("/tmp/tmp5i9hjbjq", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmpco4no3sq", "png", "Figure", -1, -1, 0, 0)
+display(sos_py_repr(calib_disp))
+_make_figures("/tmp/tmpeubqhrfc", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmp3vhxsb6z", "png", "Figure", -1, -1, 0, 0)
+# Root sum of square of sensitivities (estimated in section 2.1) from 12 channels 
+I = abs(bart('rss 8',calib.*calib));
+I = 1./sqrt(I);
+_make_figures("/tmp/tmp287b64ah", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmp7jp417sf", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmp68rx0yog", "png", "Figure", -1, -1, 0, 0)
+display(sos_py_repr(I))
+_make_figures("/tmp/tmpqv39n387", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmp9qx60vff", "png", "Figure", -1, -1, 0, 0)
+display(sos_py_repr(I))
+_make_figures("/tmp/tmp0q0un6uj", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmp98z_kmfa", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmpnabf0zpj", "png", "Figure", -1, -1, 0, 0)
+display(sos_py_repr(I))
+_make_figures("/tmp/tmpfcc7l2fb", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmpzkq0g8v4", "png", "Figure", -1, -1, 0, 0)
+display(sos_py_repr(I))
+_make_figures("/tmp/tmpnqw1e373", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmpdqk6yfjj", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmpab4ji96l", "png", "Figure", -1, -1, 0, 0)
+display(sos_py_repr(I))
+_make_figures("/tmp/tmpip5bo2wc", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmpgm_g8m6n", "png", "Figure", -1, -1, 0, 0)
+display(sos_py_repr(I))
+_make_figures("/tmp/tmpof0ccat4", "png", "Figure", -1, -1, 0, 0)
+who('sos*')
+_make_figures("/tmp/tmpmogztvrw", "png", "Figure", -1, -1, 0, 0)
+# Octave 4.2.2, Thu Sep 19 19:36:57 2019 UTC <jovyan@41bebeae62a1>
