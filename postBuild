@@ -6,7 +6,7 @@ git clone --single-branch -b master https://github.com/mrirecon/bart.git
 git clone --single-branch -b master https://github.com/mikgroup/espirit-matlab-examples.git 
 
 # Download RRSG 2019 challenge dataset from  https://osf.io/xne9w/
-wget -O rssg_2019.zip https://osf.io/g9ay3/download/
+wget -O rssg_2019.zip https://osf.io/usyxk/download/
 
 unzip rssg_2019.zip -d /tmp/rrsg_challenge
 
