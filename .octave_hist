@@ -1,4 +1,3 @@
-  end
   
   Sstar = conj(S(:,:,1,:)); %  Complex conjugate of sensitivity profiles (see Fig. 1)
   
@@ -998,3 +997,4 @@ _make_figures("/tmp/tmpp96f8483", "png", "Figure", -1, -1, 0, 0)
 display(sos_py_repr(calib))
 _make_figures("/tmp/tmpgs8f_dto", "png", "Figure", -1, -1, 0, 0)
 # Octave 4.2.2, Mon Sep 16 04:14:02 2019 UTC <jovyan@2fe52cfb110c>
+# Octave 4.2.2, Thu Sep 19 13:25:01 2019 UTC <jovyan@1dc7e9a3d49f>
