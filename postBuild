@@ -6,7 +6,7 @@ git clone --single-branch -b master https://github.com/mrirecon/bart.git
 git clone --single-branch -b master https://github.com/mikgroup/espirit-matlab-examples.git 
 
 # Download RRSG 2019 challenge dataset from  https://osf.io/xne9w/
-wget -O rssg_2019.zip https://osf.io/usyxk/download/
+wget -O rssg_2019.zip https://osf.io/5ndsb/download/
 
 unzip rssg_2019.zip -d /tmp/rrsg_challenge
 
@@ -55,7 +55,13 @@ jupyter labextension install @jupyterlab/plotly-extension
 jupyter labextension install jupyterlab_iframe
 jupyter serverextension enable --py jupyterlab_iframe
 
-
+wget -O $HOME/ref_recon.mat https://osf.io/r29vg/download/
+wget -O $HOME/single_recon.mat https://osf.io/h5uza/download/
+wget -O $HOME/sub_recon.mat https://osf.io/td3wj/download/
+wget -O $HOME/cardiac_out.mat https://osf.io/y65qx/download/
+wget -O $HOME/fig4.html https://osf.io/r5uzh/download/
+wget -O $HOME/fig5.html https://osf.io/ns54c/download/
+wget -O $HOME/fig6.html https://osf.io/qnh83/download/
 wget -O $HOME/calibrations.html https://osf.io/vh6kc/download/
 wget -O $HOME/kspace.html https://osf.io/jhpdv/download/
 wget -O $HOME/rawdata.html https://osf.io/7vb3z/download/
