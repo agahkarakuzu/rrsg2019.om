@@ -11,5 +11,8 @@
     "init_cell/main": true,
     "codefolding/main": true,
     "collapsible_headings/main": true
+  },
+  "collapsible_headings": {
+    "show_ellipsis": false
   }
 }

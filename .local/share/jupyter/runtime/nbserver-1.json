@@ -4,8 +4,8 @@
   "notebook_dir": "/home/jovyan",
   "password": false,
   "pid": 1,
-  "port": 52521,
+  "port": 33513,
   "secure": false,
-  "token": "a0043478f6a463c0f5901b77f71d7a3cba7dd2cc0a745393",
-  "url": "http://0.0.0.0:52521/"
+  "token": "d00c95003d001e893c774cde9b137a6126c970239dd6e2bb",
+  "url": "http://0.0.0.0:33513/"
 }

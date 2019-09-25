@@ -1,4 +1,3 @@
-            printf ("%d has been reached\n", tol);
             break;
         endif
         if nargout ==3 && nargin ==8 
@@ -998,3 +997,4 @@ _make_figures("/tmp/tmpof0ccat4", "png", "Figure", -1, -1, 0, 0)
 who('sos*')
 _make_figures("/tmp/tmpmogztvrw", "png", "Figure", -1, -1, 0, 0)
 # Octave 4.2.2, Thu Sep 19 19:36:57 2019 UTC <jovyan@41bebeae62a1>
+# Octave 4.2.2, Wed Sep 25 16:27:30 2019 UTC <jovyan@fd6d3b99e699>
